@@ -21,6 +21,7 @@ task :install do
   file_operation(Dir.glob('zprofile'))
   file_operation(Dir.glob('zshenv'))
   file_operation(Dir.glob('zshrc'))
+  file_operation(Dir.glob('zpreztorc'))
 
   # Git files
   file_operation(Dir.glob('git'))
