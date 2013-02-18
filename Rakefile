@@ -27,6 +27,10 @@ task :install do
   file_operation(Dir.glob('gitconfig'))
   file_operation(Dir.glob('gitignore_global'))
 
+  # Ruby files
+  file_operation(Dir.glob('rspec'))
+  file_operation(Dir.glob('gemrc'))
+
   install_vim_vundle
 end
 task :default => 'install'
