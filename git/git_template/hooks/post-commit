@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+file="~/.gitshots/#{Time.now.to_i}.jpg"
+system "/usr/local/bin/imagesnap -q -w 3 #{file} &"
+exit 0

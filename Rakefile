@@ -22,6 +22,11 @@ task :install do
   file_operation(Dir.glob('zshenv'))
   file_operation(Dir.glob('zshrc'))
 
+  # Git files
+  file_operation(Dir.glob('git'))
+  file_operation(Dir.glob('gitconfig'))
+  file_operation(Dir.glob('gitignore_global'))
+
   install_vim_vundle
 end
 task :default => 'install'
