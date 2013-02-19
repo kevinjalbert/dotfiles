@@ -97,8 +97,13 @@ Bundle 'tpope/vim-surround'
 
 " ENDWISE
 " Adds 'end' where appropriate while coding (ruby's end if/function, etc...)
-"------------
+" ------------
 Bundle 'tpope/vim-endwise'
+
+" VIM-SLEUTH
+" Heuistically set buffer options
+" -----------
+Bundle 'tpope/vim-sleuth'
 
 " ANSIESC
 " Inteprets ANSI color codes
@@ -298,10 +303,17 @@ set linebreak
 set textwidth=0
 set wrapmargin=0
 
+" List characters
+set list
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+  if &termencoding ==# 'utf-8' || &encoding ==# 'utf-8'
+    let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u00b7"
+  endif
+endif
+
 " Indent settings
-set shiftwidth=2
-set softtabstop=2
-set expandtab
+set tabstop=2
 set autoindent
 
 " Folding settings
