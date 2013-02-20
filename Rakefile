@@ -32,6 +32,7 @@ task :install do
   file_operation(Dir.glob('rspec'))
   file_operation(Dir.glob('gemrc'))
 
+  install_fonts if RUBY_PLATFORM.downcase.include?("darwin")
   install_vim_vundle
 end
 task :default => 'install'
@@ -40,6 +41,14 @@ private
 def run(cmd)
   puts "[Running] #{cmd}"
   `#{cmd}` unless ENV['DEBUG']
+end
+
+def install_fonts
+  puts "======================================================"
+  puts "Installing patched fonts for Powerline."
+  puts "======================================================"
+  run %{ cp -f $HOME/dotfiles/fonts/* $HOME/Library/Fonts }
+  puts
 end
 
 def install_prezto

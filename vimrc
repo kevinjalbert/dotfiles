@@ -21,13 +21,20 @@ autocmd BufWritePre * :%s/\s\+$//e
 let mapleader = ","
 let maplocalleader = "\\"
 
-" Terminal has 256 colors
+" Terminal has 256 colors and utf-8 encoding
 set t_Co=256
+set encoding=utf-8
 
 " Set the color scheme
 set background=dark
 colorscheme Tomorrow-Night
 
+" Set powerline up (explict font when running with GUI)
+if has("gui_running")
+  set guifont=Inconsolata\ for\ Powerline:h13
+endif
+set antialias
+set laststatus=2
 
 " --------------------------
 " Bundles and their settings
@@ -236,6 +243,11 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " --------
 Bundle 'gregsexton/gitv'
 
+" POWERLINE
+" Provides a better status line
+" --------
+Bundle 'Lokaltog/powerline'
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 " ----------------
 " General settings
@@ -452,54 +464,6 @@ nnoremap <f12> :call g:ToggleNuMode()<cr>
 nmap ,f :CtrlPMixed<CR>
 nmap ,t :CtrlPBufTagAll<CR>
 nmap ,b :CtrlPBuffer<CR>
-
-
-" -------------------
-" Statusline settings
-" -------------------
-
-
-" Display the tail of the filename
-set statusline=%f
-
-" Display a warning if file format is not unix
-set statusline+=%#warningmsg#
-set statusline+=%{&ff!='unix'?'['.&ff.']':''}
-set statusline+=%*
-
-" Display a warning if file encoding is not UTF-8
-set statusline+=%#warningmsg#
-set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
-set statusline+=%*
-
-" Display help file flag
-set statusline+=%h
-
-" Display read-only flag
-set statusline+=%r
-
-" Display modified flag
-set statusline+=%m
-
-" Display Git information
-set statusline+=%{fugitive#statusline()}
-
-" Display warning about syntax errors
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-" Display warning if &paste is set
-set statusline+=%#error#
-set statusline+=%{&paste?'[paste]':''}
-set statusline+=%*
-
-" Display current highlight and current position information
-set statusline+=%=      "left/right separator
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
-set laststatus=2
 
 
 " ---------------------------------------
