@@ -29,12 +29,16 @@ set encoding=utf-8
 set background=dark
 colorscheme Tomorrow-Night
 
+" Set textwidth
+set textwidth=120
+
 " Set powerline up (explict font when running with GUI)
 if has("gui_running")
   set guifont=Inconsolata\ for\ Powerline:h13
 endif
 set antialias
 set laststatus=2
+
 
 " --------------------------
 " Bundles and their settings
