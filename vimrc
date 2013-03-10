@@ -214,6 +214,11 @@ let g:SuperTabLongestEnhanced = 1
 " --------
 Bundle 'vim-ruby/vim-ruby'
 
+" VIM_GITGUTTER
+" Shows the git diff in the gutter
+" --------
+Bundle 'airblade/vim-gitgutter'
+
 " NEOCOMPLCACHE
 " Provides Auto-Completion
 " --------
