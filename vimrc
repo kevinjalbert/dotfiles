@@ -12,7 +12,7 @@
 set nocompatible
 
 " Automatically reload vimrc when it's saved
-autocmd! BufWritePost vimrc so ~/.vimrc
+autocmd BufWritePost .vimrc doautocmd ColorScheme .vimrc
 
 " Strip whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
