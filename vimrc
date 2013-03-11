@@ -52,14 +52,6 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
-" INDENT-GUIDES
-" Displays indent guide
-" -----------
-Bundle 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level = 1
-
 " AFTERCOLORS
 " Allows alteration to color schemes without modifying the actual schemes
 " -----------
