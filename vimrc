@@ -82,12 +82,6 @@ if has("unix")
       \ }
 endif
 
-"
-" SCRATCH
-" Allows a quick scratch buffer within Vim
-" -----------
-Bundle 'duff/vim-scratch'
-
 " FUGITIVE
 " A Git wrapper to allow for the usage of Git commands
 " --------
@@ -436,20 +430,15 @@ map <f5> mzgg=G'z<CR>
 " Toggle spellcheck (only within insert mode)
 imap <f6> <C-o>:setlocal spell! spelllang=en_us<CR>
 
-" Toggle code folding based on indention
+" Toggle code folding based on selection (select then f7 to fold)
+set foldmethod=manual
 inoremap <f7> <C-O>za
 nnoremap <f7> za
 onoremap <f7> <C-C>za
 vnoremap <f7> zf
 
-" Toggle error window
-nmap <silent> <f8> :ErrorsToggle<cr>
-
 " Toggle Gundo
-nnoremap <f9> :GundoToggle<CR>
-
-" Toggle scratch pad
-nnoremap <silent> <leader><tab> :ScratchToggle<cr>
+nnoremap <f8> :GundoToggle<CR>
 
 " Toggle numbering mode
 function! g:ToggleNuMode()
@@ -459,7 +448,7 @@ function! g:ToggleNuMode()
     set rnu
   endif
 endfunc
-nnoremap <f12> :call g:ToggleNuMode()<cr>
+nnoremap <f9> :call g:ToggleNuMode()<cr>
 
 " Quickfinding with CtrlP
 nmap ,f :CtrlPMixed<CR>
@@ -504,28 +493,3 @@ autocmd BufReadPost fugitive://*
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
   \   nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
-
-" From Steve Losh (sjl/dotfiles)
-command! ErrorsToggle call ErrorsToggle()
-function! ErrorsToggle() " {{{
-  if exists("w:is_error_window")
-    unlet w:is_error_window
-    exec "q"
-  else
-    exec "Errors"
-    lopen
-    let w:is_error_window = 1
-  endif
-endfunction " }}}
-
-" From Steve Losh (sjl/dotfiles)
-command! ScratchToggle call ScratchToggle()
-function! ScratchToggle() " {{{
-  if exists("w:is_scratch_window")
-    unlet w:is_scratch_window
-    exec "q"
-  else
-    exec "normal! :Sscratch\<cr>\<C-W>J:resize 13\<cr>"
-    let w:is_scratch_window = 1
-  endif
-endfunction " }}}
