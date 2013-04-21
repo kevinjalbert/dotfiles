@@ -1,14 +1,43 @@
 [user]
 	name = Kevin Jalbert
 	email = kevin.j.jalbert@gmail.com
+
 [core]
 	excludesfile = /Users/jalbert/.gitignore_global
 	editor = /usr/bin/vim
+
 [difftool "sourcetree"]
 	cmd = /Applications/DiffMerge.app/Contents/MacOS/DiffMerge --nosplash \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
+
 [mergetool "sourcetree"]
 	cmd = /Applications/DiffMerge.app/Contents/MacOS/DiffMerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 	trustExitCode = true
+
 [init]
 	templatedir = ~/.git/git_template
+
+[color]
+	ui = auto
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[alias]
+	st = status -s
+	co = checkout
+	ls = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+	la = "!git config -l | grep alias | cut -c 7-"
