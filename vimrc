@@ -383,6 +383,8 @@ nmap <leader>/ :call NERDComment(0, "invert")<cr>
 vmap <leader>/ :call NERDComment(0, "invert")<cr>
 
 " Manage vertical and horizontal splits
+set splitbelow
+set splitright
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
 noremap <C-left> :vertical resize -1<CR>
@@ -412,8 +414,8 @@ nnoremap Y y$
 nmap <leader>l :b#<CR>
 
 " Clear the highlighting and redraw screen
-nnoremap <leader>h :nohls<CR>
-inoremap <leader>h <C-O>:nohls<CR>
+nnoremap <silent> <leader>h :nohls<CR>
+inoremap <silent> <leader>h <C-O>:nohls<CR>
 
 " Toggle NERD Tree
 nnoremap <f2> :NERDTreeToggle<cr>
