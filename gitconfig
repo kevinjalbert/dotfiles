@@ -17,6 +17,12 @@
 [init]
 	templatedir = ~/.git/git_template
 
+[branch]
+	autosetuprebase = always
+
+[push]
+	default = simple
+
 [color]
 	ui = auto
 
