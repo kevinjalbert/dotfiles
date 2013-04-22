@@ -6,6 +6,7 @@ Before running the Rakefile, ensure that the following are installed on your sys
   - Ruby, Vim, Zsh, Git
 =end
 require 'rake'
+require 'pathname'
 
 desc "Install dotfiles on current system"
 task :install, :dry_run do |t, args|
@@ -81,13 +82,13 @@ def file_operation(files)
     puts "Source: #{source}"
     puts "Target: #{target}"
 
-    if File.exists?(target) || File.symlink?(target)
-      puts "[Overwriting] #{target}...leaving original at #{target}.backup..."
-      run %{ mv "$HOME/.#{file}" "$HOME/.#{file}.backup" }
+    # Only back it up if it's a link to a different file or just another file
+    if (File.exists?(target) || File.symlink?(target)) && Pathname.new(target).realpath.to_s != source
+        puts "[Overwriting] #{target}...leaving original at #{target}.backup..."
+        run %{ mv "$HOME/.#{file}" "$HOME/.#{file}.backup" }
     end
 
     run %{ ln -nfs "#{source}" "#{target}" }
-
     puts "=========================================================="
     puts
   end
