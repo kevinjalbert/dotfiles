@@ -244,6 +244,7 @@ Bundle 'gregsexton/gitv'
 Bundle 'Lokaltog/powerline'
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
+
 " ----------------
 " General settings
 " ----------------
@@ -353,6 +354,9 @@ set ttymouse=xterm2
 
 " Enable spell check when writing commit logs
 autocmd filetype svn,*commit* setlocal spell
+
+" Share the clipbard with OS X's clipboard
+set clipboard=unnamed
 
 
 " ---------------------
