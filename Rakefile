@@ -8,12 +8,20 @@ Before running the Rakefile, ensure that the following are installed on your sys
 require 'rake'
 
 desc "Install dotfiles on current system"
-task :install do
-  install_prezto
+task :install, :dry_run do |t, args|
+  # Handle dry_run argument to install task (i.e., rake install[true])
+  args.with_defaults(:dry_run => false)
+  @dry_run = args[:dry_run]
+  puts "Doing a dry run" if @dry_run
 
   # Symlink Vim files
   file_operation(Dir.glob('vim'))
   file_operation(Dir.glob('vimrc'))
+
+  # Install powerline fonts, vim vundle, and zsh prezto
+  install_fonts if RUBY_PLATFORM.downcase.include?("darwin")
+  install_vim_vundle
+  install_prezto
 
   # Symlink Zsh/Prezto files
   file_operation(Dir.glob('zlogin'))
@@ -23,24 +31,22 @@ task :install do
   file_operation(Dir.glob('zshrc'))
   file_operation(Dir.glob('zpreztorc'))
 
-  # Git files
+  # Symlink Git files
   file_operation(Dir.glob('git'))
   file_operation(Dir.glob('gitconfig'))
   file_operation(Dir.glob('gitignore_global'))
 
-  # Ruby files
+  # Symlink Ruby files
   file_operation(Dir.glob('rspec'))
   file_operation(Dir.glob('gemrc'))
 
-  install_fonts if RUBY_PLATFORM.downcase.include?("darwin")
-  install_vim_vundle
 end
 task :default => 'install'
 
 private
 def run(cmd)
   puts "[Running] #{cmd}"
-  `#{cmd}` unless ENV['DEBUG']
+  `#{cmd}` unless @dry_run
 end
 
 def install_fonts
