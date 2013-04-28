@@ -138,6 +138,13 @@ Bundle 'scrooloose/syntastic'
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=2
 
+" BUFTABS
+" Display buffers in the command line, works nicely with powerline
+" --------
+Bundle 'buftabs'
+noremap <silent> <leader>; :bprev<CR>
+noremap <silent> <leader>' :bnext<CR>
+
 " NERDTREE
 " Provides a directory tree explorer
 " --------
@@ -145,7 +152,11 @@ Bundle 'scrooloose/nerdtree'
 let g:NERDTreeChDirMode=2
 let g:NERDTreeMouseMode = 2
 let g:NERDTreeWinSize = 40
-autocmd vimenter * if !argc() | NERDTree | endif  " Opens if no files
+
+" NERDTREE-TABS
+" Provides a better experience with NERDtree
+" --------
+Bundle "jistr/vim-nerdtree-tabs"
 
 " NERDCOMMENTER
 " Provides many commenting operations and styles
@@ -394,7 +405,7 @@ nnoremap <silent> <leader>h :nohls<CR>
 inoremap <silent> <leader>h <C-O>:nohls<CR>
 
 " Toggle NERD Tree
-nnoremap <f2> :NERDTreeToggle<cr>
+nnoremap <f2> :NERDTreeTabsToggle<cr>
 
 " Toggle TagList
 nnoremap <f3> :TagbarToggle<cr>
