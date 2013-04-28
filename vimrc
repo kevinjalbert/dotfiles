@@ -186,52 +186,19 @@ endif
 " --------
 Bundle 'plasticboy/vim-markdown'
 
-" SUPERTAB
-" Provides autocompleting features using tab
-" --------
-Bundle 'ervandew/supertab'
-set completeopt=menu,longest
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabLongestHighlight = 1
-let g:SuperTabLongestEnhanced = 1
-
 " VIM-RUBY
 " Provides better Ruby support
 " --------
 Bundle 'vim-ruby/vim-ruby'
 
-" VIM_GITGUTTER
+" VIM_SIGNIFY
 " Shows the git diff in the gutter
 " --------
-Bundle 'airblade/vim-gitgutter'
-
-" NEOCOMPLCACHE
-" Provides Auto-Completion
-" --------
-Bundle 'Shougo/neocomplcache'
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-
-" AutoComplPop like behavior.
-let g:neocomplcache_enable_auto_select = 1
-let g:neocomplcache_disable_auto_complete = 1
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+Bundle 'mhinz/vim-signify'
+let g:signify_mapping_next_hunk = '<leader>gj'
+let g:signify_mapping_prev_hunk = '<leader>gk'
+let g:signify_mapping_toggle_highlight = '<leader>gh'
+let g:signify_mapping_toggle = '<leader>gt'
 
 " GITV
 " Provides a visual git interface
@@ -244,6 +211,11 @@ Bundle 'gregsexton/gitv'
 Bundle 'Lokaltog/powerline'
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
+" YOUCOMPLETEME
+" A code-completion engine for Vim
+" --------
+Bundle 'Valloric/YouCompleteMe'
+let g:EclimCompletionMethod = 'omnifunc'
 
 " ----------------
 " General settings
