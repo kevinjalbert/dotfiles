@@ -11,7 +11,7 @@ require 'pathname'
 desc "Install dotfiles on current system"
 task :install, :dry_run do |t, args|
   # Handle dry_run argument to install task (i.e., rake install[true])
-  args.with_defaults(:dry_run => false)
+  args.with_defaults(:dry_run => "false")
   @dry_run = args[:dry_run]
   puts "Doing a dry run" if @dry_run
 
@@ -48,7 +48,7 @@ task :default => 'install'
 private
 def run(cmd)
   puts "[Running] #{cmd}"
-  `#{cmd}` unless @dry_run
+  `#{cmd}` unless @dry_run == "true"
 end
 
 def install_fonts
