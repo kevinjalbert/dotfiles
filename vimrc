@@ -228,6 +228,17 @@ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 Bundle 'Valloric/YouCompleteMe'
 let g:EclimCompletionMethod = 'omnifunc'
 
+" BUFKILL
+" Kill buffers instead of windows
+" --------
+Bundle 'bufkill.vim'
+
+" VIM-COMMAND-W
+" Kill buffers on CMD-W instead of windows for MacVim
+" --------
+Bundle 'nathanaelkane/vim-command-w'
+
+
 " ----------------
 " General settings
 " ----------------
@@ -380,10 +391,10 @@ noremap <C-up> :resize +1<CR>
 noremap <C-down> :resize -1<CR>
 
 " Avoid shift mistakes
-cmap W w
-cmap WQ wq
-cmap wQ wq
-cmap Q q
+command! W w
+command! WQ wq
+command! Wq wq
+command! Q q
 
 " Better way to move between windows
 nnoremap <silent> J <C-W>j

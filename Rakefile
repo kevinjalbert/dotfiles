@@ -18,6 +18,7 @@ task :install, :dry_run do |t, args|
   # Symlink Vim files
   file_operation(Dir.glob('vim'))
   file_operation(Dir.glob('vimrc'))
+  file_operation(Dir.glob('gvimrc'))
 
   # Install powerline fonts, vim vundle, and zsh prezto
   install_fonts if RUBY_PLATFORM.downcase.include?("darwin")
