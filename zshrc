@@ -26,5 +26,7 @@ source `brew --prefix`/etc/profile.d/z.sh
 # Change ruby to 1.9.3 using RVM
 rvm 1.9.3
 
+alias mvim='open -a MacVim'
+
 # Tweak Ant to have more memory
 export ANT_OPTS=-XX:PermSize=512m

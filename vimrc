@@ -451,7 +451,7 @@ endfunc
 nnoremap <f9> :call g:ToggleNuMode()<cr>
 
 " Quickfinding with CtrlP
-nmap ,f :CtrlPMixed<CR>
+nmap ,f :CtrlPCurWD<CR>
 nmap ,t :CtrlPBufTagAll<CR>
 nmap ,b :CtrlPBuffer<CR>
 
