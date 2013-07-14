@@ -66,21 +66,16 @@ Bundle 'sjl/gundo.vim'
 " Allows quick fuzzy searching within Vim
 " -----------
 Bundle 'kien/ctrlp.vim'
-let g:ctrlp_max_files = 10000
-let g:ctrlp_custom_ignore = {
-    \   'dir':  '\.git$\|\.hg$\|\.svn$',
-    \   'file': '\.exe$\|\.so$\|\.dll$',
-    \ }
+let g:ctrlp_max_files = 1000000
 
-" Optimize file searching
-if has("unix")
-  let g:ctrlp_user_command = {
-      \   'types': {
-      \     1: ['.git/', 'cd %s && git ls-files']
-      \   },
-      \   'fallback': 'find %s -type f | head -' . g:ctrlp_max_files
-      \ }
-endif
+" Search .* files/folders
+let g:ctrlp_show_hidden = 1
+
+" Custom file/folder ignores
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll|class)$',
+  \ }
 
 " FUGITIVE
 " A Git wrapper to allow for the usage of Git commands
@@ -453,7 +448,7 @@ nnoremap <f9> :call g:ToggleNuMode()<cr>
 " Quickfinding with CtrlP
 nmap ,f :CtrlPCurWD<CR>
 nmap ,t :CtrlPBufTagAll<CR>
-nmap ,b :CtrlPBuffer<CR>
+nmap ,e :CtrlPBuffer<CR>
 
 
 " ---------------------------------------
