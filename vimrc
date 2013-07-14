@@ -290,6 +290,10 @@ set ignorecase
 set smartcase
 set wrapscan
 
+" This unsets the 'last search pattern' register by hitting return. You can
+" still leave the highlight pattern by not pressing return (i.e., Esc)
+nnoremap <CR> :noh<CR>:<backspace>
+
 " Line settings
 set number
 set rnu
@@ -410,10 +414,6 @@ nnoremap Y y$
 
 " Switch between last buffers
 nmap <leader>l :b#<CR>
-
-" Clear the highlighting and redraw screen
-nnoremap <silent> <leader>h :nohls<CR>
-inoremap <silent> <leader>h <C-O>:nohls<CR>
 
 " Toggle NERD Tree
 nnoremap <f2> :NERDTreeTabsToggle<cr>
