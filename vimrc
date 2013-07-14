@@ -182,7 +182,7 @@ Bundle 'vim-scripts/YankRing.vim'
 " Provides a set of snippets that can be used quickly
 " --------
 Bundle 'msanders/snipmate.vim'
-let g:snips_author = "Kevin Jablbert"
+let g:snips_author = "Kevin Jalbert"
 
 " CSAPPROX
 " Makes color schemes work 'just work' in terminal Vim
