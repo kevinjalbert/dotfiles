@@ -169,14 +169,6 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle 'msanders/snipmate.vim'
 let g:snips_author = "Kevin Jalbert"
 
-" CSAPPROX
-" Makes color schemes work 'just work' in terminal Vim
-" --------
-Bundle 'godlygeek/csapprox'
-if !has("gui")
-  let g:CSApprox_loaded = 1
-endif
-
 " MARKDOWN
 " Provides syntax formating for markdown files
 " --------
