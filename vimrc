@@ -52,11 +52,6 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
-" AFTERCOLORS
-" Allows alteration to color schemes without modifying the actual schemes
-" -----------
-Bundle 'vim-scripts/AfterColors.vim'
-
 " GUNDO.VIM
 " Graphical undo tree
 " ---------
