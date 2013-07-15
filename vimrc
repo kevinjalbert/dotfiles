@@ -273,7 +273,6 @@ nnoremap <CR> :noh<CR>:<backspace>
 
 " Line settings
 set number
-set rnu
 
 " Display column and cursor line
 set colorcolumn=+1
@@ -416,16 +415,6 @@ vnoremap <f7> zf
 
 " Toggle Gundo
 nnoremap <f8> :GundoToggle<CR>
-
-" Toggle numbering mode
-function! g:ToggleNuMode()
-  if(&rnu == 1)
-    set nu
-  else
-    set rnu
-  endif
-endfunc
-nnoremap <f9> :call g:ToggleNuMode()<cr>
 
 " Quickfinding with CtrlP
 nmap ,f :CtrlPCurWD<CR>
