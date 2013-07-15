@@ -215,6 +215,11 @@ Bundle 'bufkill.vim'
 " --------
 Bundle 'nathanaelkane/vim-command-w'
 
+" ACK
+" Ability to use ack (ag)
+" --------
+Bundle 'mileszs/ack.vim'
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " ----------------
 " General settings
