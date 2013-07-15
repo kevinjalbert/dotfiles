@@ -92,11 +92,6 @@ Bundle 'tpope/vim-endwise'
 " -----------
 Bundle 'tpope/vim-sleuth'
 
-" ANSIESC
-" Inteprets ANSI color codes
-" -------
-Bundle 'vim-scripts/AnsiEsc.vim'
-
 " REPEAT
 " Allows the repeat of a plugin map (using '.')
 " ----------
