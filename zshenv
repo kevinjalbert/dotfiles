@@ -44,7 +44,7 @@ typeset -gU cdpath fpath mailpath path
 path=(
   $HOME/bin
   /usr/local/{bin,sbin}
-  /use/{bin,sbin}
+  /usr/{bin,sbin}
   /{bin,sbin}
   $path
 )
