@@ -5,6 +5,7 @@
 [core]
 	excludesfile = /Users/jalbert/.gitignore_global
 	editor = /usr/bin/vim
+	filemode = false
 
 [difftool "sourcetree"]
 	cmd = /Applications/DiffMerge.app/Contents/MacOS/DiffMerge --nosplash \"$LOCAL\" \"$REMOTE\"
