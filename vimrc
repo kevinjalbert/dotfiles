@@ -11,6 +11,8 @@
 " Use Vim settings instead of vi
 set nocompatible
 
+set shell=/bin/sh
+
 " Automatically reload vimrc when it's saved
 autocmd BufWritePost .vimrc doautocmd ColorScheme .vimrc
 
@@ -35,6 +37,9 @@ set smartindent
 set tabstop=2
 set shiftwidth=2
 set expandtab
+
+" Speed up ESC from insert
+set ttimeoutlen=50
 
 " Set powerline up (explict font when running with GUI)
 if has("gui_running")
@@ -229,6 +234,12 @@ Bundle 'nathanaelkane/vim-command-w'
 " --------
 Bundle 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" VIM-MULTIPLE-CURSORS
+" Multiple cursor editing in Vim
+" --------
+Bundle 'terryma/vim-multiple-cursors'
+
 
 " ----------------
 " General settings
