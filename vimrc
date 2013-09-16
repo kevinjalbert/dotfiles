@@ -29,8 +29,12 @@ set encoding=utf-8
 set background=dark
 colorscheme Tomorrow-Night
 
-" Set textwidth
+" Set textwidth and indention
 set textwidth=120
+set smartindent
+set tabstop=2
+set shiftwidth=2
+set expandtab
 
 " Set powerline up (explict font when running with GUI)
 if has("gui_running")
@@ -92,10 +96,10 @@ Bundle 'tpope/vim-surround'
 " ------------
 Bundle 'tpope/vim-endwise'
 
-" VIM-SLEUTH
+" YAIFA
 " Heuistically set buffer options
 " -----------
-Bundle 'tpope/vim-sleuth'
+Bundle 'vim-scripts/yaifa.vim'
 
 " REPEAT
 " Allows the repeat of a plugin map (using '.')
