@@ -26,6 +26,7 @@ task :install, :dry_run do |t, args|
   install_prezto
 
   # Symlink Zsh/Prezto files
+  file_operation(Dir.glob('zprezto/**/*'))
   file_operation(Dir.glob('zlogin'))
   file_operation(Dir.glob('zlogout'))
   file_operation(Dir.glob('zprofile'))
@@ -52,11 +53,8 @@ def run(cmd)
 end
 
 def install_fonts
-  puts "======================================================"
-  puts "Installing patched fonts for Powerline."
-  puts "======================================================"
+  puts "\n~> Installing patched fonts for Powerline."
   run %{ cp -f $HOME/dotfiles/fonts/* $HOME/Library/Fonts }
-  puts
 end
 
 def install_prezto
@@ -74,23 +72,26 @@ def install_vim_vundle
 end
 
 def file_operation(files)
-  files.each do |f|
-    file = f.split('/').last
-    source = "#{ENV["PWD"]}/#{f}"
+  files.each do |file|
+    source = "#{ENV["PWD"]}/#{file}"
     target = "#{ENV["HOME"]}/.#{file}"
 
-    puts "======================#{file}=============================="
+    puts "\n~> #{file}"
     puts "Source: #{source}"
     puts "Target: #{target}"
 
-    # Only back it up if it's a link to a different file or just another file
-    if (File.exists?(target) || File.symlink?(target)) && Pathname.new(target).realpath.to_s != source
+    if File.exists?(target)
+      if File.directory?(source)
+        puts "Ignoring existing directory at target location"
+      elsif (Pathname.new(target).realpath.to_s == source || File.symlink?(target))
+        puts "Ignoring target which is already symlinked"
+      else
         puts "[Overwriting] #{target}...leaving original at #{target}.backup..."
         run %{ mv "$HOME/.#{file}" "$HOME/.#{file}.backup" }
+        run %{ ln -nfs "#{source}" "#{target}" }
+      end
+    else
+      run %{ ln -nfs "#{source}" "#{target}" }
     end
-
-    run %{ ln -nfs "#{source}" "#{target}" }
-    puts "=========================================================="
-    puts
   end
 end
