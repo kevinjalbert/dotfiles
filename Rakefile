@@ -24,11 +24,6 @@ task :install, [:dry_run, :super_user] do |t, args|
   file_operation(Dir.glob('vimrc'))
   file_operation(Dir.glob('gvimrc'))
 
-  # Install powerline fonts, vim vundle, and zsh prezto
-  install_fonts if RUBY_PLATFORM.downcase.include?("darwin")
-  install_vim_vundle
-  install_prezto
-
   # Symlink Zsh/Prezto files
   file_operation(Dir.glob('zprezto/**/*'))
   file_operation(Dir.glob('zlogin'))
@@ -47,13 +42,18 @@ task :install, [:dry_run, :super_user] do |t, args|
   file_operation(Dir.glob('rspec'))
   file_operation(Dir.glob('gemrc'))
 
+  install_fonts
+  install_vim_vundle
+  install_prezto
+  install_osx
+
 end
 task :default => 'install'
 
 private
 def run(cmd)
   puts "[Running] #{cmd}"
-  `#{cmd}` unless @dry_run == "true"
+  system cmd unless @dry_run == "true"
 end
 
 def install_fonts
@@ -76,6 +76,13 @@ def install_vim_vundle
     puts "\n~> Installing vim's vundle and plugins."
     run %{ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle }
     run %{ vim +BundleInstall +qall < `tty` > `tty` }
+  end
+end
+
+def install_osx
+  if RUBY_PLATFORM.downcase.include?("darwin") && !@super_user
+    puts "\n~> Installing OSX changes and configurations."
+    run %{ ./osx }
   end
 end
 
