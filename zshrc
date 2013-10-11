@@ -23,10 +23,12 @@ source `brew --prefix`/etc/profile.d/z.sh
 # Loads RVM into the shell's session
 [[ -s "$HOME/.rvm/scripts/rvm"  ]] && . "$HOME/.rvm/scripts/rvm"
 
-# Change ruby to 1.9.3 using RVM
-rvm 1.9.3
+# Change ruby to 2.0.0 using RVM
+rvm 2.0.0
 
 alias mvim='open -a MacVim'
 
 # Tweak Ant to have more memory
 export ANT_OPTS=-XX:PermSize=512m
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
