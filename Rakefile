@@ -9,11 +9,15 @@ require 'rake'
 require 'pathname'
 
 desc "Install dotfiles on current system"
-task :install, :dry_run do |t, args|
-  # Handle dry_run argument to install task (i.e., rake install[true])
-  args.with_defaults(:dry_run => "false")
-  @dry_run = args[:dry_run]
+task :install, [:dry_run, :super_user] do |t, args|
+  # Handle arguments (i.e., rake install[dry_run,super_user]), where params are true||false
+  # Running with super_user requires that you be the super_user (i.e., root)
+  args.with_defaults(:dry_run => "false", :super_user => "false")
+  @dry_run = args[:dry_run] == "true"
+  @super_user = args[:super_user] == "true"
+
   puts "Doing a dry run" if @dry_run
+  puts "Doing a run as super user" if @super_user
 
   # Symlink Vim files
   file_operation(Dir.glob('vim'))
@@ -53,22 +57,26 @@ def run(cmd)
 end
 
 def install_fonts
-  puts "\n~> Installing patched fonts for Powerline."
-  run %{ cp -f $HOME/dotfiles/fonts/* $HOME/Library/Fonts }
+  if RUBY_PLATFORM.downcase.include?("darwin") && !@super_user
+    puts "\n~> Installing patched fonts for Powerline."
+    run %{ cp -f #{ENV["PWD"]}/fonts/* $HOME/Library/Fonts }
+  end
 end
 
 def install_prezto
   unless File.exists?(File.join(ENV['ZDOTDIR'] || ENV['HOME'], ".zprezto"))
+    puts "\n~> Installing prezto for zsh."
     run %{ git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto" }
+    run %{ chsh -s /bin/zsh }
   end
-  run %{ chsh -s /bin/zsh }
 end
 
 def install_vim_vundle
   unless File.exists?(File.join(ENV['HOME'], ".vim/bundle/vundle"))
+    puts "\n~> Installing vim's vundle and plugins."
     run %{ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle }
+    run %{ vim +BundleInstall +qall < `tty` > `tty` }
   end
-  run %{ vim +BundleInstall +qall < `tty` > `tty` }
 end
 
 def file_operation(files)
