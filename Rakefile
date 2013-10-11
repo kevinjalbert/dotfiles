@@ -42,6 +42,8 @@ task :install, [:dry_run, :super_user] do |t, args|
   file_operation(Dir.glob('rspec'))
   file_operation(Dir.glob('gemrc'))
 
+  # Install brew, rvm, powerline fonts, vim vundle, and zsh prezto
+  install_brew
   install_rvm
   install_fonts
   install_vim_vundle
@@ -55,6 +57,32 @@ private
 def run(cmd)
   puts "[Running] #{cmd}"
   system cmd unless @dry_run == "true"
+end
+
+def install_brew
+  if RUBY_PLATFORM.downcase.include?("darwin") && !@super_user
+    puts "\n~> Installing Homebrew for Mac."
+    run %{ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)" }
+    run %{ brew install ctags }
+    run %{ brew install git }
+    run %{ brew install git-extras }
+    run %{ brew install imagesnap }
+    run %{ brew install macvim }
+    run %{ brew install mercurial }
+    run %{ brew install mysql }
+    run %{ brew install rabbitmq }
+    run %{ brew install node }
+    run %{ brew install openssl }
+    run %{ brew install python }
+    run %{ brew install python3 }
+    run %{ brew install readline }
+    run %{ brew install sqlite }
+    run %{ brew install subversion }
+    run %{ brew install the_silver_searcher }
+    run %{ brew install zsh }
+    run %{ brew install z }
+    run %{ brew install https://raw.github.com/Homebrew/homebrew-dupes/master/ant.rb }
+  end
 end
 
 def install_rvm
