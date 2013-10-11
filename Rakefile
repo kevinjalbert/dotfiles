@@ -42,6 +42,7 @@ task :install, [:dry_run, :super_user] do |t, args|
   file_operation(Dir.glob('rspec'))
   file_operation(Dir.glob('gemrc'))
 
+  install_rvm
   install_fonts
   install_vim_vundle
   install_prezto
@@ -54,6 +55,13 @@ private
 def run(cmd)
   puts "[Running] #{cmd}"
   system cmd unless @dry_run == "true"
+end
+
+def install_rvm
+  if RUBY_PLATFORM.downcase.include?("darwin") && !@super_user
+    puts "\n~> Installing Ruby Version Manager (RVM)."
+    run %{ curl -L https://get.rvm.io | bash -s stable --ruby }
+  end
 end
 
 def install_fonts
