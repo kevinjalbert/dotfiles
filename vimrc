@@ -80,6 +80,7 @@ Bundle 'sjl/gundo.vim'
 " -----------
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_max_files = 1000000
+let g:ctrlp_match_window = 'order:ttb,max:15'
 
 " Search .* files/folders
 let g:ctrlp_show_hidden = 1
@@ -238,7 +239,10 @@ Bundle 'nathanaelkane/vim-command-w'
 " Ability to use ack (ag)
 " --------
 Bundle 'mileszs/ack.vim'
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ackprg = 'ag --nogroup --nocolor --column'  " Use ag instead of ack
+set grepprg=ag\ --nogroup\ --nocolor  " Use ag instead of grep
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'  " Use ag in CtrlP
+nmap <leader>a :Ack<space>
 
 " VIM-MULTIPLE-CURSORS
 " Multiple cursor editing in Vim
