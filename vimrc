@@ -49,6 +49,9 @@ endif
 set antialias
 set laststatus=2
 
+" Automatically rebalance windows when resizing vim
+autocmd VimResized * :wincmd =
+
 
 " --------------------------
 " Bundles and their settings
