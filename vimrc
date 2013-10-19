@@ -292,9 +292,8 @@ set ignorecase
 set smartcase
 set wrapscan
 
-" This unsets the 'last search pattern' register by hitting return. You can
-" still leave the highlight pattern by not pressing return (i.e., Esc)
-nnoremap <CR> :noh<CR>:<backspace>
+" This unsets the 'last search pattern' register by hitting escape.
+nnoremap <ESC> :noh<CR>:<backspace>
 
 " Line settings
 set number
