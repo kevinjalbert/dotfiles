@@ -11,10 +11,11 @@
 " Use Vim settings instead of vi
 set nocompatible
 
+" Set default shell to be bash
 set shell=/bin/sh
 
 " Automatically reload vimrc when it's saved
-autocmd BufWritePost .vimrc doautocmd ColorScheme .vimrc
+autocmd BufWritePost .vimrc nested source ~/.vimrc
 
 " Strip whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
@@ -85,6 +86,7 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll|class)$',
   \ }
+
 
 " FUGITIVE
 " A Git wrapper to allow for the usage of Git commands
