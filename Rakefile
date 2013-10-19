@@ -38,6 +38,9 @@ task :install, [:dry_run, :super_user] do |t, args|
   file_operation(Dir.glob('gitconfig'))
   file_operation(Dir.glob('gitignore_global'))
 
+  # Symlink ag files
+  file_operation(Dir.glob('agignore'))
+
   # Symlink Ruby files
   file_operation(Dir.glob('rspec'))
   file_operation(Dir.glob('gemrc'))
