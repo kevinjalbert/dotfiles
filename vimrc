@@ -301,8 +301,8 @@ set ignorecase
 set smartcase
 set wrapscan
 
-" This unsets the 'last search pattern' register by hitting escape.
-nnoremap <ESC> :noh<CR>:<backspace>
+" This unsets the 'last search pattern' register by hitting ;.
+nnoremap ; :noh<CR>:<backspace>
 
 " Line settings
 set number
