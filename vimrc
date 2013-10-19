@@ -424,8 +424,9 @@ nnoremap Y y$
 " Switch between last buffers
 nmap <leader>l :b#<CR>
 
-" Toggle NERD Tree
+" Toggle NERD Tree and NERD Tree Find
 nnoremap <f2> :NERDTreeTabsToggle<cr>
+nmap <leader><f2> :NERDTreeFind<cr>
 
 " Toggle TagList
 nnoremap <f3> :TagbarToggle<cr>
