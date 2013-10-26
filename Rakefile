@@ -16,34 +16,35 @@ task :install, [:dry_run, :super_user] do |t, args|
   @dry_run = args[:dry_run] == "true"
   @super_user = args[:super_user] == "true"
 
-  puts "Doing a dry run" if @dry_run
-  puts "Doing a run as super user" if @super_user
+  puts "~> Doing a dry run" if @dry_run
+  puts "~> Doing a run as super user" if @super_user
 
   # Symlink Vim files
-  file_operation(Dir.glob('vim'))
-  file_operation(Dir.glob('vimrc'))
-  file_operation(Dir.glob('gvimrc'))
+  sym_link 'vim', '.vim'
+  sym_link 'vimrc', '.vimrc'
+  sym_link 'vimrc.bundles', '.vimrc.bundles'
+  sym_link 'gvimrc', '.gvimrc'
 
   # Symlink Zsh/Prezto files
-  file_operation(Dir.glob('zprezto/**/*'))
-  file_operation(Dir.glob('zlogin'))
-  file_operation(Dir.glob('zlogout'))
-  file_operation(Dir.glob('zprofile'))
-  file_operation(Dir.glob('zshenv'))
-  file_operation(Dir.glob('zshrc'))
-  file_operation(Dir.glob('zpreztorc'))
+  sym_link 'zprezto', '.zprezto'
+  sym_link 'zlogin', '.zlogin'
+  sym_link 'zlogout', '.zlogout'
+  sym_link 'zprofile', '.zprofile'
+  sym_link 'zshenv', '.zshenv'
+  sym_link 'zshrc', '.zshrc'
+  sym_link 'zpreztorc', '.zpreztorc'
 
   # Symlink Git files
-  file_operation(Dir.glob('git'))
-  file_operation(Dir.glob('gitconfig'))
-  file_operation(Dir.glob('gitignore_global'))
+  sym_link 'git', '.git'
+  sym_link 'gitconfig', '.gitconfig'
+  sym_link 'gitignore_global', '.gitignore_global'
 
-  # Symlink ag files
-  file_operation(Dir.glob('agignore'))
+  # Symlink Ag files
+  sym_link 'agignore', '.agignore'
 
   # Symlink Ruby files
-  file_operation(Dir.glob('rspec'))
-  file_operation(Dir.glob('gemrc'))
+  sym_link 'rspec', '.rspec'
+  sym_link 'gemrc', '.gemrc'
 
   # Install brew, rvm, powerline fonts, vim vundle, and zsh prezto
   install_brew
@@ -52,19 +53,18 @@ task :install, [:dry_run, :super_user] do |t, args|
   install_vim_vundle
   install_prezto
   install_osx
-
 end
 task :default => 'install'
 
 private
 def run(cmd)
-  puts "[Running] #{cmd}"
-  system cmd unless @dry_run == "true"
+  puts "Running: #{cmd}"
+  system cmd unless @dry_run
 end
 
 def install_brew
   if RUBY_PLATFORM.downcase.include?("darwin") && !@super_user
-    puts "\n~> Installing Homebrew for Mac."
+    puts "\n~> Installing Homebrew for Mac"
     run %{ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)" }
     run %{ brew install ctags }
     run %{ brew install git }
@@ -90,21 +90,21 @@ end
 
 def install_rvm
   if RUBY_PLATFORM.downcase.include?("darwin") && !@super_user
-    puts "\n~> Installing Ruby Version Manager (RVM)."
+    puts "\n~> Installing Ruby Version Manager (RVM)"
     run %{ curl -L https://get.rvm.io | bash -s stable --ruby }
   end
 end
 
 def install_fonts
   if RUBY_PLATFORM.downcase.include?("darwin") && !@super_user
-    puts "\n~> Installing patched fonts for Powerline."
+    puts "\n~> Installing patched fonts for Powerline"
     run %{ cp -f #{ENV["PWD"]}/fonts/* $HOME/Library/Fonts }
   end
 end
 
 def install_prezto
   unless File.exists?(File.join(ENV['ZDOTDIR'] || ENV['HOME'], ".zprezto"))
-    puts "\n~> Installing prezto for zsh."
+    puts "\n~> Installing prezto for zsh"
     run %{ git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto" }
     run %{ chsh -s /bin/zsh }
   end
@@ -112,7 +112,7 @@ end
 
 def install_vim_vundle
   unless File.exists?(File.join(ENV['HOME'], ".vim/bundle/vundle"))
-    puts "\n~> Installing vim's vundle and plugins."
+    puts "\n~> Installing vim's vundle and plugins"
     run %{ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle }
     run %{ vim +BundleInstall +qall < `tty` > `tty` }
   end
@@ -120,32 +120,45 @@ end
 
 def install_osx
   if RUBY_PLATFORM.downcase.include?("darwin") && !@super_user
-    puts "\n~> Installing OSX changes and configurations."
+    puts "\n~> Installing OSX changes and configurations"
     run %{ ./osx }
   end
 end
 
-def file_operation(files)
-  files.each do |file|
-    source = "#{ENV["PWD"]}/#{file}"
-    target = "#{ENV["HOME"]}/.#{file}"
+def sym_link(source_file, target_file)
+  source = Pathname.new("#{ENV["PWD"]}/#{source_file}")
+  target = Pathname.new("#{ENV["HOME"]}/#{target_file}")
 
-    puts "\n~> #{file}"
-    puts "Source: #{source}"
-    puts "Target: #{target}"
+  puts "\n~> Symlinking #{source_file}"
+  puts "Source: #{source.to_s}"
+  puts "Target: #{target.to_s}"
 
-    if File.exists?(target)
-      if File.directory?(source)
-        puts "Ignoring existing directory at target location"
-      elsif (Pathname.new(target).realpath.to_s == source || File.symlink?(target))
-        puts "Ignoring target which is already symlinked"
-      else
-        puts "[Overwriting] #{target}...leaving original at #{target}.backup..."
-        run %{ mv "$HOME/.#{file}" "$HOME/.#{file}.backup" }
-        run %{ ln -nfs "#{source}" "#{target}" }
-      end
-    else
-      run %{ ln -nfs "#{source}" "#{target}" }
+  # Make target path if it does not exist and proceed to symlink
+  if source.directory?
+    target.mkpath unless target.exist?
+    sym_link_directory source, target
+  elsif source.file?
+    target.parent.mkpath unless target.parent.exist?
+    sym_link_file source, target
+  end
+end
+
+def sym_link_directory(source, target)
+  source.each_child do |child|
+    if child.directory?
+      sym_link_directory child, Pathname.new("#{target.to_s}/#{child.basename.to_s}")
+    elsif child.file?
+      sym_link_file child, Pathname.new("#{target.to_s}/#{child.basename.to_s}")
     end
+  end
+end
+
+def sym_link_file(source, target)
+  if !target.exist?
+    run %{ ln -nfs "#{source.to_s}" "#{target.to_s}" }
+  elsif source.realpath != target.realpath
+    puts "Overwriting #{target.to_s}... leaving original at #{target.to_s}.backup..."
+    run %{ mv "#{target.to_s}" "#{target.to_s}.backup" }
+    run %{ ln -nfs "#{source.to_s}" "#{target.to_s}" }
   end
 end
