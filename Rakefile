@@ -149,6 +149,7 @@ def install_brew_packages
     run %{ brew install git }
     run %{ brew install git-extras }
     run %{ brew install imagesnap }
+    run %{ brew install vim }
     run %{ brew install macvim }
     run %{ brew install mercurial }
     run %{ brew install mysql }
@@ -158,6 +159,7 @@ def install_brew_packages
     run %{ brew install python }
     run %{ brew install python3 }
     run %{ brew install readline }
+    run %{ brew install libyaml }
     run %{ brew install sqlite }
     run %{ brew install subversion }
     run %{ brew install the_silver_searcher }
