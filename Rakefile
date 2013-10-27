@@ -97,30 +97,6 @@ task :install do
   Rake::Task['install:osx'].invoke
 end
 
-namespace :update do
-  desc "Update Vim's plugins"
-  task :vim do
-    section "Updating Vim's Plugins"
-    run %{ vim -c "BundleInstall" -c "q" -c "q" }
-    run %{ cd ~/.vim/bundle/YouCompleteMe && sh install.sh }
-  end
-
-  desc "Update Brew"
-  task :brew do
-    section "Updating Brew"
-    run %{ brew update }
-    run %{ brew upgrade }
-  end
-end
-
-namespace :uninstall do
-  desc "Uninstall Brew Packages"
-  task :brew_packages do
-    section "Uninstalling Brew Packages"
-    run %{ brew rm $(brew list) }
-  end
-end
-
 namespace :install do
   desc "Symlink Dotfiles"
   task :symlinks do
@@ -201,6 +177,40 @@ namespace :install do
   end
 end
 
+namespace :update do
+  desc "Update Vim's plugins"
+  task :vim do
+    section "Updating Vim's Plugins"
+    update_vim
+  end
+
+  desc "Update Brew"
+  task :brew_packages do
+    section "Updating Brew Packages"
+    update_brew_packages
+  end
+
+  desc "Update Brew Cask"
+  task :brew_cask_packages do
+    section "Updating Brew Cask Packages"
+    update_brew_cask_packages
+  end
+end
+
+namespace :uninstall do
+  desc "Uninstall Brew Packages"
+  task :brew_packages do
+    section "Uninstalling Brew Packages"
+    uninstall_brew_packages
+  end
+
+  desc "Uninstall Brew Cask Packages"
+  task :brew_cask_packages do
+    section "Uninstalling Brew Cask Packages"
+    uninstall_brew_cask_packages
+  end
+end
+
 def section(title, description="")
   seperator_count = (80 - title.length) / 2
   puts ("\n" + "="*seperator_count) + title.upcase + ("="*seperator_count)
@@ -211,6 +221,29 @@ end
 def run(cmd)
   puts "~>#{cmd}"
   system cmd unless ENV['DRY_RUN']
+end
+
+def update_vim
+  run %{ vim -c "BundleInstall" -c "q" -c "q" }
+  run %{ cd ~/.vim/bundle/YouCompleteMe && sh install.sh }
+end
+
+def update_brew_packages
+  run %{ brew update }
+  run %{ brew upgrade }
+end
+
+def update_brew_cask_packages
+  Rake::Task['uninstall:brew_cask_packages'].invoke
+  Rake::Task['install:brew_cask_packages'].invoke
+end
+
+def uninstall_brew_packages
+  run %{ brew rm #{get_brew_packages.join(" ")} }
+end
+
+def uninstall_brew_cask_packages
+  run %{ brew cask uninstall #{get_brew_cask_packages.join(" ")} }
 end
 
 def install_brew
