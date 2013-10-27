@@ -31,7 +31,7 @@ namespace :update do
   desc "Update Vim's plugins"
   task :vim do
     section "Updating Vim's Plugins"
-    run %{ vim +BundleInstall +qall < `tty` > `tty` }
+    run %{ vim -c "BundleInstall" -c "q" -c "q" }
     run %{ cd ~/.vim/bundle/YouCompleteMe && sh install.sh }
   end
 
