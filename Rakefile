@@ -43,6 +43,14 @@ namespace :update do
   end
 end
 
+namespace :uninstall do
+  desc "Uninstall Brew Packages"
+  task :brew_packages do
+    section "Uninstalling Brew Packages"
+    run %{ brew rm $(brew list) }
+  end
+end
+
 namespace :install do
   desc "Symlink Dotfiles"
   task :symlinks do
