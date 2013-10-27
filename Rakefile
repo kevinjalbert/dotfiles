@@ -231,6 +231,10 @@ end
 
 def sym_link_directory(source, target)
   source.each_child do |child|
+    if child.basename.to_s == ".DS_Store"
+      next
+    end
+
     if child.directory?
       sym_link_directory child, Pathname.new("#{target.to_s}/#{child.basename.to_s}")
     elsif child.file?
