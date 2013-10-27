@@ -19,6 +19,7 @@ task :install do
   Rake::Task['install:symlinks'].invoke
   Rake::Task['install:brew'].invoke
   Rake::Task['install:brew_packages'].invoke
+  Rake::Task['install:brew_cask_packages'].invoke
   Rake::Task['install:rvm'].invoke
   Rake::Task['install:fonts'].invoke
   Rake::Task['install:vundle'].invoke
@@ -94,6 +95,12 @@ namespace :install do
     install_brew_packages
   end
 
+  desc "Install Brew Cask Packages"
+  task :brew_cask_packages do
+    section "Installing Brew Cask Packages"
+    install_brew_cask_packages
+  end
+
   desc "Install RVM"
   task :rvm do
     section "Installing Ruby's RVM"
@@ -145,12 +152,13 @@ end
 
 def install_brew_packages
   if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
+    run %{ brew tap phinze/homebrew-cask }
+    run %{ brew install brew-cask }
     run %{ brew install ctags }
     run %{ brew install git }
     run %{ brew install git-extras }
     run %{ brew install imagesnap }
     run %{ brew install vim }
-    run %{ brew install macvim }
     run %{ brew install mercurial }
     run %{ brew install mysql }
     run %{ brew install rabbitmq }
@@ -166,6 +174,44 @@ def install_brew_packages
     run %{ brew install zsh }
     run %{ brew install z }
     run %{ brew install https://raw.github.com/Homebrew/homebrew-dupes/master/ant.rb }
+  end
+end
+
+def install_brew_cask_packages
+  if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
+    run %{ brew cask install --force app-cleaner }
+    run %{ brew cask install --force bartender }
+    run %{ brew cask install --force cyberduck }
+    run %{ brew cask install --force diffmerge }
+    run %{ brew cask install --force doxie }
+    run %{ brew cask install --force dropbox }
+    run %{ brew cask install --force eclipse-ide }
+    run %{ brew cask install --force evernote }
+    run %{ brew cask install --force f-lux }
+    run %{ brew cask install --force firefox }
+    run %{ brew cask install --force fluid }
+    run %{ brew cask install --force google-chrome }
+    run %{ brew cask install --force handbrake }
+    run %{ brew cask install --force hip-chat }
+    run %{ brew cask install --force hyper-switch }
+    #run %{ brew cask install --force istat-menus } Until istat-menus 3 can be selected
+    run %{ brew cask install --force iterm2 }
+    run %{ brew cask install --force macvim }
+    run %{ brew cask install --force mou }
+    run %{ brew cask install --force osxfuse }
+    run %{ brew cask install --force postgres }
+    run %{ brew cask install --force rescue-time }
+    run %{ brew cask install --force sequel-pro }
+    run %{ brew cask install --force shortcat }
+    run %{ brew cask install --force skype }
+    run %{ brew cask install --force sourcetree }
+    run %{ brew cask install --force steam }
+    run %{ brew cask install --force sublime-text-3 }
+    run %{ brew cask install --force the-unarchiver }
+    run %{ brew cask install --force tuxguitar }
+    run %{ brew cask install --force u-torrent }
+    run %{ brew cask install --force unetbootin }
+    run %{ brew cask install --force vlc }
   end
 end
 

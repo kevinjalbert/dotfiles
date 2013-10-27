@@ -31,4 +31,7 @@ alias mvim='open -a MacVim'
 # Tweak Ant to have more memory
 export ANT_OPTS=-XX:PermSize=512m
 
+# Ensure Homebrew Cask are installed in /Applications
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
