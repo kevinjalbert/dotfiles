@@ -14,6 +14,7 @@ desc "Install Everything"
 task :install do
   Rake::Task['install:symlinks'].invoke
   Rake::Task['install:brew'].invoke
+  Rake::Task['install:brew_packages'].invoke
   Rake::Task['install:rvm'].invoke
   Rake::Task['install:fonts'].invoke
   Rake::Task['install:vundle'].invoke
@@ -75,6 +76,12 @@ namespace :install do
     install_brew
   end
 
+  desc "Install Brew Packages"
+  task :brew_packages do
+    section "Installing Brew Packages"
+    install_brew_packages
+  end
+
   desc "Install RVM"
   task :rvm do
     section "Installing Ruby's RVM"
@@ -121,6 +128,11 @@ end
 def install_brew
   if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
     run %{ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)" }
+  end
+end
+
+def install_brew_packages
+  if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
     run %{ brew install ctags }
     run %{ brew install git }
     run %{ brew install git-extras }
