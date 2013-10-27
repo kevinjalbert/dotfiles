@@ -221,10 +221,10 @@ def sym_link(source_file, target_file)
 
   # Make target path if it does not exist and proceed to symlink
   if source.directory?
-    target.mkpath unless target.exist?
+    target.mkpath unless target.exist? || target.symlink?
     sym_link_directory source, target
   elsif source.file?
-    target.parent.mkpath unless target.parent.exist?
+    target.parent.mkpath unless target.parent.exist? || target.parent.symlink?
     sym_link_file source, target
   end
 end
@@ -245,7 +245,7 @@ end
 
 def sym_link_file(source, target)
   if !target.exist?
-    target.parent.mkpath unless target.parent.exist?
+    target.parent.mkpath unless target.parent.exist? || target.parent.symlink?
     run %{ ln -nfs "#{source.to_s}" "#{target.to_s}" }
   elsif source.realpath != target.realpath
     puts "Overwriting #{target.to_s}... leaving original at #{target.to_s}.backup..."
