@@ -97,6 +97,19 @@ task :install do
   Rake::Task['install:osx'].invoke
 end
 
+desc "Update Everything"
+task :update do
+  Rake::Task['update:vim'].invoke
+  Rake::Task['update:brew_packages'].invoke
+  Rake::Task['update:brew_cask_packages'].invoke
+end
+
+desc "Uninstall Everything"
+task :uninstall do
+  Rake::Task['uninstall:brew_packages'].invoke
+  Rake::Task['uninstall:brew_cask_packages'].invoke
+end
+
 namespace :install do
   desc "Symlink Dotfiles"
   task :symlinks do
@@ -234,6 +247,7 @@ def update_brew_packages
 end
 
 def update_brew_cask_packages
+  puts "~> Uninstalls and Reinstalls Brew Cask Packages"
   Rake::Task['uninstall:brew_cask_packages'].invoke
   Rake::Task['install:brew_cask_packages'].invoke
 end
