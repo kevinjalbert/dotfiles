@@ -1,10 +1,14 @@
 =begin
-This Rakefile helps install prezto and vim along with any other dotfiles on to the current system.
-Some of the rake tasks and methods are heavily inspired/borrowed from skwp/dotfiles off of GitHub.
-
 Before running the Rakefile, ensure that the following are installed on your system:
-  - Ruby, Vim, Zsh, Git
+  - Ruby, Vim, Zsh
+
+To perform tasks in a 'dry run' state append the following to your command:
+  ENV[DRY_RUN]=
+
+To perform tasks in a 'sudo' state append the following to your command:
+  ENV[SUDO]=
 =end
+
 require 'rake'
 require 'pathname'
 
