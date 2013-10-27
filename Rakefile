@@ -14,6 +14,75 @@ require 'pathname'
 
 task :default => [:install]
 
+def get_brew_taps
+  return %w(
+    phinze/homebrew-cask
+  )
+end
+
+def get_brew_packages
+  return %w(
+    brew-cask
+    ctags
+    git
+    git-extras
+    imagesnap
+    vim
+    mercurial
+    mysql
+    rabbitmq
+    node
+    openssl
+    python
+    python3
+    readline
+    libyaml
+    sqlite
+    subversion
+    the_silver_searcher
+    zsh
+    z
+    https://raw.github.com/Homebrew/homebrew-dupes/master/ant.rb
+  )
+end
+
+def get_brew_cask_packages
+  return %w(
+    app-cleaner
+    bartender
+    cyberduck
+    diffmerge
+    doxie
+    dropbox
+    eclipse-ide
+    evernote
+    f-lux
+    firefox
+    fluid
+    google-chrome
+    handbrake
+    hip-chat
+    hyper-switch
+    iterm2
+    macvim
+    mou
+    osxfuse
+    postgres
+    rescue-time
+    sequel-pro
+    shortcat
+    skype
+    sourcetree
+    steam
+    sublime-text-3
+    the-unarchiver
+    tuxguitar
+    u-torrent
+    unetbootin
+    vlc
+  )
+end
+
 desc "Install Everything"
 task :install do
   Rake::Task['install:symlinks'].invoke
@@ -152,66 +221,21 @@ end
 
 def install_brew_packages
   if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
-    run %{ brew tap phinze/homebrew-cask }
-    run %{ brew install brew-cask }
-    run %{ brew install ctags }
-    run %{ brew install git }
-    run %{ brew install git-extras }
-    run %{ brew install imagesnap }
-    run %{ brew install vim }
-    run %{ brew install mercurial }
-    run %{ brew install mysql }
-    run %{ brew install rabbitmq }
-    run %{ brew install node }
-    run %{ brew install openssl }
-    run %{ brew install python }
-    run %{ brew install python3 }
-    run %{ brew install readline }
-    run %{ brew install libyaml }
-    run %{ brew install sqlite }
-    run %{ brew install subversion }
-    run %{ brew install the_silver_searcher }
-    run %{ brew install zsh }
-    run %{ brew install z }
-    run %{ brew install https://raw.github.com/Homebrew/homebrew-dupes/master/ant.rb }
+    get_brew_taps.each do |package|
+      run %{ brew taps #{package} }
+    end
+
+    get_brew_packages.each do |package|
+      run %{ brew install #{package} }
+    end
   end
 end
 
 def install_brew_cask_packages
   if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
-    run %{ brew cask install --force app-cleaner }
-    run %{ brew cask install --force bartender }
-    run %{ brew cask install --force cyberduck }
-    run %{ brew cask install --force diffmerge }
-    run %{ brew cask install --force doxie }
-    run %{ brew cask install --force dropbox }
-    run %{ brew cask install --force eclipse-ide }
-    run %{ brew cask install --force evernote }
-    run %{ brew cask install --force f-lux }
-    run %{ brew cask install --force firefox }
-    run %{ brew cask install --force fluid }
-    run %{ brew cask install --force google-chrome }
-    run %{ brew cask install --force handbrake }
-    run %{ brew cask install --force hip-chat }
-    run %{ brew cask install --force hyper-switch }
-    #run %{ brew cask install --force istat-menus } Until istat-menus 3 can be selected
-    run %{ brew cask install --force iterm2 }
-    run %{ brew cask install --force macvim }
-    run %{ brew cask install --force mou }
-    run %{ brew cask install --force osxfuse }
-    run %{ brew cask install --force postgres }
-    run %{ brew cask install --force rescue-time }
-    run %{ brew cask install --force sequel-pro }
-    run %{ brew cask install --force shortcat }
-    run %{ brew cask install --force skype }
-    run %{ brew cask install --force sourcetree }
-    run %{ brew cask install --force steam }
-    run %{ brew cask install --force sublime-text-3 }
-    run %{ brew cask install --force the-unarchiver }
-    run %{ brew cask install --force tuxguitar }
-    run %{ brew cask install --force u-torrent }
-    run %{ brew cask install --force unetbootin }
-    run %{ brew cask install --force vlc }
+    get_brew_cask_packages.each do |package|
+      run %{ brew cask install --force #{package} }
+    end
   end
 end
 
