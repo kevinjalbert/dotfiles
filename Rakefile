@@ -245,6 +245,7 @@ end
 
 def sym_link_file(source, target)
   if !target.exist?
+    target.parent.mkpath unless target.parent.exist?
     run %{ ln -nfs "#{source.to_s}" "#{target.to_s}" }
   elsif source.realpath != target.realpath
     puts "Overwriting #{target.to_s}... leaving original at #{target.to_s}.backup..."
