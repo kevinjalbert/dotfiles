@@ -55,31 +55,31 @@ namespace :install do
   desc "Symlink Dotfiles"
   task :symlinks do
     section "Symlinking Vim Files"
-    sym_link 'vim',                 '.vim'
-    sym_link 'vimrc',               '.vimrc'
-    sym_link 'vimrc.bundles',       '.vimrc.bundles'
-    sym_link 'gvimrc',              '.gvimrc'
+    sym_link 'vim/vim',                 '.vim'
+    sym_link 'vim/vimrc',               '.vimrc'
+    sym_link 'vim/vimrc.bundles',       '.vimrc.bundles'
+    sym_link 'vim/gvimrc',              '.gvimrc'
 
     section "Symlinking Zsh Files"
-    sym_link 'zprezto',             '.zprezto'
-    sym_link 'zlogin',              '.zlogin'
-    sym_link 'zlogout',             '.zlogout'
-    sym_link 'zprofile',            '.zprofile'
-    sym_link 'zshenv',              '.zshenv'
-    sym_link 'zshrc',               '.zshrc'
-    sym_link 'zpreztorc',           '.zpreztorc'
+    sym_link 'zsh/zprezto',             '.zprezto'
+    sym_link 'zsh/zlogin',              '.zlogin'
+    sym_link 'zsh/zlogout',             '.zlogout'
+    sym_link 'zsh/zprofile',            '.zprofile'
+    sym_link 'zsh/zshenv',              '.zshenv'
+    sym_link 'zsh/zshrc',               '.zshrc'
+    sym_link 'zsh/zpreztorc',           '.zpreztorc'
 
     section "Symlinking Git Files"
-    sym_link 'git',                 '.git'
-    sym_link 'gitconfig',           '.gitconfig'
-    sym_link 'gitignore_global',    '.gitignore_global'
-
-    section "Symlinking Ag Files"
-    sym_link 'agignore',            '.agignore'
+    sym_link 'git/git',                 '.git'
+    sym_link 'git/gitconfig',           '.gitconfig'
+    sym_link 'git/gitignore_global',    '.gitignore_global'
 
     section "Symlinking Ruby Files"
-    sym_link 'rspec',               '.rspec'
-    sym_link 'gemrc',               '.gemrc'
+    sym_link 'ruby/rspec',              '.rspec'
+    sym_link 'ruby/gemrc',              '.gemrc'
+
+    section "Symlinking Misc. Files"
+    sym_link 'misc/agignore',           '.agignore'
   end
 
   desc "Install Brew"
@@ -205,7 +205,7 @@ end
 
 def install_osx
   if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
-    run %{ ./osx }
+    run %{ ./misc/osx }
   else
     puts "~> Could not install OS X Configurations. Check if you were running as root or not using OS X."
   end
