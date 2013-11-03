@@ -269,7 +269,7 @@ end
 def install_brew_packages
   if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
     get_brew_taps.each do |package|
-      run %{ brew taps #{package} }
+      run %{ brew tap #{package} }
     end
 
     get_brew_packages.each do |package|
