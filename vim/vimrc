@@ -290,17 +290,6 @@ function! SetCursorPosition()
     end
 endfunction
 
-"http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
-"hacks from above (the url, not jesus) to delete fugitive buffers when we
-"leave them - otherwise the buffer list gets poluted
-"
-"add a mapping on .. to view parent tree
-autocmd BufReadPost fugitive://* set bufhidden=delete
-autocmd BufReadPost fugitive://*
-  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-  \   nnoremap <buffer> .. :edit %:h<CR> |
-  \ endif
-
 " http://stackoverflow.com/a/6171215/583592
 " Escape special characters in a string for exact matching.
 " This is useful to copying strings from the file to the search tool
