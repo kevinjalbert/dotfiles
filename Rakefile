@@ -26,6 +26,7 @@ def get_brew_packages
     ctags
     git
     git-extras
+    htop
     imagesnap
     vim
     mercurial
