@@ -2,11 +2,12 @@
 Before running the Rakefile, ensure that the following are installed on your system:
   - Ruby, Vim, Zsh
 
+This Rakefile should not be ran with sudo, it will use sudo where nessecary.
+
+Symlinking root files should be done last to ensure everything is setup first.
+
 To perform tasks in a 'dry run' state append the following to your command:
   ENV[DRY_RUN]=
-
-To perform tasks in a 'sudo' state append the following to your command:
-  ENV[SUDO]=
 =end
 
 require 'rake'
@@ -96,6 +97,7 @@ task :install do
   Rake::Task['update:vim'].invoke
   Rake::Task['install:prezto'].invoke
   Rake::Task['install:osx'].invoke
+  Rake::Task['install:symlinks_root'].invoke
 end
 
 desc "Update Everything"
@@ -140,6 +142,36 @@ namespace :install do
 
     section "Symlinking Misc. Files"
     sym_link 'misc/agignore',           '.agignore'
+  end
+
+  desc "Symlink Dotfiles (root)"
+  task :symlinks_root do
+    section "Symlinking Vim Files (root)"
+    sym_link_for_root '.vim'
+    sym_link_for_root '.vimrc'
+    sym_link_for_root '.vimrc.bundles'
+    sym_link_for_root '.gvimrc'
+
+    section "Symlinking Zsh Files (root)"
+    sym_link_for_root '.zprezto'
+    sym_link_for_root '.zlogin'
+    sym_link_for_root '.zlogout'
+    sym_link_for_root '.zprofile'
+    sym_link_for_root '.zshenv'
+    sym_link_for_root '.zshrc'
+    sym_link_for_root '.zpreztorc'
+
+    section "Symlinking Git Files (root)"
+    sym_link_for_root '.git'
+    sym_link_for_root '.gitconfig'
+    sym_link_for_root '.gitignore_global'
+
+    section "Symlinking Ruby Files (root)"
+    sym_link_for_root '.rspec'
+    sym_link_for_root '.gemrc'
+
+    section "Symlinking Misc. Files (root)"
+    sym_link_for_root '.agignore'
   end
 
   desc "Install Brew"
@@ -262,13 +294,13 @@ def uninstall_brew_cask_packages
 end
 
 def install_brew
-  if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
+  if RUBY_PLATFORM.downcase.include?("darwin")
     run %{ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)" }
   end
 end
 
 def install_brew_packages
-  if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
+  if RUBY_PLATFORM.downcase.include?("darwin")
     get_brew_taps.each do |package|
       run %{ brew tap #{package} }
     end
@@ -280,7 +312,7 @@ def install_brew_packages
 end
 
 def install_brew_cask_packages
-  if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
+  if RUBY_PLATFORM.downcase.include?("darwin")
     get_brew_cask_packages.each do |package|
       run %{ brew cask install --force #{package} }
     end
@@ -288,7 +320,7 @@ def install_brew_cask_packages
 end
 
 def install_rvm
-  if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
+  if RUBY_PLATFORM.downcase.include?("darwin")
     run %{ curl -L https://get.rvm.io | bash -s stable --ruby }
   else
     puts "~> Could not install RVM. Check if you were running as root or not using OS X."
@@ -296,8 +328,8 @@ def install_rvm
 end
 
 def install_fonts
-  if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
-    run %{ cp -f #{ENV["PWD"]}/fonts/* $HOME/Library/Fonts }
+  if RUBY_PLATFORM.downcase.include?("darwin")
+    run %{ cp -f #{File.dirname(__FILE__)}/fonts/* $HOME/Library/Fonts }
   else
     puts "~> Could not install fonts. Check if you were running as root or not using OS X."
   end
@@ -322,15 +354,30 @@ def install_vundle
 end
 
 def install_osx
-  if RUBY_PLATFORM.downcase.include?("darwin") && !ENV['SUDO']
+  if RUBY_PLATFORM.downcase.include?("darwin")
     run %{ ./misc/osx }
   else
     puts "~> Could not install OS X Configurations. Check if you were running as root or not using OS X."
   end
 end
 
+def sym_link_for_root(file)
+  source = Pathname.new("#{ENV["HOME"]}/#{file}")
+  target = Pathname.new("/var/root/#{file}")
+
+  puts "\n~> Symlinking #{file}"
+  puts "~> Source #{source.to_s}"
+  puts "~> Target #{target.to_s}"
+
+  # Symlink the whole directory if target is root user (keeps in sync with user), otherwise we symlink only what is necessary
+  if source.directory?
+    puts "~> Symlinking whole directory where possible so that root/user remain in sync with eachother"
+  end
+  run %{ sudo ln -nfs "#{source.to_s}" "#{target.to_s}" }
+end
+
 def sym_link(source_file, target_file)
-  source = Pathname.new("#{ENV["PWD"]}/#{source_file}")
+  source = Pathname.new("#{File.dirname(__FILE__)}/#{source_file}")
   target = Pathname.new("#{ENV["HOME"]}/#{target_file}")
 
   puts "\n~> Symlinking #{source_file}"
