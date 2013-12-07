@@ -57,10 +57,10 @@ Bundle 'majutsushi/tagbar'
 let g:tagbar_compact = 1
 let g:tagbar_autoshowtag = 1
 
-" VIM-EASYMOTION
-" Provides easy vim motions
+" VIM-SNEAK
+" Provides easy vim motion
 " --------------
-Bundle 'Lokaltog/vim-easymotion'
+Bundle 'justinmk/vim-sneak'
 
 " DELIMITMATE
 " Provides automatic closing of quotes, parenthesis, brackets, etc...

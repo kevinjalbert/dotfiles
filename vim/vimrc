@@ -235,6 +235,14 @@ nmap <leader>l :b#<CR>
 nnoremap <f2> :NERDTreeTabsToggle<cr>
 nmap <leader><f2> :NERDTreeFind<cr>
 
+" Change Sneak next/prev keys
+nmap f <Plug>SneakForward
+nmap F <Plug>SneakBackward
+nmap ' <Plug>SneakNext
+xmap ' <Plug>VSneakNext
+nmap " <Plug>SneakPrevious
+xmap " <Plug>VSneakPrevious
+
 " Toggle TagList
 nnoremap <f3> :TagbarToggle<cr>
 
