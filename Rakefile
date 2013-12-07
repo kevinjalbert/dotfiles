@@ -50,7 +50,8 @@ end
 
 def get_brew_cask_packages
   return %w(
-    app-cleaner
+    alfred
+    appcleaner
     bartender
     cyberduck
     diffmerge
@@ -316,6 +317,7 @@ def install_brew_cask_packages
     get_brew_cask_packages.each do |package|
       run %{ brew cask install --force #{package} }
     end
+    run %{ brew cask alfred link }
   end
 end
 
