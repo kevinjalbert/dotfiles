@@ -23,6 +23,7 @@ end
 
 def get_brew_packages
   return %w(
+    ack
     brew-cask
     ctags
     git
@@ -53,6 +54,7 @@ def get_brew_cask_packages
     alfred
     appcleaner
     bartender
+    controlplane
     cyberduck
     diffmerge
     doxie
