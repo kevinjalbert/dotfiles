@@ -1,1 +1,1 @@
-let g:autotagTagsFile=".tags"
+let g:autotagTagsFile=".git/.tags"

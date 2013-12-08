@@ -52,4 +52,4 @@ set splitbelow
 set splitright
 
 " Set default tag locations
-:set tags=.tags
+:set tags=.git/tags
