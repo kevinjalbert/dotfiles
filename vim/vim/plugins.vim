@@ -85,3 +85,6 @@ Bundle 'nathanaelkane/vim-command-w'
 
 " Ability to use ack (ag)
 Bundle 'mileszs/ack.vim'
+
+" Allow Ctags to run when saving
+Bundle 'vim-scripts/AutoTag'
