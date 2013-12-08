@@ -1,179 +1,87 @@
-" VUNDLE
+" Load Bundles
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
 " Make sure we are using Vundle
-" ------
 Bundle 'gmarik/vundle'
 
-" AFTERCOLORS
 " Allows alteration to color schemes without modifying the actual schemes
-" -----------
 Bundle 'vim-scripts/AfterColors.vim'
 
-" GUNDO.VIM
 " Graphical undo tree
-" ---------
 Bundle 'sjl/gundo.vim'
 
-" CTRLP
 " Allows quick fuzzy searching within Vim
-" -----------
 Bundle 'kien/ctrlp.vim'
-let g:ctrlp_max_files = 1000000
-let g:ctrlp_match_window = 'order:ttb,max:15'
 
-" Search .* files/folders
-let g:ctrlp_show_hidden = 1
-
-" Custom file/folder ignores
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll|class)$',
-  \ }
-
-
-" VIM-SURROUND
 " Adds the ability to work with surroundings
-" ------------
 Bundle 'tpope/vim-surround'
 
-" ENDWISE
 " Adds 'end' where appropriate while coding (ruby's end if/function, etc...)
-" ------------
 Bundle 'tpope/vim-endwise'
 
-" YAIFA
 " Heuistically set buffer options
-" -----------
 Bundle 'vim-scripts/yaifa.vim'
 
-" REPEAT
 " Allows the repeat of a plugin map (using '.')
-" ----------
 Bundle 'tpope/vim-repeat'
 
-" TAGBAR
 " Displays an overview of the code's structure
-" -------
 Bundle 'majutsushi/tagbar'
-let g:tagbar_compact = 1
-let g:tagbar_autoshowtag = 1
 
-" VIM-SNEAK
 " Provides easy vim motion
-" --------------
 Bundle 'justinmk/vim-sneak'
 
-" DELIMITMATE
 " Provides automatic closing of quotes, parenthesis, brackets, etc...
-" -----------
 Bundle 'Raimondi/delimitMate'
-let g:delimitMate_expand_space = 1
-let g:delimitMate_expand_cr = 1
 
-" SYNTASTIC
 " Provides syntax checking for certain file types
-" ---------
 Bundle 'scrooloose/syntastic'
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
 
-" BUFTABS
 " Display buffers in the command line, works nicely with powerline
-" --------
 Bundle 'buftabs'
-noremap <silent> <leader>; :bprev<CR>
-noremap <silent> <leader>' :bnext<CR>
 
-" NERDTREE
 " Provides a directory tree explorer
-" --------
 Bundle 'scrooloose/nerdtree'
-let g:NERDTreeChDirMode=2
-let g:NERDTreeMouseMode = 2
-let g:NERDTreeWinSize = 40
 
-" NERDTREE-TABS
 " Provides a better experience with NERDtree
-" --------
 Bundle "jistr/vim-nerdtree-tabs"
 
-" NERDCOMMENTER
 " Provides many commenting operations and styles
-" --------
 Bundle 'scrooloose/nerdcommenter'
 
-" MATCHIT
 " Augments % matching
-" -------
 Bundle 'vim-scripts/matchit.zip'
 
-" INDEXEDSEARCH
 " Shows the current index of the search term
-" -------------
 Bundle 'vim-scripts/IndexedSearch'
 
-" YANKRING
 " Augments the yank/pasting functionality
-" --------
 Bundle 'vim-scripts/YankRing.vim'
 
-" SNIPMATE
 " Provides a set of snippets that can be used quickly
-" --------
 Bundle 'msanders/snipmate.vim'
-let g:snips_author = "Kevin Jalbert"
 
-" MARKDOWN
 " Provides syntax formating for markdown files
-" --------
 Bundle 'plasticboy/vim-markdown'
 
-" VIM-RUBY
 " Provides better Ruby support
-" --------
 Bundle 'vim-ruby/vim-ruby'
 
-" VIM_SIGNIFY
 " Shows the git diff in the gutter
-" --------
 Bundle 'mhinz/vim-signify'
-let g:signify_mapping_next_hunk = '<leader>gj'
-let g:signify_mapping_prev_hunk = '<leader>gk'
-let g:signify_mapping_toggle_highlight = '<leader>gh'
-let g:signify_mapping_toggle = '<leader>gt'
 
-" POWERLINE
 " Provides a better status line
-" --------
 Bundle 'Lokaltog/powerline'
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
-" YOUCOMPLETEME
 " A code-completion engine for Vim
-" --------
 Bundle 'Valloric/YouCompleteMe'
-let g:EclimCompletionMethod = 'omnifunc'
 
-" BUFKILL
 " Kill buffers instead of windows
-" --------
 Bundle 'bufkill.vim'
 
-" VIM-COMMAND-W
 " Kill buffers on CMD-W instead of windows for MacVim
-" --------
 Bundle 'nathanaelkane/vim-command-w'
 
-" ACK
 " Ability to use ack (ag)
-" --------
 Bundle 'mileszs/ack.vim'
-let g:ackprg = 'ag --nogroup --nocolor --column'  " Use ag instead of ack
-set grepprg=ag\ --nogroup\ --nocolor  " Use ag instead of grep
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'  " Use ag in CtrlP
-nmap <leader>a :Ack<space>
-
-" VIM-MULTIPLE-CURSORS
-" Multiple cursor editing in Vim
-" --------
-Bundle 'terryma/vim-multiple-cursors'
-

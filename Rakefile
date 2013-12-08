@@ -122,7 +122,6 @@ namespace :install do
     section "Symlinking Vim Files"
     sym_link 'vim/vim',                 '.vim'
     sym_link 'vim/vimrc',               '.vimrc'
-    sym_link 'vim/vimrc.bundles',       '.vimrc.bundles'
     sym_link 'vim/gvimrc',              '.gvimrc'
 
     section "Symlinking Zsh Files"
