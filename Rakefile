@@ -144,6 +144,7 @@ namespace :install do
 
     section "Symlinking Misc. Files"
     sym_link 'misc/agignore',           '.agignore'
+    sym_link 'misc/ctags',              '.ctags'
   end
 
   desc "Symlink Dotfiles (root)"
@@ -151,7 +152,6 @@ namespace :install do
     section "Symlinking Vim Files (root)"
     sym_link_for_root '.vim'
     sym_link_for_root '.vimrc'
-    sym_link_for_root '.vimrc.bundles'
     sym_link_for_root '.gvimrc'
 
     section "Symlinking Zsh Files (root)"
@@ -174,6 +174,7 @@ namespace :install do
 
     section "Symlinking Misc. Files (root)"
     sym_link_for_root '.agignore'
+    sym_link_for_root '.ctags'
   end
 
   desc "Install Brew"

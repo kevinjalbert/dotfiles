@@ -50,3 +50,6 @@ set nofoldenable
 " Set window splits to appear below or to the right
 set splitbelow
 set splitright
+
+" Set default tag locations
+:set tags=.tags

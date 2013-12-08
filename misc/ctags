@@ -1,0 +1,6 @@
+--fields=+l
+-a
+--tag-relative
+-R
+--exclude=.git
+--languages=-sql
