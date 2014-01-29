@@ -1,8 +1,5 @@
-dotfiles
+Dotfiles
 ========
+[![Gitter Chat](http://img.shields.io/chat/gitter.png?color=brightgreen)](https://gitter.im/kevinjalbert/dotfiles)
 
 My dotfiles (vim/zsh)
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/kevinjalbert/dotfiles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
