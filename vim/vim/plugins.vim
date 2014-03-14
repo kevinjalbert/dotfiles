@@ -68,6 +68,12 @@ Bundle 'plasticboy/vim-markdown'
 " Provides better Ruby support
 Bundle 'vim-ruby/vim-ruby'
 
+" Provides better Rails support
+Bundle 'tpope/vim-rails'
+
+" Provides better Ruby/Rake support
+Bundle 'tpope/vim-rake'
+
 " Shows the git diff in the gutter
 Bundle 'mhinz/vim-signify'
 
