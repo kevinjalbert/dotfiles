@@ -17,7 +17,8 @@ task :default => [:install]
 
 def get_brew_taps
   return %w(
-    phinze/homebrew-cask
+    phinze/cask
+    caskroom/versions
   )
 end
 
@@ -28,24 +29,25 @@ def get_brew_packages
     ctags
     git
     git-extras
+    hr
     htop
     imagesnap
+    imagemagick
     vim
     mercurial
     mysql
-    rabbitmq
     node
     openssl
     python
     python3
     readline
+    redis
     libyaml
+    s3cmd
     sqlite
-    subversion
     the_silver_searcher
     zsh
     z
-    https://raw.github.com/Homebrew/homebrew-dupes/master/ant.rb
   )
 end
 
@@ -54,37 +56,42 @@ def get_brew_cask_packages
     alfred
     appcleaner
     bartender
-    controlplane
     cyberduck
     diffmerge
     doxie
     dropbox
-    eclipse-ide
     evernote
     f-lux
     firefox
     fluid
+    gitter
     google-chrome
+    google-drive
     handbrake
-    hip-chat
-    hyper-switch
+    hipchat
+    hyperswitch
+    istat-menus3
     iterm2
     macvim
     mou
+    openemu
     osxfuse
-    postgres
-    rescue-time
+    postgres-app
+    rescuetime
     sequel-pro
     shortcat
     skype
     sourcetree
     steam
-    sublime-text-3
+    sublime-text3
     the-unarchiver
     tuxguitar
-    u-torrent
-    unetbootin
+    utorrent
+    vagrant
+    vimediamanager
+    virtualbox
     vlc
+    whatpulse
   )
 end
 
