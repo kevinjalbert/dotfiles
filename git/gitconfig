@@ -3,7 +3,7 @@
 	email = kevin.j.jalbert@gmail.com
 
 [core]
-	excludesfile = /Users/jalbert/.gitignore_global
+	excludesfile = /Users/kjalbert/.gitignore_global
 	editor = /usr/bin/vim
 	filemode = false
 
