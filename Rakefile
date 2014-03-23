@@ -41,11 +41,13 @@ def get_brew_packages
     python
     python3
     readline
+    reattach-to-user-namespace
     redis
     libyaml
     s3cmd
     sqlite
     the_silver_searcher
+    tmux
     zsh
     z
   )
@@ -154,6 +156,7 @@ namespace :install do
     section "Symlinking Misc. Files"
     sym_link 'misc/agignore',           '.agignore'
     sym_link 'misc/ctags',              '.ctags'
+    sym_link 'misc/tmux.conf',          '.tmux.conf'
   end
 
   desc "Symlink Dotfiles (root)"
@@ -186,6 +189,7 @@ namespace :install do
     section "Symlinking Misc. Files (root)"
     sym_link_for_root '.agignore'
     sym_link_for_root '.ctags'
+    sym_link_for_root '.tmux.conf'
   end
 
   desc "Install Brew"
