@@ -74,5 +74,5 @@ if [[ -d "$TMPDIR" ]]; then
   fi
 fi
 
-# Make it so the cask installs go to the root application dir
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+# Source all the exports
+source "${ZDOTDIR:-$HOME}/.zexports"

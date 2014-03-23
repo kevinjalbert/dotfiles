@@ -139,6 +139,8 @@ namespace :install do
     sym_link 'zsh/zshenv',              '.zshenv'
     sym_link 'zsh/zshrc',               '.zshrc'
     sym_link 'zsh/zpreztorc',           '.zpreztorc'
+    sym_link 'zsh/zaliases',            '.zaliases'
+    sym_link 'zsh/zexports',            '.zexports'
 
     section "Symlinking Git Files"
     sym_link 'git/git',                 '.git'
@@ -169,6 +171,8 @@ namespace :install do
     sym_link_for_root '.zshenv'
     sym_link_for_root '.zshrc'
     sym_link_for_root '.zpreztorc'
+    sym_link_for_root '.zaliases'
+    sym_link_for_root '.zexports'
 
     section "Symlinking Git Files (root)"
     sym_link_for_root '.git'
