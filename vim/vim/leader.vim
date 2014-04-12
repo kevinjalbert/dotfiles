@@ -13,7 +13,7 @@ nmap <leader>l :b#<CR>
 nmap <leader><f2> :NERDTreeFind<cr>
 
 " Quickfinding with CtrlP
-nmap ,f :CtrlPMixed<CR>
+nmap ,f :CtrlPRoot<CR>
 nmap ,t :CtrlPBufTagAll<CR>
 nmap ,e :CtrlPBuffer<CR>
 

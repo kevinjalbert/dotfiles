@@ -36,3 +36,9 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
+# Version Control #
+###################
+.git
+.hg
+.svn
