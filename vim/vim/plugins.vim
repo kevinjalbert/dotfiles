@@ -101,3 +101,5 @@ Bundle 'tpope/vim-fugitive'
 " Provides a visual git interface
 Bundle 'gregsexton/gitv'
 
+" Syntax support for RABL files, and treat them like ruby files
+Bundle 'yaymukund/vim-rabl'
