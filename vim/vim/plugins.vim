@@ -94,3 +94,10 @@ Bundle 'mileszs/ack.vim'
 
 " Allow Ctags to run when saving
 Bundle 'vim-scripts/AutoTag'
+
+" A Git wrapper to allow for the usage of Git commands
+Bundle 'tpope/vim-fugitive'
+
+" Provides a visual git interface
+Bundle 'gregsexton/gitv'
+
