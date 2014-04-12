@@ -1,6 +1,3 @@
-" Strip whitespace on save
-autocmd BufWritePre * :%s/\s\+$//e
-
 " Automatically rebalance windows when resizing vim
 autocmd VimResized * :wincmd =
 
