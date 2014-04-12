@@ -1,1 +1,4 @@
 alias mvim='open -a MacVim'
+alias be='bundle exec'
+alias j='jump'
+alias gg='git grep'
