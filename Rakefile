@@ -156,6 +156,9 @@ namespace :install do
     sym_link 'ruby/rspec',              '.rspec'
     sym_link 'ruby/gemrc',              '.gemrc'
 
+    section "Symlinking Bin Files"
+    sym_link 'bin',         'bin'
+
     section "Symlinking Misc. Files"
     sym_link 'misc/agignore',           '.agignore'
     sym_link 'misc/ctags',              '.ctags'
@@ -188,6 +191,9 @@ namespace :install do
     section "Symlinking Ruby Files (root)"
     sym_link_for_root '.rspec'
     sym_link_for_root '.gemrc'
+
+    section "Symlinking Bin Files (root)"
+    sym_link_for_root 'bin'
 
     section "Symlinking Misc. Files (root)"
     sym_link_for_root '.agignore'
