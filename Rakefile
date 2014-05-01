@@ -7,7 +7,7 @@ This Rakefile should not be ran with sudo, it will use sudo where nessecary.
 Symlinking root files should be done last to ensure everything is setup first.
 
 To perform tasks in a 'dry run' state append the following to your command:
-  ENV[DRY_RUN]=
+  DRY_RUN=
 =end
 
 require 'rake'
@@ -33,11 +33,13 @@ def get_brew_packages
     htop
     imagesnap
     imagemagick
+    jq
     vim
     mercurial
     mysql
     node
     openssl
+    postgresql
     python
     python3
     readline
@@ -78,6 +80,7 @@ def get_brew_cask_packages
     mou
     openemu
     osxfuse
+    pg-commander
     postgres-app
     rescuetime
     sequel-pro
