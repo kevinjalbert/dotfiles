@@ -155,6 +155,7 @@ namespace :install do
     section "Symlinking Ruby Files"
     sym_link 'ruby/rspec',              '.rspec'
     sym_link 'ruby/gemrc',              '.gemrc'
+    sym_link 'ruby/rubocop.yml',        '.rubocop.yml'
 
     section "Symlinking Bin Files"
     sym_link 'bin',         'bin'
@@ -191,6 +192,7 @@ namespace :install do
     section "Symlinking Ruby Files (root)"
     sym_link_for_root '.rspec'
     sym_link_for_root '.gemrc'
+    sym_link_for_root '.rubocop.yml'
 
     section "Symlinking Bin Files (root)"
     sym_link_for_root 'bin'
