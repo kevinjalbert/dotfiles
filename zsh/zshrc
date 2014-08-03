@@ -23,9 +23,6 @@ source `brew --prefix`/etc/profile.d/z.sh
 # Loads RVM into the shell's session
 [[ -s "$HOME/.rvm/scripts/rvm"  ]] && . "$HOME/.rvm/scripts/rvm"
 
-# Change ruby to 2.0.0 using RVM
-rvm 2.0.0
-
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 # Source all the aliases
