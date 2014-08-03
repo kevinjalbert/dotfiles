@@ -1,9 +1,9 @@
 " Load Bundles
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/vundle.vim/
 call vundle#rc()
 
 " Make sure we are using Vundle
-Bundle 'gmarik/vundle'
+Bundle 'gmarik/Vundle.vim'
 
 " Allows alteration to color schemes without modifying the actual schemes
 Bundle 'vim-scripts/AfterColors.vim'
