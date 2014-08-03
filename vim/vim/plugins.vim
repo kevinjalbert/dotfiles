@@ -29,9 +29,6 @@ Bundle 'tpope/vim-repeat'
 " Displays an overview of the code's structure
 Bundle 'majutsushi/tagbar'
 
-" Provides easy vim motion
-Bundle 'justinmk/vim-sneak'
-
 " Provides automatic closing of quotes, parenthesis, brackets, etc...
 Bundle 'Raimondi/delimitMate'
 
@@ -86,9 +83,6 @@ Bundle 'Valloric/YouCompleteMe'
 " Kill buffers instead of windows
 Bundle 'bufkill.vim'
 
-" Kill buffers on CMD-W instead of windows for MacVim
-Bundle 'nathanaelkane/vim-command-w'
-
 " Ability to use ack (ag)
 Bundle 'mileszs/ack.vim'
 
@@ -103,3 +97,6 @@ Bundle 'gregsexton/gitv'
 
 " Syntax support for RABL files, and treat them like ruby files
 Bundle 'yaymukund/vim-rabl'
+
+" Add ability to make table alignments
+Bundle 'godlygeek/tabular'

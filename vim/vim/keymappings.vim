@@ -42,14 +42,6 @@ nnoremap Y y$
 " Toggle NERD Tree
 nnoremap <f2> :NERDTreeTabsToggle<cr>
 
-" Change Sneak next/prev keys
-nmap f <Plug>SneakForward
-nmap F <Plug>SneakBackward
-nmap ' <Plug>SneakNext
-xmap ' <Plug>VSneakNext
-nmap " <Plug>SneakPrevious
-xmap " <Plug>VSneakPrevious
-
 " Toggle TagList
 nnoremap <f3> :TagbarToggle<cr>
 
@@ -76,3 +68,9 @@ nnoremap ; :noh<CR>:<backspace>
 
 " Easy way to surround a word using surround.vim
 map sw ysiw
+
+" Tabular keymappings
+nmap <leader><leader>a= :Tabularize /=<CR>
+vmap <leader><leader>a= :Tabularize /=<CR>
+nmap <leader><leader>a: :Tabularize /:\zs<CR>
+vmap <leader><leader>a: :Tabularize /:\zs<CR>
