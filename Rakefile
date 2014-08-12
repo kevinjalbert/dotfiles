@@ -324,7 +324,7 @@ end
 
 def install_brew
   if RUBY_PLATFORM.downcase.include?("darwin")
-    run %{ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)" }
+    run %{ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" }
   end
 end
 
