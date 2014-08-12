@@ -17,7 +17,7 @@ task :default => [:install]
 
 def get_brew_taps
   return %w(
-    phinze/cask
+    caskroom/cask
     caskroom/versions
   )
 end
