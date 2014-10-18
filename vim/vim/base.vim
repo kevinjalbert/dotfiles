@@ -12,6 +12,7 @@ set autoread
 
 " Automatically detect file types
 filetype plugin indent on
+au BufNewFile,BufRead *.es6 set filetype=javascript
 
 " Turn off null characters
 imap <Nul> <Space>
