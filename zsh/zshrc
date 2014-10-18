@@ -8,12 +8,6 @@
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-
-  # Explicitly source Zsh's Vim text-object module (opp.zsh)
-  # for some reason Prezto does not load it correctly
-  #
-  # This module's init.zsh has Vim keybindings and configs
-  source "${ZDOTDIR:-$HOME}/.zprezto/modules/opp.zsh/init.zsh"
 fi
 
 # Disable beeps
