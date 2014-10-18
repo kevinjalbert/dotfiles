@@ -1,6 +1,8 @@
 # Make it so the cask installs go to the root application dir
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
+export FZF_DEFAULT_OPTS="-x -m --sort 10000"
+
 # Include any secret exports
 if [ -f ~/.secrets ]; then
   source ~/.secrets

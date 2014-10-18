@@ -27,6 +27,7 @@ def get_brew_packages
     ack
     brew-cask
     ctags
+    fzf
     git
     git-extras
     hr

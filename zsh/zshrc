@@ -27,3 +27,4 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 # Source all the aliases
 source "${ZDOTDIR:-$HOME}/.zaliases"
+source ~/.fzf.zsh
