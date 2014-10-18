@@ -26,14 +26,19 @@ def get_brew_packages
   return %w(
     ack
     brew-cask
+    cgrep
+    coreutils
     ctags
+    elasticsearch
+    ffmpeg
     fzf
     git
     git-extras
     hr
-    htop
-    imagesnap
+    htop-osx
+    hub
     imagemagick
+    imagesnap
     jq
     vim
     mercurial
@@ -48,9 +53,13 @@ def get_brew_packages
     redis
     libyaml
     s3cmd
+    siege
+    sloccount
     sqlite
     the_silver_searcher
     tmux
+    vim
+    youtube-dl
     zsh
     z
   )
@@ -62,27 +71,27 @@ def get_brew_cask_packages
     appcleaner
     bartender
     cyberduck
+    dash
     diffmerge
     doxie
     dropbox
     evernote
+    eye-fi
     f-lux
     firefox
     fluid
     gitter
-    google-chrome
     google-drive
     handbrake
     hipchat
     hyperswitch
-    istat-menus3
+    istat-menus
     iterm2
-    macvim
+    logmein-hamachi
     mou
-    openemu
-    osxfuse
+    openemu-experimental
     pg-commander
-    postgres-app
+    postgres
     rescuetime
     sequel-pro
     shortcat
@@ -90,7 +99,9 @@ def get_brew_cask_packages
     sourcetree
     steam
     sublime-text3
+    teamviewer
     the-unarchiver
+    trailer
     tuxguitar
     utorrent
     vagrant
