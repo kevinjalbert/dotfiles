@@ -1,6 +1,6 @@
 alias mvim='open -a MacVim'
 alias be='bundle exec'
-alias bi='bundle install'
+alias bi='bundle install --jobs 4'
 alias bu='bundle update'
 alias j='jump'
 alias gg='git grep'
