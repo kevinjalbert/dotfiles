@@ -164,6 +164,7 @@ namespace :install do
     sym_link 'misc/agignore',           '.agignore'
     sym_link 'misc/ctags',              '.ctags'
     sym_link 'misc/tmux.conf',          '.tmux.conf'
+    sym_link 'misc/pryrc',              '.pryrc'
   end
 
   desc "Symlink Dotfiles (root)"
@@ -201,6 +202,7 @@ namespace :install do
     sym_link_for_root '.agignore'
     sym_link_for_root '.ctags'
     sym_link_for_root '.tmux.conf'
+    sym_link_for_root '.pryrc'
   end
 
   desc "Install Brew"
