@@ -100,3 +100,7 @@ Bundle 'yaymukund/vim-rabl'
 
 " Add ability to make table alignments
 Bundle 'godlygeek/tabular'
+
+" Add ability use GitHub Gist
+Bundle 'mattn/webapi-vim'
+Bundle 'mattn/gist-vim'
