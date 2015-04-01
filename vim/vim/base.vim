@@ -39,3 +39,7 @@ set ttymouse=xterm2
 set wildmode=full
 set wildmenu
 set wildignore=*.o,*.obj,*~
+
+" Map new leader (,) and localleader (\)
+let mapleader = ","
+let maplocalleader = "\\"
