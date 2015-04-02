@@ -1,5 +1,5 @@
 " Load Bundles
-set rtp+=~/.vim/bundle/vundle.vim/
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
 " Make sure we are using Vundle

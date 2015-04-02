@@ -390,8 +390,8 @@ def install_prezto
 end
 
 def install_vundle
-  unless File.exists?(File.join(ENV['HOME'], ".vim/bundle/vundle"))
-    run %{ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle }
+  unless File.exists?(File.join(ENV['HOME'], ".vim/bundle/Vundle.vim"))
+    run %{ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim }
     run %{ vim +BundleInstall +qall < `tty` > `tty` }
   else
     puts "~> Could not install Vim's Vundle. You might already have it installed."
