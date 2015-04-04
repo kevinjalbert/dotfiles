@@ -30,6 +30,13 @@ command! WQ wq
 command! Wq wq
 command! Q q
 
+" Allow misspelling of :wq
+cabbrev ew :wq
+cabbrev qw :wq
+
+" Start external commands with a single bang
+nnoremap ! :!
+
 " A better way to move between windows
 nnoremap <silent> J <C-W>j
 nnoremap <silent> K <C-W>k
