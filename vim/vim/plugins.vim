@@ -75,7 +75,7 @@ Bundle 'tpope/vim-rake'
 Bundle 'mhinz/vim-signify'
 
 " Provides a better status line
-Bundle 'Lokaltog/powerline'
+Bundle 'bling/vim-airline'
 
 " A code-completion engine for Vim
 Bundle 'Valloric/YouCompleteMe'

@@ -1,0 +1,9 @@
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline_section_b = ''
+let g:airline_section_x = ''
+let g:airline_section_y = '%y %LL'
+let g:airline_section_z = '%4lL %3cC'
+let g:airline#extensions#virtualenv#enabled = 0
