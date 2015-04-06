@@ -44,7 +44,7 @@ nnoremap <silent> H <C-W>h
 nnoremap <silent> L <C-W>l
 
 " Make Y consistent with C and D (Yank till end of line)
-nnoremap Y y$
+nmap Y y$
 
 " Toggle NERD Tree
 nnoremap <f2> :NERDTreeTabsToggle<cr>
