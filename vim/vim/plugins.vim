@@ -98,8 +98,6 @@ Bundle 'gregsexton/gitv'
 " Syntax support for RABL files, and treat them like ruby files
 Bundle 'yaymukund/vim-rabl'
 
-" Add ability to make table alignments
-Bundle 'godlygeek/tabular'
 
 " Add feedback for substitution
 Bundle 'osyo-manga/vim-over'

@@ -76,8 +76,3 @@ nnoremap ; :noh<CR>:<backspace>
 " Easy way to surround a word using surround.vim
 map sw ysiw
 
-" Tabular keymappings
-nmap <leader><leader>a= :Tabularize /=<CR>
-vmap <leader><leader>a= :Tabularize /=<CR>
-nmap <leader><leader>a: :Tabularize /:\zs<CR>
-vmap <leader><leader>a: :Tabularize /:\zs<CR>
