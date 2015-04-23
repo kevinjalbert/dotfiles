@@ -108,3 +108,6 @@ Bundle 'mattn/gist-vim'
 
 " Ability to have a scratch notepad
 Plugin 'mtth/scratch.vim'
+
+" Add additional vim object targets
+Bundle 'wellle/targets.vim'
