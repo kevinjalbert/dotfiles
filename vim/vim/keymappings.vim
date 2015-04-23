@@ -76,3 +76,7 @@ nnoremap ; :noh<CR>:<backspace>
 " Easy way to surround a word using surround.vim
 map sw ysiw
 
+if has('nvim')
+  " While in a terminal use esc to drop into normal mode
+  tnoremap <esc> <c-\><c-n>
+end

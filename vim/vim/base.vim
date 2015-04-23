@@ -2,7 +2,7 @@
 set nocompatible
 
 " Set default shell to be bash
-set shell=/bin/sh
+set shell=/bin/zsh
 
 " Speed up ESC from insert
 set ttimeoutlen=50
