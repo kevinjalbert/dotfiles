@@ -105,3 +105,6 @@ Bundle 'osyo-manga/vim-over'
 " Add ability use GitHub Gist
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
+
+" Ability to have a scratch notepad
+Plugin 'mtth/scratch.vim'
