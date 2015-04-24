@@ -20,13 +20,12 @@ noremap <silent> <leader>. :bnext<CR>
 " Search the current directory with ag using ack.vim
 nmap <leader>a :Ack<space>
 
-" Find and replace text under cursor
-" http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor
-nnoremap <leader>s :%s/\<<C-r><C-w>\>/
+" Find and replace text under cursor (use vim-over)
+nnoremap <leader>s :OverCommandLine<CR> %s/<C-r><C-w>/
 
 " Better substitution using vim-over
 function! VisualFindAndReplace()
-    :OverCommandLine%s/
+    :OverCommandLine %s/
     :noh
 endfunction
 function! VisualFindAndReplaceWithSelection() range
