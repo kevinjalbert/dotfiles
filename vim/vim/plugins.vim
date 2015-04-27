@@ -109,5 +109,8 @@ Bundle 'mattn/gist-vim'
 " Ability to have a scratch notepad
 Plugin 'mtth/scratch.vim'
 
+" Able to visually increase a sequence of number
+Bundle 'triglav/vim-visual-increment'
+
 " Add additional vim object targets
 Bundle 'wellle/targets.vim'
