@@ -95,6 +95,8 @@ Bundle 'gregsexton/gitv'
 " Syntax support for RABL files, and treat them like ruby files
 Bundle 'yaymukund/vim-rabl'
 
+" Vim start screen
+Bundle 'mhinz/vim-startify'
 
 " Add feedback for substitution
 Bundle 'osyo-manga/vim-over'

@@ -58,3 +58,7 @@ set splitright
 
 " Set default tag locations
 :set tags=.git/tags
+
+" Allow vim-startify to cooperate with NERDTree and CtrlP (for some reason
+" placement in `plugin_settings/vim-startify.vim` wouldn't work)
+autocmd User Startified setlocal buftype=
