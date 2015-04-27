@@ -42,3 +42,27 @@ autocmd BufReadPost fugitive://*
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
   \   nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
+
+" Integrate incsearch and easymotion
+" https://github.com/Lokaltog/vim-easymotion/issues/146#issuecomment-75443473
+" Can use / for 'normal searching', at anytime its possible to use <space> to
+" pass search over to easymotion. To use spaces in search you need to apply
+" them via the regex approach \s.
+augroup incsearch-easymotion
+  autocmd!
+  autocmd User IncSearchEnter autocmd! incsearch-easymotion-impl
+augroup END
+augroup incsearch-easymotion-impl
+  autocmd!
+augroup END
+function! IncsearchEasyMotion() abort
+  autocmd incsearch-easymotion-impl User IncSearchExecute :silent! call EasyMotion#Search(0, 2, 0)
+  return "\<CR>"
+endfunction
+let g:incsearch_cli_key_mappings = {
+\   "\<Space>": {
+\       'key': 'IncsearchEasyMotion()',
+\       'noremap': 1,
+\       'expr': 1
+\   }
+\ }

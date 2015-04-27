@@ -20,12 +20,20 @@ set nobackup
 set nowb
 set noswapfile
 
-" Search settings
-set incsearch
+" Use incsearch.vim for all search functions (with anzu for indication)
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+let g:incsearch#auto_nohlsearch = 1
 set hlsearch
 set ignorecase
 set smartcase
-set wrapscan
+map n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
+map N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+map * <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
+map # <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
+let g:airline#extensions#anzu#enabled = 0
+let g:anzu_status_format = "%p(%i/%l) %w"
 
 " Enable spell check when writing commit logs
 autocmd filetype svn,*commit* setlocal spell

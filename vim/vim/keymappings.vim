@@ -70,11 +70,15 @@ vnoremap <f7> zf
 " Toggle Gundo
 nnoremap <f8> :GundoToggle<CR>
 
-" This unsets the 'last search pattern' register by hitting ;
-nnoremap ; :noh<CR>:<backspace>
-
 " Easy way to surround a word using surround.vim
 map sw ysiw
+
+" Two character seek (vim-easymotion)
+map <Space>s <Plug>(easymotion-s2)
+
+" jk motions: Line motions (vim-easymotion)
+map <Space>j <Plug>(easymotion-j)
+map <Space>k <Plug>(easymotion-k)
 
 if has('nvim')
   " While in a terminal use esc to drop into normal mode

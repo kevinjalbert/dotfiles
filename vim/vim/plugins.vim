@@ -50,9 +50,6 @@ Bundle 'scrooloose/nerdcommenter'
 " Augments % matching
 Bundle 'vim-scripts/matchit.zip'
 
-" Shows the current index of the search term
-Bundle 'vim-scripts/IndexedSearch'
-
 " Augments the yank/pasting functionality
 Bundle 'vim-scripts/YankRing.vim'
 
@@ -114,3 +111,8 @@ Bundle 'triglav/vim-visual-increment'
 
 " Add additional vim object targets
 Bundle 'wellle/targets.vim'
+
+" All around better searching
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'haya14busa/incsearch.vim'
+Bundle 'osyo-manga/vim-anzu'
