@@ -31,6 +31,9 @@ set backspace=indent,eol,start
 " Enable syntax highlighting
 syntax on
 
+" Show the file in the terminal title
+set title
+
 " Enable mouse within terminal
 set mouse=a
 set ttymouse=xterm2
