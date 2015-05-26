@@ -1,7 +1,7 @@
 " Use vim settings instead of vi
 set nocompatible
 
-" Set default shell to be bash
+" Set default shell to be zsh
 set shell=/bin/zsh
 
 " Speed up ESC from insert
@@ -36,7 +36,6 @@ set title
 
 " Enable mouse within terminal
 set mouse=a
-set ttymouse=xterm2
 
 " Make command line tab complete with cycling
 set wildmode=full
