@@ -1,5 +1,23 @@
---fields=+l
---tag-relative
+--quiet
 -R
 --exclude=.git
---languages=-sql
+--exclude=log
+--exclude=node_modules
+--exclude=coverage
+--exclude=bower_components
+--exclude=dist
+--exclude=tmp
+--exclude=vendor
+--exclude=*.min.js
+--exclude=*.css
+--exclude=*.yml
+--exclude=*.json
+--tag-relative=yes
+--extra=+q+f
+--fields=+i+a+S+n
+
+--langdef=markdown
+--langmap=markdown:.mkd
+--regex-markdown=/^#[ \t]+(.*)/\1/h,Heading_L1/
+--regex-markdown=/^##[ \t]+(.*)/\1/i,Heading_L2/
+--regex-markdown=/^###[ \t]+(.*)/\1/k,Heading_L3/
