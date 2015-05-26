@@ -45,9 +45,8 @@ autocmd BufReadPost fugitive://*
 
 " Integrate incsearch and easymotion
 " https://github.com/Lokaltog/vim-easymotion/issues/146#issuecomment-75443473
-" Can use / for 'normal searching', at anytime its possible to use <space> to
-" pass search over to easymotion. To use spaces in search you need to apply
-" them via the regex approach \s.
+" Can use / for 'normal searching', at anytime its possible to use alt + space
+" to pass search over to easymotion.
 augroup incsearch-easymotion
   autocmd!
   autocmd User IncSearchEnter autocmd! incsearch-easymotion-impl
@@ -60,7 +59,7 @@ function! IncsearchEasyMotion() abort
   return "\<CR>"
 endfunction
 let g:incsearch_cli_key_mappings = {
-\   "\<Space>": {
+\   "\<M-Space>": {
 \       'key': 'IncsearchEasyMotion()',
 \       'noremap': 1,
 \       'expr': 1
