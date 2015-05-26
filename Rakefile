@@ -114,17 +114,17 @@ end
 
 desc "Install Everything"
 task :install do
-  Rake::Task['install:symlinks'].invoke
   Rake::Task['install:brew'].invoke
   Rake::Task['install:brew_packages'].invoke
   Rake::Task['install:brew_cask_packages'].invoke
+  Rake::Task['install:prezto'].invoke
   Rake::Task['install:rvm'].invoke
   Rake::Task['install:fonts'].invoke
   Rake::Task['install:vundle'].invoke
   Rake::Task['update:vim'].invoke
-  Rake::Task['install:prezto'].invoke
-  Rake::Task['install:osx'].invoke
+  Rake::Task['install:symlinks'].invoke
   Rake::Task['install:symlinks_root'].invoke
+  Rake::Task['install:osx'].invoke
 end
 
 desc "Update Everything"
@@ -340,7 +340,7 @@ end
 
 def install_brew
   if RUBY_PLATFORM.downcase.include?("darwin")
-    run %{ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" }
+    run %{ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" }
   end
 end
 
@@ -359,7 +359,7 @@ end
 def install_brew_cask_packages
   if RUBY_PLATFORM.downcase.include?("darwin")
     get_brew_cask_packages.each do |package|
-      run %{ brew cask install --force #{package} }
+      run %{ brew cask install --appdir=/Applications --force #{package} }
     end
     run %{ brew cask alfred link }
   end
