@@ -114,7 +114,7 @@ end
 
 desc "Install Everything"
 task :install do
-  Rake::Task['install:brew'].invoke
+  Rake::Task['install:homebrew'].invoke
   Rake::Task['install:brew_packages'].invoke
   Rake::Task['install:brew_cask_packages'].invoke
   Rake::Task['install:prezto'].invoke
@@ -219,10 +219,10 @@ namespace :install do
     sym_link_for_root '.pryrc'
   end
 
-  desc "Install Brew"
-  task :brew do
-    section "Installing Brew"
-    install_brew
+  desc "Install Homebrew"
+  task :homebrew do
+    section "Installing Homebrew"
+    install_homebrew
   end
 
   desc "Install Brew Packages"
@@ -338,15 +338,15 @@ def uninstall_brew_cask_packages
   run %( brew cask uninstall #{get_brew_cask_packages.join(" ")} )
 end
 
-def install_brew
+def install_homebrew
   run %( ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" )
-end
 
-def install_brew_packages
   get_brew_taps.each do |package|
     run %( brew tap #{package} )
   end
+end
 
+def install_brew_packages
   get_brew_packages.each do |package|
     run %( brew install #{package} )
   end
