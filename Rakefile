@@ -339,46 +339,32 @@ def uninstall_brew_cask_packages
 end
 
 def install_brew
-  if RUBY_PLATFORM.downcase.include?("darwin")
-    run %{ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" }
-  end
+  run %{ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" }
 end
 
 def install_brew_packages
-  if RUBY_PLATFORM.downcase.include?("darwin")
-    get_brew_taps.each do |package|
-      run %{ brew tap #{package} }
-    end
+  get_brew_taps.each do |package|
+    run %{ brew tap #{package} }
+  end
 
-    get_brew_packages.each do |package|
-      run %{ brew install #{package} }
-    end
+  get_brew_packages.each do |package|
+    run %{ brew install #{package} }
   end
 end
 
 def install_brew_cask_packages
-  if RUBY_PLATFORM.downcase.include?("darwin")
-    get_brew_cask_packages.each do |package|
-      run %{ brew cask install --appdir=/Applications --force #{package} }
-    end
-    run %{ brew cask alfred link }
+  get_brew_cask_packages.each do |package|
+    run %{ brew cask install --appdir=/Applications --force #{package} }
   end
+  run %{ brew cask alfred link }
 end
 
 def install_rvm
-  if RUBY_PLATFORM.downcase.include?("darwin")
-    run %{ curl -L https://get.rvm.io | bash -s stable --ruby }
-  else
-    puts "~> Could not install RVM. Check if you were running as root or not using OS X."
-  end
+  run %{ curl -L https://get.rvm.io | bash -s stable --ruby }
 end
 
 def install_fonts
-  if RUBY_PLATFORM.downcase.include?("darwin")
-    run %{ cp -f #{File.dirname(__FILE__)}/fonts/* $HOME/Library/Fonts }
-  else
-    puts "~> Could not install fonts. Check if you were running as root or not using OS X."
-  end
+  run %{ cp -f #{File.dirname(__FILE__)}/fonts/* $HOME/Library/Fonts }
 end
 
 def install_prezto
@@ -401,11 +387,7 @@ def install_vundle
 end
 
 def install_osx
-  if RUBY_PLATFORM.downcase.include?("darwin")
-    run %{ ./misc/osx }
-  else
-    puts "~> Could not install OS X Configurations. Check if you were running as root or not using OS X."
-  end
+  run %{ ./misc/osx }
 end
 
 def sym_link_for_root(file)
