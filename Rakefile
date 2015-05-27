@@ -315,13 +315,13 @@ def run(cmd)
 end
 
 def update_vim
-  run %{ vim -c "BundleInstall" -c "q" -c "q" }
-  run %{ cd ~/.vim/bundle/YouCompleteMe && sh install.sh }
+  run %( vim -c "BundleInstall" -c "q" -c "q" )
+  run %( cd ~/.vim/bundle/YouCompleteMe && sh install.sh )
 end
 
 def update_brew_packages
-  run %{ brew update }
-  run %{ brew upgrade }
+  run %( brew update )
+  run %( brew upgrade )
 end
 
 def update_brew_cask_packages
@@ -331,47 +331,47 @@ def update_brew_cask_packages
 end
 
 def uninstall_brew_packages
-  run %{ brew rm #{get_brew_packages.join(" ")} }
+  run %( brew rm #{get_brew_packages.join(" ")} )
 end
 
 def uninstall_brew_cask_packages
-  run %{ brew cask uninstall #{get_brew_cask_packages.join(" ")} }
+  run %( brew cask uninstall #{get_brew_cask_packages.join(" ")} )
 end
 
 def install_brew
-  run %{ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" }
+  run %( ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" )
 end
 
 def install_brew_packages
   get_brew_taps.each do |package|
-    run %{ brew tap #{package} }
+    run %( brew tap #{package} )
   end
 
   get_brew_packages.each do |package|
-    run %{ brew install #{package} }
+    run %( brew install #{package} )
   end
 end
 
 def install_brew_cask_packages
   get_brew_cask_packages.each do |package|
-    run %{ brew cask install --appdir=/Applications --force #{package} }
+    run %( brew cask install --appdir=/Applications --force #{package} )
   end
-  run %{ brew cask alfred link }
+  run %( brew cask alfred link )
 end
 
 def install_rvm
-  run %{ curl -L https://get.rvm.io | bash -s stable --ruby }
+  run %( curl -L https://get.rvm.io | bash -s stable --ruby )
 end
 
 def install_fonts
-  run %{ cp -f #{File.dirname(__FILE__)}/fonts/* $HOME/Library/Fonts }
+  run %( cp -f #{File.dirname(__FILE__)}/fonts/* $HOME/Library/Fonts )
 end
 
 def install_prezto
   unless File.exists?(File.join(ENV['ZDOTDIR'] || ENV['HOME'], ".zprezto"))
-    run %{ git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto" }
-    run %{ chsh -s /bin/zsh }
-    run %{ sudo chsh -s /bin/zsh }
+    run %( git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto" )
+    run %( chsh -s /bin/zsh )
+    run %( sudo chsh -s /bin/zsh )
   else
     puts "~> Could not install Zsh's Prezto. You might already have it installed."
   end
@@ -379,15 +379,15 @@ end
 
 def install_vundle
   unless File.exists?(File.join(ENV['HOME'], ".vim/bundle/Vundle.vim"))
-    run %{ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim }
-    run %{ vim +BundleInstall +qall < `tty` > `tty` }
+    run %( git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim )
+    run %( vim +BundleInstall +qall < `tty` > `tty` )
   else
     puts "~> Could not install Vim's Vundle. You might already have it installed."
   end
 end
 
 def install_osx
-  run %{ ./misc/osx }
+  run %( ./misc/osx )
 end
 
 def sym_link_for_root(file)
@@ -395,14 +395,14 @@ def sym_link_for_root(file)
   target = Pathname.new("/var/root/#{file}")
 
   puts "\n~> Symlinking #{file}"
-  puts "~> Source #{source.to_s}"
-  puts "~> Target #{target.to_s}"
+  puts "~> Source #{source}"
+  puts "~> Target #{target}"
 
   # Symlink the whole directory if target is root user (keeps in sync with user), otherwise we symlink only what is necessary
   if source.directory?
     puts "~> Symlinking whole directory where possible so that root/user remain in sync with eachother"
   end
-  run %{ sudo ln -nfs "#{source.to_s}" "#{target.to_s}" }
+  run %( sudo ln -nfs "#{source}" "#{target}" )
 end
 
 def sym_link(source_file, target_file)
@@ -410,8 +410,8 @@ def sym_link(source_file, target_file)
   target = Pathname.new("#{ENV["HOME"]}/#{target_file}")
 
   puts "\n~> Symlinking #{source_file}"
-  puts "~> Source #{source.to_s}"
-  puts "~> Target #{target.to_s}"
+  puts "~> Source #{source}"
+  puts "~> Target #{target}"
 
   # Make target path if it does not exist and proceed to symlink
   if source.directory?
@@ -430,9 +430,9 @@ def sym_link_directory(source, target)
     end
 
     if child.directory?
-      sym_link_directory child, Pathname.new("#{target.to_s}/#{child.basename.to_s}")
+      sym_link_directory child, Pathname.new("#{target}/#{child.basename}")
     elsif child.file?
-      sym_link_file child, Pathname.new("#{target.to_s}/#{child.basename.to_s}")
+      sym_link_file child, Pathname.new("#{target}/#{child.basename}")
     end
   end
 end
@@ -440,10 +440,10 @@ end
 def sym_link_file(source, target)
   if !target.exist?
     target.parent.mkpath unless target.parent.exist? || target.parent.symlink?
-    run %{ ln -nfs "#{source.to_s}" "#{target.to_s}" }
+    run %( ln -nfs "#{source}" "#{target}" )
   elsif source.realpath != target.realpath
-    puts "Overwriting #{target.to_s}... leaving original at #{target.to_s}.backup..."
-    run %{ mv "#{target.to_s}" "#{target.to_s}.backup" }
-    run %{ ln -nfs "#{source.to_s}" "#{target.to_s}" }
+    puts "Overwriting #{target}... leaving original at #{target}.backup..."
+    run %( mv "#{target}" "#{target}.backup" )
+    run %( ln -nfs "#{source}" "#{target}" )
   end
 end
