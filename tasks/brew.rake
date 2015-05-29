@@ -1,6 +1,6 @@
-BREW_TAPS_FILE = './brew/taps.txt'
-BREW_PACKAGES_FILE = './brew/packages.txt'
-BREW_CASK_PACKAGES_FILE = './brew/cask_packages.txt'
+BREW_TAPS_FILE = File.expand_path('../../brew/taps.txt', __FILE__)
+BREW_PACKAGES_FILE = File.expand_path('../../brew/packages.txt', __FILE__)
+BREW_CASK_PACKAGES_FILE = File.expand_path('../../brew/cask_packages.txt', __FILE__)
 
 namespace :install do
   desc "Install Homebrew"
