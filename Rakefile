@@ -18,6 +18,7 @@ desc "Backup Everything"
 task :backup do
   Rake::Task['backup:brew_packages'].invoke
   Rake::Task['backup:brew_cask_packages'].invoke
+  Rake::Task['backup:brew_taps'].invoke
 end
 
 desc "Install Everything"

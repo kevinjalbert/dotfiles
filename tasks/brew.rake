@@ -70,6 +70,23 @@ namespace :update do
   end
 end
 
+namespace :backup do
+  desc 'Backup Brew Packages'
+  task :brew_packages do
+    run %( brew list > #{BREW_PACKAGES_FILE} )
+  end
+
+  desc 'Backup Brew Cask Packages'
+  task :brew_cask_packages do
+    run %( brew cask list > #{BREW_CASK_PACKAGES_FILE} )
+  end
+
+  desc 'Backup Brew Taps'
+  task :brew_taps do
+    run %( brew tap > #{BREW_TAPS_FILE} )
+  end
+end
+
 def brew_taps
   File.readlines(BREW_PACKAGES_FILE).map(&:strip)
 end
