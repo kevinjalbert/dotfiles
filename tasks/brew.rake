@@ -1,115 +1,6 @@
-def get_brew_taps
-  return %w(
-    caskroom/cask
-    caskroom/versions
-  )
-end
-
-def get_brew_packages
-  return %w(
-    ack
-    brew-cask
-    cgrep
-    coreutils
-    ctags
-    elasticsearch
-    ffmpeg
-    fzf
-    gcc
-    git
-    git-extras
-    hr
-    htop-osx
-    hub
-    imagemagick
-    imagesnap
-    jq
-    vim
-    mackup
-    mercurial
-    mysql
-    node
-    openssl
-    postgresql
-    python
-    python3
-    qlcolorcode
-    qlstephen
-    qlmarkdown
-    quicklook-json
-    qlprettypatch
-    quicklook-csv
-    betterzipql
-    webp-quicklook
-    suspicious-package
-    reattach-to-user-namespace
-    redis
-    libyaml
-    s3cmd
-    siege
-    sloccount
-    sqlite
-    the_silver_searcher
-    tmux
-    vim
-    youtube-dl
-    zsh
-    z
-  )
-end
-
-def get_brew_cask_packages
-  return %w(
-    alfred
-    appcleaner
-    bartender
-    cyberduck
-    dash
-    diffmerge
-    doxie
-    dropbox
-    enjoyable
-    evernote
-    eye-fi
-    flux
-    firefox
-    fluid
-    gitter
-    google-drive
-    handbrake
-    hipchat
-    hyperswitch
-    ibettercharge
-    iexplorer
-    istat-menus
-    iterm2
-    karabiner
-    launchrocket
-    logmein-hamachi
-    mou
-    openemu-experimental
-    pg-commander
-    postgres
-    rescuetime
-    seil
-    sequel-pro
-    shortcat
-    skype
-    sourcetree
-    steam
-    sublime-text3
-    teamviewer
-    the-unarchiver
-    trailer
-    tuxguitar
-    utorrent
-    vagrant
-    vimediamanager
-    virtualbox
-    vlc
-    whatpulse
-  )
-end
+BREW_TAPS_FILE = './brew/taps.txt'
+BREW_PACKAGES_FILE = './brew/packages.txt'
+BREW_CASK_PACKAGES_FILE = './brew/cask_packages.txt'
 
 namespace :install do
   desc "Install Homebrew"
@@ -118,7 +9,7 @@ namespace :install do
 
     run %( ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" )
 
-    get_brew_taps.each do |package|
+    brew_taps.each do |package|
       run %( brew tap #{package} )
     end
   end
@@ -127,7 +18,7 @@ namespace :install do
   task :brew_packages do
     section "Installing Brew Packages"
 
-    get_brew_packages.each do |package|
+    brew_packages.each do |package|
       run %( brew install #{package} )
     end
   end
@@ -136,7 +27,7 @@ namespace :install do
   task :brew_cask_packages do
     section "Installing Brew Cask Packages"
 
-    get_brew_cask_packages.each do |package|
+    brew_cask_packages.each do |package|
       run %( brew cask install --appdir=/Applications --force #{package} )
     end
 
@@ -149,14 +40,14 @@ namespace :uninstall do
   task :brew_packages do
     section "Uninstalling Brew Packages"
 
-    run %( brew rm #{get_brew_packages.join(" ")} )
+    run %( brew rm #{brew_packages.join(" ")} )
   end
 
   desc "Uninstall Brew Cask Packages"
   task :brew_cask_packages do
     section "Uninstalling Brew Cask Packages"
 
-    run %( brew cask uninstall #{get_brew_cask_packages.join(" ")} )
+    run %( brew cask uninstall #{brew_cask_packages.join(" ")} )
   end
 end
 
@@ -177,4 +68,16 @@ namespace :update do
     Rake::Task['uninstall:brew_cask_packages'].invoke
     Rake::Task['install:brew_cask_packages'].invoke
   end
+end
+
+def brew_taps
+  File.readlines(BREW_PACKAGES_FILE).map(&:strip)
+end
+
+def brew_packages
+  File.readlines(BREW_TAPS_FILE).map(&:strip)
+end
+
+def brew_cask_packages
+  File.readlines(BREW_CASK_PACKAGES_FILE).map(&:strip)
 end
