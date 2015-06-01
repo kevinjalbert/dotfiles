@@ -1,14 +1,3 @@
-AllCops:
-  Include:
-    - '**/Rakefile'
-    - '**/*.rake'
-    - '**/*.rabl'
-  Exclude:
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'script/**/*'
-    - 'bin/**/*'
-
 ClassLength:
   Enabled: false
 
