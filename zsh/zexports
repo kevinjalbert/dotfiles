@@ -6,3 +6,5 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 if [ -f ~/.secrets ]; then
   source ~/.secrets
 fi
+
+export EDITOR=nvim

@@ -8,7 +8,11 @@
 " Author: Kevin Jalbert <kevin.j.jalbert@gmail.com>
 " ----------------------------------------------------------------------------
 
-let s:vim_home = '~/.vim/'
+if has('nvim')
+  let s:vim_home = '~/.config/nvim/'
+else
+  let s:vim_home = '~/.vim/'
+end
 
 let config_list = [
   \ 'base.vim',

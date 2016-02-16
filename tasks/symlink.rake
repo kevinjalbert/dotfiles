@@ -4,8 +4,8 @@ namespace :install do
     section "Symlinking Vim Files"
     sym_link 'vim/vim',                 '.vim'
     sym_link 'vim/vimrc',               '.vimrc'
-    sym_link 'vim/vim',                 '.nvim'
-    sym_link 'vim/vimrc',               '.nvimrc'
+    sym_link 'vim/vim',                 '.config/nvim'
+    sym_link 'vim/vimrc',               '.config/nvim/init.vim'
 
     section "Symlinking Zsh Files"
     sym_link 'zsh/zprezto',             '.zprezto'
@@ -43,8 +43,7 @@ namespace :install do
     section "Symlinking Vim Files (root)"
     sym_link_for_root '.vim'
     sym_link_for_root '.vimrc'
-    sym_link_for_root '.nvim'
-    sym_link_for_root '.nvimrc'
+    sym_link_for_root '.config/nvim'
 
     section "Symlinking Zsh Files (root)"
     sym_link_for_root '.zprezto'

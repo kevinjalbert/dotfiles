@@ -17,7 +17,9 @@ set expandtab
 if has("gui_running")
   set guifont=Inconsolata\ for\ Powerline:h13
 endif
-set antialias
+if has("vim")
+  set antialias
+end
 set laststatus=2
 
 " Line settings
