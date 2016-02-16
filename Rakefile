@@ -26,7 +26,7 @@ task :install do
   Rake::Task['install:homebrew'].invoke
   Rake::Task['install:brew_packages'].invoke
   Rake::Task['install:brew_cask_packages'].invoke
-  Rake::Task['install:prezto'].invoke
+  Rake::Task['install:zgen'].invoke
   Rake::Task['install:rvm'].invoke
   Rake::Task['install:fonts'].invoke
   Rake::Task['install:vundle'].invoke

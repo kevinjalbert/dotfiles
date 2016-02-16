@@ -1,14 +1,83 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+if [[ -s "${ZDOTDIR:-$HOME}/.zsh/zgen/zgen.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zsh/zgen/zgen.zsh"
 fi
+
+setopt correct
+
+# Source z directory navigation
+source `brew --prefix`/etc/profile.d/z.sh
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# Source all the aliases
+source "${ZDOTDIR:-$HOME}/.zaliases"
+
+# Source all the exports
+source "${ZDOTDIR:-$HOME}/.zexports"
+
+# check if there's no init script
+if ! zgen saved; then
+    echo "Creating a zgen save"
+
+    zgen oh-my-zsh
+
+    # plugins
+    zgen oh-my-zsh plugins/git
+    zgen oh-my-zsh plugins/command-not-found
+    zgen oh-my-zsh plugins/jump
+    zgen oh-my-zsh plugins/jsontools
+
+    # completions
+    zgen load zsh-users/zsh-completions src
+
+    # autosuggestions should be loaded last
+    zgen load jimmijj/zsh-syntax-highlighting
+    zgen load zsh-users/zsh-history-substring-search
+    zgen load tarruda/zsh-autosuggestions
+
+    # theme
+    zgen oh-my-zsh themes/nicoulaj
+
+    # save all to init script
+    zgen save
+fi
+
+# Use git-radar in right-prompt
+export GIT_RADAR_FORMAT=" %{remote: }%{branch}%{ :local}%{ :changes}"
+export RPROMPT="\$(git-radar --zsh --fetch) %{$FX[reset]%}"
+
+# fzf integration (hit tab with an ending ; to open fzf)
+source ~/.fzf.zsh
+export FZF_COMPLETION_TRIGGER=';'
+export FZF_DEFAULT_OPTS="-x -m --sort 10000"
+
+# Move words with Alt+arrow
+bindkey -e
+bindkey '[C' forward-word
+bindkey '[D' backward-word
+
+# Change history substring search colours (less 'flashy')
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=green,bold'
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red,bold'
+
+# bind UP and DOWN arrow keys
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+# bind UP and DOWN arrow keys (compatibility fallback
+# for Ubuntu 12.04, Fedora 21, and MacOSX 10.9 users)
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# bind P and N for EMACS mode
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+
+# bind k and j for VI mode
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
 # Disable beeps
 unsetopt beep
@@ -17,14 +86,15 @@ unsetopt beep
 # This fixes the "zsh: no matches found" errors
 unsetopt nomatch
 
-# Source z directory navigation
-source `brew --prefix`/etc/profile.d/z.sh
+# Set the list of directories that Zsh searches for programs.
+path=(
+  $HOME/bin
+  /usr/local/{bin,sbin}
+  /usr/{bin,sbin}
+  /{bin,sbin}
+  $path
+)
 
-# Loads RVM into the shell's session
-[[ -s "$HOME/.rvm/scripts/rvm"  ]] && . "$HOME/.rvm/scripts/rvm"
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-# Source all the aliases
-source "${ZDOTDIR:-$HOME}/.zaliases"
-source ~/.fzf.zsh
+eval "$(direnv hook zsh)"
