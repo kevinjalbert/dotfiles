@@ -29,7 +29,7 @@ def sym_link_for_root(file)
 end
 
 def sym_link(source_file, target_file)
-  source = Pathname.new("#{File.dirname(__FILE__)}/#{source_file}")
+  source = Pathname.new("#{Pathname.new(File.dirname(__FILE__)).parent}/#{source_file}")
   target = Pathname.new("#{ENV["HOME"]}/#{target_file}")
 
   puts "\n~> Symlinking #{source_file}"
