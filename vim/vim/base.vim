@@ -37,6 +37,9 @@ set title
 " Enable mouse within terminal
 set mouse=a
 
+" Set relative numbers
+set relativenumber
+
 " Make command line tab complete with cycling
 set wildmode=full
 set wildmenu
