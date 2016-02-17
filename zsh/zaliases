@@ -1,4 +1,5 @@
 alias mvim='open -a MacVim'
+alias pm='port_map'
 alias be='bundle exec'
 alias bi='bundle install --jobs 4'
 alias bu='bundle update'

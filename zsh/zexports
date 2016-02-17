@@ -8,3 +8,6 @@ if [ -f ~/.secrets ]; then
 fi
 
 export EDITOR=nvim
+
+# Silence direnv
+export DIRENV_LOG_FORMAT=
