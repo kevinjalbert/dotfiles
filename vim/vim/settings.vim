@@ -11,8 +11,7 @@ set showcmd
 set showmode
 
 " Undo settings
-silent !mkdir g:vim_home . 'undofiles' > /dev/null 2>&1
-execute 'set undodir=' . g:vim_home . 'undofiles'
+execute "set undodir=" . g:vim_home . 'undofiles'
 set undofile
 
 " Turn backup off
