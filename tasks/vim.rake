@@ -1,13 +1,20 @@
 namespace :install do
+  VIM_CONFIG = [
+    { name: 'NeoVim', exec: 'nvim', location: '~/.config/nvim' },
+    { name: 'Vim', exec: 'vim', location: '~/.vim' }
+  ]
+
   desc "Install Vundle"
   task :vundle do
-    section "Installing Vim's Vundle"
+    VIM_CONFIG.each do |vim_config|
+      section "Installing #{vim_config[:name]}'s Vundle"
 
-    unless File.exists?(File.join(ENV['HOME'], ".vim/bundle/Vundle.vim"))
-      run %( git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim )
-      run %( vim +BundleInstall +qall < `tty` > `tty` )
-    else
-      puts "~> Could not install Vim's Vundle. You might already have it installed."
+      if File.exist?("#{vim_config[:location]}/bundle/Vundle.vim")
+        puts "~> Could not install #{vim_config[:name]}'s Vundle. You might already have it installed."
+      else
+        run %( git clone https://github.com/gmarik/Vundle.vim.git #{vim_config[:location]}/bundle/Vundle.vim )
+        run %( #{vim_config[:exec]} +BundleInstall +qall < `tty` > `tty` )
+      end
     end
   end
 end
@@ -15,9 +22,11 @@ end
 namespace :update do
   desc "Update Vim's plugins"
   task :vim do
-    section "Updating Vim's Plugins"
+    VIM_CONFIG.each do |vim_config|
+      section "Updating #{vim_config[:name]}'s Plugins"
 
-    run %( vim -c "BundleInstall" -c "q" -c "q" )
-    run %( cd ~/.vim/bundle/YouCompleteMe && sh install.sh )
+      run %( #{vim_config[:exec]} -c "BundleInstall" -c "q" -c "q" )
+      run %( cd #{vim_config[:location]}/bundle/YouCompleteMe && ./install.py )
+    end
   end
 end

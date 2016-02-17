@@ -1,6 +1,6 @@
 " Load Bundles
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
+let &rtp = &rtp . ',' . g:editor_root . '/bundle/Vundle.vim/'
+call vundle#rc(g:editor_root . '/bundle')
 
 " Make sure we are using Vundle
 Bundle 'gmarik/Vundle.vim'
@@ -33,9 +33,13 @@ Bundle 'majutsushi/tagbar'
 Bundle 'Raimondi/delimitMate'
 
 " Provides syntax checking for certain file types
-Bundle 'scrooloose/syntastic'
+if has('nvim')
+  Bundle 'benekastah/neomake'
+else
+  Bundle 'scrooloose/syntastic'
+endif
 
-" Display buffers in the command line, works nicely with powerline
+" Display buffers in the command line
 Bundle 'buftabs'
 
 " Provides a directory tree explorer
@@ -51,7 +55,8 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'vim-scripts/matchit.zip'
 
 " Augments the yank/pasting functionality
-Bundle 'vim-scripts/YankRing.vim'
+" TODO: Not using this until this is fixed in NeoVim (slow with 'x' delete)
+" Bundle 'vim-scripts/YankRing.vim'
 
 " Provides a set of snippets that can be used quickly
 Bundle 'msanders/snipmate.vim'

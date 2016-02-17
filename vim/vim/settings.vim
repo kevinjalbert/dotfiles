@@ -11,8 +11,8 @@ set showcmd
 set showmode
 
 " Undo settings
-silent !mkdir ~/.vim/undofiles > /dev/null 2>&1
-set undodir=~/.vim/undofiles
+silent !mkdir g:vim_home . 'undofiles' > /dev/null 2>&1
+execute 'set undodir=' . g:vim_home . 'undofiles'
 set undofile
 
 " Turn backup off
@@ -46,6 +46,11 @@ set hidden
 
 " Do not auto-comment when pushing o/O
 autocmd FileType * setlocal formatoptions-=o
+
+if has('nvim')
+  " Run neomake on file saves
+  autocmd! BufWritePost * Neomake
+endif
 
 " Folding settings
 set foldmethod=manual

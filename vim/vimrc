@@ -9,12 +9,14 @@
 " ----------------------------------------------------------------------------
 
 if has('nvim')
-  let s:vim_home = '~/.config/nvim/'
+  let g:vim_home = '~/.config/nvim/'
+  let g:editor_root=expand("~/.config/nvim/")
 else
-  let s:vim_home = '~/.vim/'
-end
+  let g:vim_home = '~/.vim/'
+  let g:editor_root=expand("~/.vim/")
+endif
 
-let config_list = [
+let s:config_list = [
   \ 'base.vim',
   \ 'plugins.vim',
   \ 'functions.vim',
@@ -26,8 +28,8 @@ let config_list = [
   \ 'plugin_settings/*.vim'
 \]
 
-for files in config_list
-  for f in split(glob(s:vim_home.files), '\n')
+for files in s:config_list
+  for f in split(glob(vim_home.files), '\n')
     exec 'source '.f
   endfor
 endfor
