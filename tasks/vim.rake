@@ -13,7 +13,7 @@ namespace :install do
         puts "~> Could not install #{vim_config[:name]}'s Vundle. You might already have it installed."
       else
         run %( git clone https://github.com/gmarik/Vundle.vim.git #{vim_config[:location]}/bundle/Vundle.vim )
-        run %( #{vim_config[:exec]} +BundleInstall +qall < `tty` > `tty` )
+        run %( #{vim_config[:exec]} +PluginInstall +qall < `tty` > `tty` )
       end
     end
   end
@@ -25,7 +25,7 @@ namespace :update do
     VIM_CONFIG.each do |vim_config|
       section "Updating #{vim_config[:name]}'s Plugins"
 
-      run %( #{vim_config[:exec]} -c "BundleInstall" -c "q" -c "q" )
+      run %( #{vim_config[:exec]} -c "PluginInstall" -c "q" -c "q" )
       run %( cd #{vim_config[:location]}/bundle/YouCompleteMe && ./install.py )
     end
   end
