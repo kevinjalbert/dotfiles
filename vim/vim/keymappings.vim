@@ -16,6 +16,9 @@ inoremap <C-k> <Esc>:m-2<CR>==gi
 vnoremap <C-j> :m'>+<CR>gv=gv
 vnoremap <C-k> :m-2<CR>gv=gv
 
+" Visually select the text that was last edited/pasted
+nmap gV `[v`]
+
 " Manage vertical and horizontal splits
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
