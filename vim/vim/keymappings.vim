@@ -49,6 +49,9 @@ nnoremap <silent> L <C-W>l
 " Make Y consistent with C and D (Yank till end of line)
 nmap Y y$
 
+" Make vim-easyclip's m (cut) consistent with D (Delete till end of line)
+nmap M m$
+
 " Toggle NERD Tree
 nnoremap <f2> :NERDTreeTabsToggle<cr>
 

@@ -54,10 +54,6 @@ Plugin 'scrooloose/nerdcommenter'
 " Augments % matching
 Plugin 'vim-scripts/matchit.zip'
 
-" Augments the yank/pasting functionality
-" TODO: Not using this until this is fixed in NeoVim (slow with 'x' delete)
-" Plugin 'vim-scripts/YankRing.vim'
-
 " Provides a set of snippets that can be used quickly
 Plugin 'msanders/snipmate.vim'
 
@@ -129,6 +125,9 @@ Plugin 'kana/vim-textobj-indent'
 Plugin 'kana/vim-textobj-line'
 Plugin 'kana/vim-textobj-user'
 Plugin 'nelstrom/vim-textobj-rubyblock'
+
+" Better yank/delete/cut management
+Plugin 'svermeulen/vim-easyclip'
 
 " All around better searching
 Plugin 'Lokaltog/vim-easymotion'
