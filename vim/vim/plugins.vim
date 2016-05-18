@@ -44,6 +44,7 @@ Plugin 'buftabs'
 
 " Provides a directory tree explorer
 Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " Provides a better experience with NERDtree
 Plugin 'jistr/vim-nerdtree-tabs'
