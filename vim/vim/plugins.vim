@@ -80,6 +80,9 @@ Plugin 'vim-airline/vim-airline-themes'
 " A code-completion engine for Vim
 Plugin 'Valloric/YouCompleteMe'
 
+" Highlight ending tags
+Plugin 'Valloric/MatchTagAlways'
+
 " Kill buffers instead of windows
 Plugin 'bufkill.vim'
 
