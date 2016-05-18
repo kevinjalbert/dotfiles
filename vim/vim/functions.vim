@@ -1,3 +1,20 @@
+" http://learnvimscriptthehardway.stevelosh.com/chapters/52.html
+" Needed to put RVM script in ~/.zshenv for Vim to use correct rubygem set
+function GitEvolution() range
+    " Collect output
+    let output = system("git_evolution" . " " . "-r" . " " . a:firstline . ":" . a:lastline . " " . bufname("%"))
+
+    " Open a new split and set it up.
+    split __GitEvolution__
+    normal! ggdG
+    setlocal filetype=gitevolution
+    setlocal buftype=nofile
+
+    " Insert the output.
+    call append(0, split(output, '\v\n'))
+endfunction
+vnoremap ge :call GitEvolution()<CR>
+
 " Visual search mappings
 function! s:VSetSearch()
     let temp = @@
