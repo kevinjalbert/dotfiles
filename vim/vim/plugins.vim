@@ -64,6 +64,9 @@ Plugin 'msanders/snipmate.vim'
 " Provides syntax formating for markdown files
 Plugin 'plasticboy/vim-markdown'
 
+" Provides syntax formating for javascript files (ES6)
+Plugin 'othree/yajs.vim'
+
 " Provides better Ruby support
 Plugin 'vim-ruby/vim-ruby'
 
