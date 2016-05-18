@@ -123,6 +123,13 @@ Plugin 'triglav/vim-visual-increment'
 " Add additional vim object targets
 Plugin 'wellle/targets.vim'
 
+" Add additional text objects
+Plugin 'kana/vim-textobj-entire'
+Plugin 'kana/vim-textobj-indent'
+Plugin 'kana/vim-textobj-line'
+Plugin 'kana/vim-textobj-user'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+
 " All around better searching
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'haya14busa/incsearch.vim'
