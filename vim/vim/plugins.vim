@@ -111,6 +111,9 @@ Plugin 'mattn/gist-vim'
 " Ability to have a scratch notepad
 Plugin 'mtth/scratch.vim'
 
+" Add indent guidelines
+Plugin 'Yggdroot/indentLine'
+
 " Able to visually increase a sequence of number
 Plugin 'triglav/vim-visual-increment'
 
