@@ -13,6 +13,7 @@ set autoread
 " Automatically detect file types
 filetype plugin indent on
 au BufNewFile,BufRead *.es6 set filetype=javascript
+au BufReadPost *.handlebars,*.hbs set filetype=html syntax=mustache
 
 " Turn off null characters
 imap <Nul> <Space>

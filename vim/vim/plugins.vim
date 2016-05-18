@@ -58,11 +58,8 @@ Plugin 'vim-scripts/matchit.zip'
 " Provides a set of snippets that can be used quickly
 Plugin 'msanders/snipmate.vim'
 
-" Provides syntax formating for markdown files
-Plugin 'plasticboy/vim-markdown'
-
-" Provides syntax formating for javascript files (ES6)
-Plugin 'othree/yajs.vim'
+" A solid language pack for Vim
+Plugin 'sheerun/vim-polyglot'
 
 " Provides better Ruby support
 Plugin 'vim-ruby/vim-ruby'
@@ -97,9 +94,6 @@ Plugin 'tpope/vim-fugitive'
 
 " Provides a visual git interface
 Plugin 'gregsexton/gitv'
-
-" Syntax support for RABL files, and treat them like ruby files
-Plugin 'yaymukund/vim-rabl'
 
 " Vim start screen
 Plugin 'mhinz/vim-startify'
