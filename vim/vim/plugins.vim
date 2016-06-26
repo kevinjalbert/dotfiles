@@ -127,9 +127,6 @@ Plugin 'kana/vim-textobj-line'
 Plugin 'kana/vim-textobj-user'
 Plugin 'nelstrom/vim-textobj-rubyblock'
 
-" Better yank/delete/cut management
-Plugin 'svermeulen/vim-easyclip'
-
 " All around better searching
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'haya14busa/incsearch.vim'
