@@ -100,6 +100,9 @@ Plug 'editorconfig/editorconfig-vim'
 " Able to visually increase a sequence of number
 Plug 'triglav/vim-visual-increment'
 
+" Intelligently toggling line numbers
+Plug 'myusuf3/numbers.vim'
+
 " Add additional vim object targets
 Plug 'wellle/targets.vim'
 
