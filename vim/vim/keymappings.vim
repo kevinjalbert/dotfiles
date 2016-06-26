@@ -40,6 +40,9 @@ cabbrev qw :wq
 " Start external commands with a single bang
 nnoremap ! :!
 
+" Able to enter command mode with just ;
+nnoremap ; :
+
 " A better way to move between windows
 nnoremap <silent> J <C-W>j
 nnoremap <silent> K <C-W>k
