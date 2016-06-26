@@ -95,9 +95,6 @@ Plugin 'vim-scripts/AutoTag'
 " A Git wrapper to allow for the usage of Git commands
 Plugin 'tpope/vim-fugitive'
 
-" Provides a visual git interface
-Plugin 'gregsexton/gitv'
-
 " Vim start screen
 Plugin 'mhinz/vim-startify'
 
@@ -108,11 +105,6 @@ Plugin 'osyo-manga/vim-over'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
 
-" Ability to have a scratch notepad
-Plugin 'mtth/scratch.vim'
-
-" Add indent guidelines
-Plugin 'Yggdroot/indentLine'
 
 " Able to visually increase a sequence of number
 Plugin 'triglav/vim-visual-increment'
