@@ -15,7 +15,7 @@ set expandtab
 
 " Set powerline up (explict font when running with GUI)
 if has("gui_running")
-  set guifont=Inconsolata\ for\ Powerline:h13
+  set guifont=Inconsolata\ for\ Powerline\ Nerd\ Font\ Complete:h13
 endif
 if has("vim")
   set antialias

@@ -35,6 +35,7 @@ Plug 'buftabs'
 
 " Provides a directory tree explorer
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeTabsToggle', 'NERDTreeFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeTabsToggle', 'NERDTreeFind'] }
 Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeTabsToggle', 'NERDTreeFind'] }
 
 " Provides many commenting operations and styles
@@ -111,5 +112,8 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 Plug 'osyo-manga/vim-anzu'
+
+" Use icons where possible
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
