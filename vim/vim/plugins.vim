@@ -94,6 +94,8 @@ Plug 'osyo-manga/vim-over'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
 
+" Be able to use editorconfig files
+Plug 'editorconfig/editorconfig-vim'
 
 " Able to visually increase a sequence of number
 Plug 'triglav/vim-visual-increment'
