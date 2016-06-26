@@ -29,7 +29,7 @@ task :install do
   Rake::Task['install:zgen'].invoke
   Rake::Task['install:rvm'].invoke
   Rake::Task['install:fonts'].invoke
-  Rake::Task['install:vundle'].invoke
+  Rake::Task['install:vim_plug'].invoke
   Rake::Task['update:vim'].invoke
   Rake::Task['install:symlinks'].invoke
   Rake::Task['install:symlinks_root'].invoke

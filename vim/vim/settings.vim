@@ -46,10 +46,8 @@ set hidden
 " Do not auto-comment when pushing o/O
 autocmd FileType * setlocal formatoptions-=o
 
-if has('nvim')
-  " Run neomake on file saves
-  autocmd! BufWritePost * Neomake
-endif
+" Run neomake on file saves
+autocmd! BufWritePost * Neomake
 
 " Folding settings
 set foldmethod=manual

@@ -1,125 +1,115 @@
-" Load Plugins
-let &rtp = &rtp . ',' . g:editor_root . '/bundle/Vundle.vim/'
-call vundle#rc(g:editor_root . '/bundle')
-
-" Make sure we are using Vundle
-Plugin 'gmarik/Vundle.vim'
+call plug#begin()
 
 " Allows alteration to color schemes without modifying the actual schemes
-Plugin 'vim-scripts/AfterColors.vim'
+Plug 'vim-scripts/AfterColors.vim'
 
 " Graphical undo tree
-Plugin 'sjl/gundo.vim'
+Plug 'sjl/gundo.vim'
 
 " Allows quick fuzzy searching within Vim
-Plugin 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " Adds the ability to work with surroundings
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 " Adds 'end' where appropriate while coding (ruby's end if/function, etc...)
-Plugin 'tpope/vim-endwise'
+Plug 'tpope/vim-endwise'
 
 " Heuistically set buffer options
-Plugin 'vim-scripts/yaifa.vim'
+Plug 'vim-scripts/yaifa.vim'
 
 " Allows the repeat of a plugin map (using '.')
-Plugin 'tpope/vim-repeat'
+Plug 'tpope/vim-repeat'
 
 " Displays an overview of the code's structure
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 " Provides automatic closing of quotes, parenthesis, brackets, etc...
-Plugin 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 
 " Provides syntax checking for certain file types
-if has('nvim')
-  Plugin 'benekastah/neomake'
-else
-  Plugin 'scrooloose/syntastic'
-endif
+Plug 'benekastah/neomake'
 
 " Display buffers in the command line
-Plugin 'buftabs'
+Plug 'buftabs'
 
 " Provides a directory tree explorer
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-
-" Provides a better experience with NERDtree
-Plugin 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeTabsToggle', 'NERDTreeFind'] }
+Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeTabsToggle', 'NERDTreeFind'] }
 
 " Provides many commenting operations and styles
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 
 " Augments % matching
-Plugin 'vim-scripts/matchit.zip'
+Plug 'vim-scripts/matchit.zip'
 
 " Provides a set of snippets that can be used quickly
-Plugin 'msanders/snipmate.vim'
+Plug 'msanders/snipmate.vim'
 
 " A solid language pack for Vim
-Plugin 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 
 " Provides better Ruby support
-Plugin 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby'
 
 " Provides better Rails support
-Plugin 'tpope/vim-rails'
+Plug 'tpope/vim-rails'
 
 " Provides better Ruby/Rake support
-Plugin 'tpope/vim-rake'
+Plug 'tpope/vim-rake'
 
 " Shows the git diff in the gutter
-Plugin 'mhinz/vim-signify'
+Plug 'mhinz/vim-signify'
 
 " Provides a better status line
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " A code-completion engine for Vim
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 " Highlight ending tags
-Plugin 'Valloric/MatchTagAlways'
+Plug 'Valloric/MatchTagAlways'
 
 " Kill buffers instead of windows
-Plugin 'bufkill.vim'
+Plug 'bufkill.vim'
 
 " Ability to use ack (ag)
-Plugin 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 
 " Allow Ctags to run when saving
-Plugin 'vim-scripts/AutoTag'
+Plug 'vim-scripts/AutoTag'
 
 " A Git wrapper to allow for the usage of Git commands
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " Vim start screen
-Plugin 'mhinz/vim-startify'
+Plug 'mhinz/vim-startify'
 
 " Add feedback for substitution
-Plugin 'osyo-manga/vim-over'
+Plug 'osyo-manga/vim-over'
 
 " Add ability use GitHub Gist
-Plugin 'mattn/webapi-vim'
-Plugin 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
 
 
 " Able to visually increase a sequence of number
-Plugin 'triglav/vim-visual-increment'
+Plug 'triglav/vim-visual-increment'
 
 " Add additional vim object targets
-Plugin 'wellle/targets.vim'
+Plug 'wellle/targets.vim'
 
 " Add additional text objects
-Plugin 'kana/vim-textobj-entire'
-Plugin 'kana/vim-textobj-indent'
-Plugin 'kana/vim-textobj-line'
-Plugin 'kana/vim-textobj-user'
-Plugin 'nelstrom/vim-textobj-rubyblock'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
 
 " All around better searching
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'osyo-manga/vim-anzu'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'haya14busa/incsearch.vim'
+Plug 'osyo-manga/vim-anzu'
+
+call plug#end()

@@ -1,32 +1,17 @@
 namespace :install do
-  VIM_CONFIG = [
-    { name: 'NeoVim', exec: 'nvim', location: '~/.config/nvim' },
-    { name: 'Vim', exec: 'vim', location: '~/.vim' }
-  ]
-
-  desc "Install Vundle"
-  task :vundle do
-    VIM_CONFIG.each do |vim_config|
-      section "Installing #{vim_config[:name]}'s Vundle"
-
-      if File.exist?("#{vim_config[:location]}/bundle/Vundle.vim")
-        puts "~> Could not install #{vim_config[:name]}'s Vundle. You might already have it installed."
-      else
-        run %( git clone https://github.com/gmarik/Vundle.vim.git #{vim_config[:location]}/bundle/Vundle.vim )
-        run %( #{vim_config[:exec]} +PluginInstall +qall < `tty` > `tty` )
-      end
-    end
+  desc "Install vim-plug"
+  task :vim-plug do
+    section "Installing NeoVim's vim-plug"
+    run %( curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim )
   end
 end
 
 namespace :update do
   desc "Update Vim's plugins"
   task :vim do
-    VIM_CONFIG.each do |vim_config|
-      section "Updating #{vim_config[:name]}'s Plugins"
+    section "Updating NeoVim's Plugins"
 
-      run %( #{vim_config[:exec]} -c "PluginInstall" -c "q" -c "q" )
-      run %( cd #{vim_config[:location]}/bundle/YouCompleteMe && ./install.py )
-    end
+    run %( nvim -c "PluginInstall" -c "q" -c "q" )
   end
 end

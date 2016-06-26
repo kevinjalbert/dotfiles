@@ -8,13 +8,8 @@
 " Author: Kevin Jalbert <kevin.j.jalbert@gmail.com>
 " ----------------------------------------------------------------------------
 
-if has('nvim')
-  let g:vim_home = '~/.config/nvim/'
-  let g:editor_root=expand("~/.config/nvim/")
-else
-  let g:vim_home = '~/.vim/'
-  let g:editor_root=expand("~/.vim/")
-endif
+let g:vim_home = '~/.config/nvim/'
+let g:editor_root=expand("~/.config/nvim/")
 
 let s:config_list = [
   \ 'base.vim',

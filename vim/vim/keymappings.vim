@@ -83,10 +83,8 @@ map <Space>s <Plug>(easymotion-s2)
 map <Space>j <Plug>(easymotion-j)
 map <Space>k <Plug>(easymotion-k)
 
-if has('nvim')
-  " While in a terminal use esc to drop into normal mode
-  tnoremap <esc> <c-\><c-n>
-end
+" While in a terminal use esc to drop into normal mode
+tnoremap <esc> <c-\><c-n>
 
 " Open selection on GitHub
 vnoremap gho :Gbrowse<CR>
