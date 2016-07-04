@@ -1,4 +1,3 @@
-alias mvim='open -a MacVim'
 alias pm='port_map'
 alias be='bundle exec'
 alias bi='bundle install --jobs 4'
@@ -7,7 +6,6 @@ alias j='jump'
 alias gg='git grep'
 alias rstyle='~/bin/git-rubocop'
 alias standuplog='~/bin/standuplog'
-alias airbrake='airbrake-tools $AIRBRAKE_ACCOUNT $AIRBRAKE_AUTH_TOKEN'
 
 
 ##### FZF aliases #####
