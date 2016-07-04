@@ -7,11 +7,6 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 
-# docker
-export DOCKER_HOST=tcp://192.168.99.100:2376
-export DOCKER_CERT_PATH=/Users/jalbert/.docker/machine/machines/dev
-export DOCKER_TLS_VERIFY=1
-
 # Include any secret exports
 if [ -f ~/.secrets ]; then
   source ~/.secrets
