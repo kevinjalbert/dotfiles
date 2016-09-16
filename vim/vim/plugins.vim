@@ -12,6 +12,9 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Adds the ability to work with surroundings
 Plug 'tpope/vim-surround'
 
+" Adds handy bracket mappings
+Plug 'tpope/vim-unimpaired'
+
 " Adds 'end' where appropriate while coding (ruby's end if/function, etc...)
 Plug 'tpope/vim-endwise'
 
