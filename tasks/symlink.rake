@@ -6,13 +6,11 @@ namespace :install do
     sym_link 'vim/vimrc',               '.config/nvim/init.vim'
 
     section "Symlinking Zsh Files"
-    sym_link 'zsh/zprezto',             '.zprezto'
     sym_link 'zsh/zlogin',              '.zlogin'
     sym_link 'zsh/zlogout',             '.zlogout'
     sym_link 'zsh/zprofile',            '.zprofile'
     sym_link 'zsh/zshenv',              '.zshenv'
     sym_link 'zsh/zshrc',               '.zshrc'
-    sym_link 'zsh/zpreztorc',           '.zpreztorc'
     sym_link 'zsh/zaliases',            '.zaliases'
     sym_link 'zsh/zexports',            '.zexports'
 
@@ -30,7 +28,7 @@ namespace :install do
     sym_link 'ruby/rubocop.yml',        '.rubocop.yml'
 
     section "Symlinking Bin Files"
-    sym_link 'bin',         'bin'
+    sym_link 'bin',                     'bin'
 
     section "Symlinking Misc. Files"
     sym_link 'misc/agignore',           '.agignore'
@@ -45,13 +43,11 @@ namespace :install do
     sym_link_for_root '.config/nvim'
 
     section "Symlinking Zsh Files (root)"
-    sym_link_for_root '.zprezto'
     sym_link_for_root '.zlogin'
     sym_link_for_root '.zlogout'
     sym_link_for_root '.zprofile'
     sym_link_for_root '.zshenv'
     sym_link_for_root '.zshrc'
-    sym_link_for_root '.zpreztorc'
     sym_link_for_root '.zaliases'
     sym_link_for_root '.zexports'
 
