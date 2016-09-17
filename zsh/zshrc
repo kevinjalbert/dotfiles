@@ -26,6 +26,10 @@ if ! zplug check --verbose; then
   fi
 fi
 
+if [[ -o interactive ]] then
+  zplug load
+fi
+
 zstyle ':completion:*' menu select # Enabled the tab selection menu
 setopt correct                     # Allows correction of typos in commands
 unsetopt beep                      # Silience beeps
