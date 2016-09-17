@@ -95,6 +95,24 @@ bindkey -M emacs '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
+if [[ -o interactive ]] then
+  eval "$(direnv hook zsh)"
+
+  export PATH="./node_modules/.bin:$PATH"
+  export PATH="$PATH:$HOME/bin"
+  export PATH="$PATH:/usr/local/heroku/bin"
+
+  # Auto loads correct Node version via NVM
+  export NVM_DIR="/Users/jalbert/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  autoload -U add-zsh-hook
+  load-nvmrc() {
+    if [[ -f .nvmrc && -r .nvmrc ]]; then
+      nvm use
+    fi
+  }
+  add-zsh-hook chpwd load-nvmrc
+fi
 
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
