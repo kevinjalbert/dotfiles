@@ -1,0 +1,1 @@
+You can use `#with_index` off an enumerator (i.e., `map.with_index`, which accepts an optional offset)

@@ -16,6 +16,9 @@ namespace :install do
     sym_link 'zsh/zaliases',            '.zaliases'
     sym_link 'zsh/zexports',            '.zexports'
 
+    section "Symlinking Tip Files"
+    sym_link 'tips',                    '.tips'
+
     section "Symlinking Git Files"
     sym_link 'git/git',                 '.git'
     sym_link 'git/gitconfig',           '.gitconfig'
@@ -51,6 +54,9 @@ namespace :install do
     sym_link_for_root '.zpreztorc'
     sym_link_for_root '.zaliases'
     sym_link_for_root '.zexports'
+
+    section "Symlinking Tip Files (root)"
+    sym_link_for_root '.tips'
 
     section "Symlinking Git Files (root)"
     sym_link_for_root '.git'
