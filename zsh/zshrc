@@ -38,9 +38,6 @@ unsetopt nomatch                   # Makes glob matching same as bash (fixes the
 # Source z directory navigation
 source `brew --prefix`/etc/profile.d/z.sh
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
 # Source all the aliases
 source "${ZDOTDIR:-$HOME}/.zaliases"
 
