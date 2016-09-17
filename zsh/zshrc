@@ -63,6 +63,12 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 export HISTSIZE=100000           # Size of the history that is loaded in memory
 export SAVEHIST=1000000000       # Size of the actual history file on disk
 export HISTFILE=~/.zhistory      # File location for the history
+
+# https://github.com/aykamko/tag
+export TAG_CMD_FMT_STRING="nvim {{.Filename}} +{{.LineNumber}}"
+if (( $+commands[tag] )); then
+  tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
+  alias ag=tag
 fi
 
 # Use git-radar in right-prompt
