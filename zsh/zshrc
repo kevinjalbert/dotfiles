@@ -64,6 +64,9 @@ export HISTSIZE=100000           # Size of the history that is loaded in memory
 export SAVEHIST=1000000000       # Size of the actual history file on disk
 export HISTFILE=~/.zhistory      # File location for the history
 
+# Keep history of every shell command in a .zlogs directory under dated files (adapted from https://spin.atomicobject.com/2016/05/28/log-bash-history/)
+preexec() { echo "$(date "+%Y-%m-%d %H:%M:%S")\t$(pwd)\t$1" >> ~/.zlogs/$(date "+%Y-%m-%d").log; }
+
 # https://github.com/aykamko/tag
 export TAG_CMD_FMT_STRING="nvim {{.Filename}} +{{.LineNumber}}"
 if (( $+commands[tag] )); then
