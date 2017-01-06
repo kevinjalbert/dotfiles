@@ -1,3 +1,5 @@
+zmodload zsh/zprof
+
 # Displays a random tip from the .tips directory when opening the shell
 # Requires gshuf (brew install coreutils)
 (
