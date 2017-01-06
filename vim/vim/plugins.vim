@@ -6,6 +6,9 @@ Plug 'vim-scripts/AfterColors.vim'
 " Graphical undo tree
 Plug 'sjl/gundo.vim'
 
+" Open files at a specific line (i.e., name:10)
+Plug 'bogado/file-line'
+
 " Allows quick fuzzy searching within Vim
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -123,5 +126,8 @@ Plug 'osyo-manga/vim-anzu'
 
 " Use icons where possible
 Plug 'ryanoasis/vim-devicons'
+
+" Add WakaTime tracking
+Plug 'wakatime/vim-wakatime'
 
 call plug#end()
