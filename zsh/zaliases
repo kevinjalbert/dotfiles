@@ -6,6 +6,7 @@ alias j='jump'
 alias gg='git grep'
 alias rstyle='~/bin/git-rubocop'
 alias standuplog='~/bin/standuplog'
+alias ansible-ssh='$DEVOPS_HOME/scripts/filter-inventory'
 
 
 ##### FZF aliases #####

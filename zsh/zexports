@@ -16,3 +16,6 @@ export EDITOR=nvim
 
 # Silence direnv
 export DIRENV_LOG_FORMAT=
+
+# theScore non-secret exports
+export DEVOPS_HOME=/Users/jalbert/Projects/theScore/ansible-playbooks
