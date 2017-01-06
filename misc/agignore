@@ -48,6 +48,11 @@ Thumbs.db
 bower_components
 node_modules
 
+
+# Lockfiles #
+#############
+*.lock
+
 # Common Output Directories #
 #############################
 dist
