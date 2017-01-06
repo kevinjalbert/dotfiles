@@ -12,6 +12,7 @@ zplugs=()
 zplug "plugins/brew-cask", from:oh-my-zsh, nice:10
 zplug "plugins/jump", from:oh-my-zsh
 zplug "plugins/jsontools", from:oh-my-zsh
+zplug "plugins/docker", from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
