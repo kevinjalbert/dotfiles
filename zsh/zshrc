@@ -9,6 +9,11 @@ zmodload zsh/zprof
   gshuf -n1 < "$TIP_PATH"                                        # Displays a random line from the tip file
 )
 
+# Tracking how many ZSH shells I open
+if [[ -o interactive ]] then
+  echo $(date "+%Y-%m-%d %H:%M:%S") >> $HOME/.zsh-opens
+fi
+
 source ~/.zplug/init.zsh
 zplugs=()
 zplug "zplug/zplug"
