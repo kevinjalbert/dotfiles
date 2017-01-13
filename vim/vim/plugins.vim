@@ -127,6 +127,9 @@ Plug 'osyo-manga/vim-anzu'
 " Use icons where possible
 Plug 'ryanoasis/vim-devicons'
 
+" Provides ability to simplify transitions between multi/single lines for code
+Plug 'AndrewRadev/splitjoin.vim'
+
 " Add WakaTime tracking
 Plug 'wakatime/vim-wakatime'
 
