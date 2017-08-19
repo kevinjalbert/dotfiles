@@ -9,6 +9,9 @@ namespace :install do
 
     run %( ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" )
 
+    puts "~> Updating brew directory permissions"
+    run %( sudo chown -R $(whoami) /usr/local/ )
+
     puts "~> Installing brew taps"
     brew_taps.each do |tap|
       run %( brew tap #{tap} )
