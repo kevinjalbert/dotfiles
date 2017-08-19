@@ -2,7 +2,6 @@ aykamko/tag-ag
 caskroom/cask
 homebrew/core
 homebrew/services
-homebrew/versions
 jhawthorn/fzy
 joshuaclayton/formulae
 michaeldfallen/formula
