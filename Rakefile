@@ -18,35 +18,35 @@ desc "Backup Everything"
 task :backup do
   run %( brew update )
 
-  Rake::Task['backup:brew_packages'].invoke
-  Rake::Task['backup:brew_cask_packages'].invoke
   Rake::Task['backup:brew_taps'].invoke
+  Rake::Task['backup:brew_cask_packages'].invoke
+  Rake::Task['backup:brew_packages'].invoke
 end
 
 desc "Install Everything"
 task :install do
   Rake::Task['install:homebrew'].invoke
-  Rake::Task['install:brew_packages'].invoke
   Rake::Task['install:brew_cask_packages'].invoke
-  Rake::Task['install:zplug'].invoke
+  Rake::Task['install:brew_packages'].invoke
   Rake::Task['install:rvm'].invoke
   Rake::Task['install:fonts'].invoke
-  Rake::Task['install:vim_plug'].invoke
-  Rake::Task['update:vim'].invoke
   Rake::Task['install:symlinks'].invoke
   Rake::Task['install:symlinks_root'].invoke
+  Rake::Task['install:zplug'].invoke
+  Rake::Task['install:vim_plug'].invoke
+  Rake::Task['update:vim'].invoke
   Rake::Task['install:osx'].invoke
 end
 
 desc "Update Everything"
 task :update do
-  Rake::Task['update:vim'].invoke
-  Rake::Task['update:brew_packages'].invoke
   Rake::Task['update:brew_cask_packages'].invoke
+  Rake::Task['update:brew_packages'].invoke
+  Rake::Task['update:vim'].invoke
 end
 
 desc "Uninstall Everything"
 task :uninstall do
-  Rake::Task['uninstall:brew_packages'].invoke
   Rake::Task['uninstall:brew_cask_packages'].invoke
+  Rake::Task['uninstall:brew_packages'].invoke
 end
