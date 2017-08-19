@@ -9,8 +9,9 @@ namespace :install do
 
     run %( ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" )
 
-    brew_taps.each do |package|
-      run %( brew tap #{package} )
+    puts "~> Installing brew taps"
+    brew_taps.each do |tap|
+      run %( brew tap #{tap} )
     end
   end
 
@@ -88,11 +89,11 @@ namespace :backup do
 end
 
 def brew_taps
-  File.readlines(BREW_PACKAGES_FILE).map(&:strip)
+  File.readlines(BREW_TAPS_FILE).map(&:strip)
 end
 
 def brew_packages
-  File.readlines(BREW_TAPS_FILE).map(&:strip)
+  File.readlines(BREW_PACKAGES_FILE).map(&:strip)
 end
 
 def brew_cask_packages
