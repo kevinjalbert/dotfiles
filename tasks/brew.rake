@@ -34,8 +34,6 @@ namespace :install do
     brew_cask_packages.each do |package|
       run %( brew cask install --appdir=/Applications --force #{package} )
     end
-
-    run %( brew cask alfred link )
   end
 end
 
