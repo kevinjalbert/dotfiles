@@ -16,6 +16,8 @@ task :default => [:install]
 
 desc "Backup Everything"
 task :backup do
+  run %( brew update )
+
   Rake::Task['backup:brew_packages'].invoke
   Rake::Task['backup:brew_cask_packages'].invoke
   Rake::Task['backup:brew_taps'].invoke
