@@ -37,7 +37,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'benekastah/neomake'
 
 " Display buffers in the command line
-Plug 'buftabs'
+Plug 'vim-scripts/buftabs'
 
 " Provides a directory tree explorer
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeTabsToggle', 'NERDTreeFind'] }
@@ -79,7 +79,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'Valloric/MatchTagAlways'
 
 " Kill buffers instead of windows
-Plug 'bufkill.vim'
+Plug 'vim-scripts/bufkill.vim'
 
 " Ability to use ack (ag)
 Plug 'mileszs/ack.vim'
