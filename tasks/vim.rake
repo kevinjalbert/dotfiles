@@ -8,10 +8,15 @@ namespace :install do
 end
 
 namespace :update do
-  desc "Update Vim's plugins"
+  desc "Update NeoVim's plugins"
   task :vim do
     section "Updating NeoVim's Plugins"
 
+    puts "Installing python compatibility for neovim"
+    run %( pip2 install neovim --upgrade )
+    run %( pip3 install neovim --upgrade )
+
+    puts "Installing Plugins for NeoVim"
     run %( nvim -c "PlugInstall" -c "q" -c "q" )
   end
 end
