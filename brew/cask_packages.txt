@@ -10,7 +10,6 @@ firefox
 fluid
 flux
 gitter
-google-drive
 graphiql
 graphql-ide
 hammerspoon
@@ -25,7 +24,6 @@ karabiner
 keycastr
 launchrocket
 mactex
-medis
 ngrok
 openemu
 qlcolorcode
@@ -36,9 +34,8 @@ quicklook-csv
 quicklook-json
 quitter
 reactotron
+redis-app
 rescuetime
-robomongo
-seil
 sequel-pro
 shortcat
 skype
