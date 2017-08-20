@@ -2,6 +2,8 @@ BREW_TAPS_FILE = File.expand_path('../../brew/taps.txt', __FILE__)
 BREW_PACKAGES_FILE = File.expand_path('../../brew/packages.txt', __FILE__)
 BREW_CASK_PACKAGES_FILE = File.expand_path('../../brew/cask_packages.txt', __FILE__)
 
+HEAD_ONLY_FORMULAS = %w( universal-ctags )
+
 namespace :install do
   desc "Install Homebrew"
   task :homebrew do
@@ -23,7 +25,11 @@ namespace :install do
     section "Installing Brew Packages"
 
     brew_packages.each do |package|
-      run %( brew install #{package} )
+      if HEAD_ONLY_FORMULAS.include?(package)
+        run %( brew install --HEAD #{package} )
+      else
+        run %( brew install #{package} )
+      end
     end
   end
 
