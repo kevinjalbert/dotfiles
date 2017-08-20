@@ -12,6 +12,6 @@ namespace :update do
   task :vim do
     section "Updating NeoVim's Plugins"
 
-    run %( nvim -c "PluginInstall" -c "q" -c "q" )
+    run %( nvim -c "PlugInstall" -c "q" -c "q" )
   end
 end
