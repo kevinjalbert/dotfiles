@@ -20,7 +20,9 @@ imageoptim
 inkscape
 istat-menus
 iterm2
+java
 karabiner
+keybase
 keycastr
 launchrocket
 mactex

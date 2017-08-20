@@ -72,7 +72,6 @@ jpeg
 jpegoptim
 jq
 jsoncpp
-keybase
 lame
 libassuan
 libevent
