@@ -1,7 +1,7 @@
 .DS_Store
 
 # Mackup dynamic/large/generated files
-mackup/.config/nvim/plugged
-mackup/.config/nvim/undofiles
-mackup/.config/nvim/.netrwhist
-mackup/bin/asciinema
+.config/nvim/plugged
+.config/nvim/undofiles
+.config/nvim/.netrwhist
+bin/asciinema

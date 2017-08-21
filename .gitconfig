@@ -17,7 +17,7 @@
   trustExitCode = true
 
 [init]
-  templatedir = ~/.git/git_template
+  templatedir = ~/.git_templates
 
 [branch]
   autosetuprebase = always
