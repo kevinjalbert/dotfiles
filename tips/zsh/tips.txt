@@ -1,9 +1,0 @@
-`j` allows you to jump to marked directories (via `jump`)
-`mark` allows you to mark the current directory with an alias to be used with `j` (via `jump`)
-hit `<tab>` after an `;` to open `fzf` to select file under current directory (i.e., `nvim ;<tab>`)
-`sort -n` will sort using a numeric ordering (i.e., 1, 9, 10, 11) instead of alpha-numeric
-use `brew services` to interact with installed services via brew (i.e., redis)
-`;<tab>` will expand to search for specified file(s) using `fzf`
-`ag` now uses `tag` which allow for quick opening files via `e#`
-use `cd -#` to navigate back # directories (think of a stack) or `cd +#` for forward
-iTerm lets you rewind/replay the session for that terminal window using ⌘ + Option + b

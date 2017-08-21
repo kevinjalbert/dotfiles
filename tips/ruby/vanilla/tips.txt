@@ -1,3 +1,0 @@
-You can use `#with_index` off an enumerator (i.e., `map.with_index`, which accepts an optional offset)
-When using the pry gem, @ is an alias for whereami
-When using the pry gem, edit opens the specified method for editing (saving will reload server)

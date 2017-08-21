@@ -1,2 +1,0 @@
-gJ to attempt joining a multi-line statement into a single one
-gS to attempt splitting a single-line statement into multiple ones
