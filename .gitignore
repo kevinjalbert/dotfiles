@@ -1,5 +1,7 @@
-# vim bundles and undofile
-vim/bundle/*
-vim/undofiles/*
-
 .DS_Store
+
+# Mackup dynamic/large/generated files
+mackup/.config/nvim/plugged
+mackup/.config/nvim/undofiles
+mackup/.config/nvim/.netrwhist
+mackup/bin/asciinema
