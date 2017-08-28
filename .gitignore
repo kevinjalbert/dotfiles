@@ -1,7 +1,34 @@
-.DS_Store
+# Ignore everything, and selectively whitelist
+*
 
-# Mackup dynamic/large/generated files
-.config/nvim/plugged
-.config/nvim/undofiles
-.config/nvim/.netrwhist
-bin/asciinema
+##### WHITELIST #####
+
+# neovim
+!.config/nvim
+
+# mackup
+!.mackup
+!.mackup.cfg
+
+# tips
+!.tips
+
+# bin
+!bin
+
+# git
+!.git-templates
+!.gitconfig
+!.gitignore_global
+
+# ruby
+.gemrc
+.pryrc
+.rubocop.yml
+.rspec
+
+# zsh
+.zaliases
+.zexports
+.zlogin
+.zshrc
