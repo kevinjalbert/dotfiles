@@ -1,48 +1,40 @@
-ACTIVE_CONFIG_FILE = File.expand_path('~/.mackup.cfg')
-BACKUP_CONFIG_FILE = File.expand_path('~/.mackup-backup.cfg')
-LOCAL_CONFIG_FILE = File.expand_path('~/.mackup-local.cfg')
-DROPBOX_CONFIG_FILE = File.expand_path('~/.mackup-dropbox.cfg')
+DIRECTORY_NAME = File.dirname(__dir__)
+MACKUP_FILE_NAME = '.mackup.cfg'
+MACKUP_DIRECTORY_NAME = '.mackup'
+
+namespace :install do
+  desc 'Install mackup configs'
+  task :mackup do
+    section 'Installing Mackup configs'
+
+    run %( cp #{DIRECTORY_NAME + File::SEPARATOR + MACKUP_FILE_NAME} #{"~" + File::SEPARATOR + MACKUP_FILE_NAME} )
+    run %( cp -R #{DIRECTORY_NAME + File::SEPARATOR + MACKUP_DIRECTORY_NAME} #{"~" + File::SEPARATOR + MACKUP_DIRECTORY_NAME} )
+  end
+end
 
 namespace :update do
-  desc "Update using the local mackup config"
-  task :mackup_local do
-    section "Using mackup to restore tracked configurations from dotfiles repo"
+  desc 'Update files mackup'
+  task :mackup do
+    section 'Use mackup to restore tracked configurations'
 
-    run %( cp #{ACTIVE_CONFIG_FILE} #{BACKUP_CONFIG_FILE} )
-    run %( cp #{LOCAL_CONFIG_FILE} #{ACTIVE_CONFIG_FILE} )
     run %( mackup restore )
-    run %( cp #{BACKUP_CONFIG_FILE} #{ACTIVE_CONFIG_FILE} )
-  end
-
-  desc "Update using the Dropbox mackup config"
-  task :mackup_dropbox do
-    section "Using mackup to restore non-tracked configurations from dropbox"
-
-    run %( cp #{ACTIVE_CONFIG_FILE} #{BACKUP_CONFIG_FILE} )
-    run %( cp #{DROPBOX_CONFIG_FILE} #{ACTIVE_CONFIG_FILE} )
-    run %( mackup dropbox )
-    run %( cp #{BACKUP_CONFIG_FILE} #{ACTIVE_CONFIG_FILE} )
   end
 end
 
 namespace :backup do
-  desc "Backup using the local mackup config"
+  desc 'Backup files using mackup'
   task :mackup_local do
-    section "Using mackup to backup tracked configurations to dotfiles repo"
+    section 'Using mackup to backup configurations'
 
-    run %( cp #{ACTIVE_CONFIG_FILE} #{BACKUP_CONFIG_FILE} )
-    run %( cp #{LOCAL_CONFIG_FILE} #{ACTIVE_CONFIG_FILE} )
     run %( mackup backup )
-    run %( cp #{BACKUP_CONFIG_FILE} #{ACTIVE_CONFIG_FILE} )
   end
+end
 
-  desc "Backup using the Dropbox mackup config"
-  task :mackup_dropbox do
-    section "Using mackup to backup non-tracked configurations to dropbox"
+namespace :uninstall do
+  desc 'Uninstall mackup configus'
+  task :mackup do
+    section 'Use mackup to uninstall tracked configurations'
 
-    run %( cp #{ACTIVE_CONFIG_FILE} #{BACKUP_CONFIG_FILE} )
-    run %( cp #{DROPBOX_CONFIG_FILE} #{ACTIVE_CONFIG_FILE} )
-    run %( mackup backup )
-    run %( cp #{BACKUP_CONFIG_FILE} #{ACTIVE_CONFIG_FILE} )
+    run %( mackup uninstall )
   end
 end

@@ -21,6 +21,7 @@ task :backup do
   Rake::Task['backup:brew_taps'].invoke
   Rake::Task['backup:brew_cask_packages'].invoke
   Rake::Task['backup:brew_packages'].invoke
+  Rake::Task['backup:mackup'].invoke
 end
 
 desc "Install Everything"
@@ -28,6 +29,8 @@ task :install do
   Rake::Task['install:homebrew'].invoke
   Rake::Task['install:brew_cask_packages'].invoke
   Rake::Task['install:brew_packages'].invoke
+  Rake::Task['install:mackup'].invoke
+  Rake::Task['update:mackup'].invoke
   Rake::Task['install:rvm'].invoke
   Rake::Task['install:fonts'].invoke
   Rake::Task['install:symlinks_root'].invoke
@@ -42,10 +45,12 @@ task :update do
   Rake::Task['update:brew_cask_packages'].invoke
   Rake::Task['update:brew_packages'].invoke
   Rake::Task['update:vim'].invoke
+  Rake::Task['update:mackup'].invoke
 end
 
 desc "Uninstall Everything"
 task :uninstall do
   Rake::Task['uninstall:brew_cask_packages'].invoke
   Rake::Task['uninstall:brew_packages'].invoke
+  Rake::Task['uninstall:mackup'].invoke
 end
