@@ -1,4 +1,7 @@
 #!/bin/sh
+HOOKS_DIR=`git config core.hooksPath`
+ABSOLUTE_HOOKS_DIR=`echo "${HOOKS_DIR/\~/$HOME}"`
+
 case "$1" in
-  rebase) exec .git/hooks/post-merge ;;
+  rebase) exec $ABSOLUTE_HOOKS_DIR/post-merge ;;
 esac
