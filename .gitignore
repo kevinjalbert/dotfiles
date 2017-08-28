@@ -32,3 +32,11 @@
 !.zexports
 !.zlogin
 !.zshrc
+
+# dotfiles
+!README.md
+!Rakefile
+!brew
+!fonts
+!misc
+!tasks
