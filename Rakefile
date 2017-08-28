@@ -21,6 +21,7 @@ task :backup do
   Rake::Task['backup:brew_taps'].invoke
   Rake::Task['backup:brew_cask_packages'].invoke
   Rake::Task['backup:brew_packages'].invoke
+  Rake::Task['backup:mas'].invoke
   Rake::Task['backup:mackup'].invoke
 end
 
@@ -29,6 +30,8 @@ task :install do
   Rake::Task['install:homebrew'].invoke
   Rake::Task['install:brew_cask_packages'].invoke
   Rake::Task['install:brew_packages'].invoke
+  Rake::Task['install:mas'].invoke
+  Rake::Task['update:mas'].invoke
   Rake::Task['install:mackup'].invoke
   Rake::Task['update:mackup'].invoke
   Rake::Task['install:rvm'].invoke
@@ -45,6 +48,7 @@ task :update do
   Rake::Task['update:brew_cask_packages'].invoke
   Rake::Task['update:brew_packages'].invoke
   Rake::Task['update:vim'].invoke
+  Rake::Task['update:mas'].invoke
   Rake::Task['update:mackup'].invoke
 end
 
