@@ -22,13 +22,13 @@
 !.gitignore_global
 
 # ruby
-.gemrc
-.pryrc
-.rubocop.yml
-.rspec
+!.gemrc
+!.pryrc
+!.rubocop.yml
+!.rspec
 
 # zsh
-.zaliases
-.zexports
-.zlogin
-.zshrc
+!.zaliases
+!.zexports
+!.zlogin
+!.zshrc
