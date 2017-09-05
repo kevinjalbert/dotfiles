@@ -10,6 +10,13 @@ namespace :install do
   task :osx do
     section "Installing OS X Configurations"
 
-    run %( ./misc/osx )
+    run %( sudo sh ./misc/osx )
+  end
+
+  desc "Install fzf bindings"
+  task :fzf_bindings do
+    section "Installing fzf bindings"
+
+    run %( /usr/local/opt/fzf/install )
   end
 end

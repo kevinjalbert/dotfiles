@@ -12,3 +12,12 @@ namespace :install do
     end
   end
 end
+
+namespace :update do
+  desc "Update zplug"
+  task :zplug do
+    section "Update zplug"
+
+    run %( zplug update )
+  end
+end

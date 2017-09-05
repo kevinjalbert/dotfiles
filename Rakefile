@@ -30,6 +30,7 @@ task :install do
   Rake::Task['install:homebrew'].invoke
   Rake::Task['install:brew_cask_packages'].invoke
   Rake::Task['install:brew_packages'].invoke
+  Rake::Task['install:fzf_bindings'].invoke
   Rake::Task['install:mas'].invoke
   Rake::Task['update:mas'].invoke
   Rake::Task['install:mackup'].invoke
@@ -38,6 +39,7 @@ task :install do
   Rake::Task['install:fonts'].invoke
   Rake::Task['install:symlinks_root'].invoke
   Rake::Task['install:zplug'].invoke
+  Rake::Task['update:zplug'].invoke
   Rake::Task['install:vim_plug'].invoke
   Rake::Task['update:vim'].invoke
   Rake::Task['install:osx'].invoke
@@ -47,6 +49,7 @@ desc "Update Everything"
 task :update do
   Rake::Task['update:brew_cask_packages'].invoke
   Rake::Task['update:brew_packages'].invoke
+  Rake::Task['update:zplug'].invoke
   Rake::Task['update:vim'].invoke
   Rake::Task['update:mas'].invoke
   Rake::Task['update:mackup'].invoke
