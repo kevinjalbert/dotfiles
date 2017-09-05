@@ -35,6 +35,7 @@ task :install do
   Rake::Task['update:mas'].invoke
   Rake::Task['install:mackup'].invoke
   Rake::Task['update:mackup'].invoke
+  Rake::Task['install:nvm'].invoke
   Rake::Task['install:rvm'].invoke
   Rake::Task['install:fonts'].invoke
   Rake::Task['install:symlinks_root'].invoke
