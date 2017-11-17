@@ -1,5 +1,6 @@
 adns
 adr-tools
+ansible
 autoconf
 automake
 bash
@@ -15,11 +16,15 @@ ctags
 direnv
 dirmngr
 doxygen
+dry
 elasticsearch
+elinks
 exa
 faac
+fd
 ffmpeg
 fish
+flint-checker
 fontconfig
 fpp
 freetype
@@ -102,6 +107,7 @@ luajit
 mackup
 macvim
 magic-wormhole
+mas
 md5sha1sum
 mercurial
 mitmproxy

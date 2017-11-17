@@ -1,10 +1,12 @@
 aykamko/tag-ag
 caskroom/cask
+caskroom/fonts
 homebrew/core
 homebrew/services
 jhawthorn/fzy
 joshuaclayton/formulae
 michaeldfallen/formula
+moncho/dry
 neovim/neovim
 olleolleolle/adr-tools
 universal-ctags/universal-ctags
