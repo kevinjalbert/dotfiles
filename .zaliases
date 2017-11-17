@@ -8,6 +8,9 @@ alias rstyle='~/bin/git-rubocop'
 alias standuplog='~/bin/standuplog'
 alias ansible-ssh='$DEVOPS_HOME/scripts/filter-inventory'
 
+alias cat='ccat'
+alias ls='exa'
+
 # https://github.com/aykamko/tag
 if (( $+commands[tag] )); then
   export TAG_SEARCH_PROG="ag"
