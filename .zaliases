@@ -8,6 +8,13 @@ alias rstyle='~/bin/git-rubocop'
 alias standuplog='~/bin/standuplog'
 alias ansible-ssh='$DEVOPS_HOME/scripts/filter-inventory'
 
+# https://github.com/aykamko/tag
+if (( $+commands[tag] )); then
+  export TAG_SEARCH_PROG="ag"
+  export TAG_CMD_FMT_STRING="nvim {{.Filename}} +{{.LineNumber}}"
+  tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
+  alias ag=tag
+fi
 
 ##### FZF aliases #####
 #######################

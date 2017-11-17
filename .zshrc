@@ -104,13 +104,6 @@ export HISTFILE=~/.zhistory      # File location for the history
 # Keep history of every shell command in a .zlogs directory under dated files (adapted from https://spin.atomicobject.com/2016/05/28/log-bash-history/)
 preexec() { echo "$(date "+%Y-%m-%d %H:%M:%S")\t$(pwd)\t$1" >> ~/.zlogs/$(date "+%Y-%m-%d").log; }
 
-# https://github.com/aykamko/tag
-export TAG_CMD_FMT_STRING="nvim {{.Filename}} +{{.LineNumber}}"
-if (( $+commands[tag] )); then
-  tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
-  alias ag=tag
-fi
-
 # Use git-radar in right-prompt
 export GIT_RADAR_FORMAT=" %{remote: }%{branch}%{ :local}%{ :changes}"
 export RPROMPT="\$(git-radar --zsh --fetch) %{$FX[reset]%}"
