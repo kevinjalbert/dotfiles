@@ -79,6 +79,14 @@ namespace :update do
 end
 
 namespace :backup do
+  desc 'Backup all of Brew'
+  task :brew do
+    run %( brew update )
+    Rake::Task['backup:brew_packages'].invoke
+    Rake::Task['backup:brew_cask_packages'].invoke
+    Rake::Task['backup:brew_taps'].invoke
+  end
+
   desc 'Backup Brew Packages'
   task :brew_packages do
     run %( brew list > #{BREW_PACKAGES_FILE} )
