@@ -7,6 +7,8 @@ alias gg='git grep'
 alias rstyle='~/bin/git-rubocop'
 alias standuplog='~/bin/standuplog'
 alias ansible-ssh='$DEVOPS_HOME/scripts/filter-inventory'
+alias git=hub
+alias cat=bat
 
 alias cat='ccat'
 alias ls='exa'
