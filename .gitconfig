@@ -1,13 +1,14 @@
 [user]
-  name = Kevin Jalbert
-  email = kevin.j.jalbert@gmail.com
+	name = Kevin Jalbert
+	email = kevin.j.jalbert@gmail.com
   signingkey = kevin.j.jalbert@gmail.com
 
 [core]
-  excludesfile = ~/.gitignore_global
+	excludesfile = /Users/jalbert/.gitignore_global
   editor = nvim
   filemode = true
   hooksPath = ~/.git-templates/hooks
+	pager = diff-so-fancy | less --tabs=4 -RFX
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
@@ -51,6 +52,7 @@
   ctags = "!.git/hooks/ctags"
   cdiff = "diff --cached"
   save = !sh -c 'export PREV=$(git symbolic-ref HEAD|cut -d/ -f3-) && git checkout -b "$1" && git commit -am "$1" && git checkout "$PREV"' -
+	git = !exec git
 
 [mergetool "Kaleidoscope"]
   cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
@@ -85,7 +87,7 @@
 
 [commit]
   gpgsign = true
-  template = /Users/jalbert/.stCommitMsg
+	template = /Users/jalbert/.gitmessage
 
 [gpg]
-  program = /usr/local/bin/gpg1
+  program = /usr/local/bin/gpg
