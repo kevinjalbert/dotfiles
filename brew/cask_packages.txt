@@ -10,12 +10,8 @@ enjoyable
 firefox
 fluid
 flux
-font-hack-nerd-font
-font-hack-nerd-font-mono
-font-hasklig-nerd-font
-font-hasklig-nerd-font-mono
-font-inconsolata-nerd-font
-font-inconsolata-nerd-font-mono
+font-firacode-nerd-font
+font-firacode-nerd-font-mono
 gitter
 google-play-music-desktop-player
 graphiql

@@ -33,7 +33,6 @@ task :install do
   Rake::Task['update:mackup'].invoke
   Rake::Task['install:nvm'].invoke
   Rake::Task['install:rvm'].invoke
-  Rake::Task['install:fonts'].invoke
   Rake::Task['install:symlinks_root'].invoke
   Rake::Task['install:zplug'].invoke
   Rake::Task['update:zplug'].invoke
