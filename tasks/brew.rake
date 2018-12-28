@@ -26,7 +26,7 @@ namespace :install do
 
     brew_packages.each do |package|
       if HEAD_ONLY_FORMULAS.include?(package)
-        run %( brew install --HEAD #{package} )
+        run %( brew reinstall --HEAD #{package} )
       else
         run %( brew install #{package} )
       end
