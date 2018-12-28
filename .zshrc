@@ -18,7 +18,6 @@ source ~/.zplug/init.zsh
 zplugs=()
 zplug "zplug/zplug"
 zplug "plugins/brew-cask", from:oh-my-zsh, defer:2
-zplug "plugins/jump", from:oh-my-zsh
 zplug "plugins/jsontools", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
@@ -27,7 +26,6 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "lib/spectrum", from:oh-my-zsh, ignore:oh-my-zsh.sh, use:"lib/spectrum.zsh" # Loads colours for themes
 zplug "themes/nicoulaj", from:oh-my-zsh, as:theme
-zplug "supercrabtree/k"
 #if ! zplug check --verbose; then
   #printf "Install? [y/N]: "
   #if read -q; then
