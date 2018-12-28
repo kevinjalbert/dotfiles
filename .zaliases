@@ -10,6 +10,12 @@ alias ansible-ssh='$DEVOPS_HOME/scripts/filter-inventory'
 alias git=hub
 alias cat=bat
 
+alias dc=docker-compose
+alias dc-run='dc run --rm '
+alias docker-kill-all-running='docker kill $(docker ps -q)'
+alias docker-delete-all-containers='docker rm $(docker ps -a -q)'
+alias docker-delete-all-images='docker rmi $(docker images -q)'
+
 alias cat='ccat'
 alias ls='exa'
 
