@@ -2,12 +2,12 @@ zmodload zsh/zprof
 
 # Displays a random tip from the .tips directory when opening the shell
 # Requires gshuf (brew install coreutils)
-(
-  TIP_PATH=$(find -L ~/.tips -type f -name tips.txt | gshuf -n1) # Pick a random tips.txt file
-  TIP_TILE=${TIP_PATH#"$HOME/.tips/"}                            # i.e., ~/.tips/vim/vanilla/tips.txt  --->  vim/vanilla/tips.txt
-  echo "From ${TIP_TILE%.txt}:"                                  # i.e., "From vim/vanilla/tips:"
-  gshuf -n1 < "$TIP_PATH"                                        # Displays a random line from the tip file
-)
+#(
+  #TIP_PATH=$(find -L ~/.tips -type f -name tips.txt | gshuf -n1) # Pick a random tips.txt file
+  #TIP_TILE=${TIP_PATH#"$HOME/.tips/"}                            # i.e., ~/.tips/vim/vanilla/tips.txt  --->  vim/vanilla/tips.txt
+  #echo "From ${TIP_TILE%.txt}:"                                  # i.e., "From vim/vanilla/tips:"
+  #gshuf -n1 < "$TIP_PATH"                                        # Displays a random line from the tip file
+#)
 
 # Tracking how many ZSH shells I open
 if [[ -o interactive ]] then
