@@ -49,6 +49,10 @@ source "${ZDOTDIR:-$HOME}/.zaliases"
 # Source all the exports
 source "${ZDOTDIR:-$HOME}/.zexports"
 
+# Source asdf
+source /usr/local/opt/asdf/asdf.sh
+source /usr/local/etc/bash_completion.d/asdf.bash
+
 # fzf integration
 source ~/.fzf.zsh
 export FZF_COMPLETION_TRIGGER=';'  # hit tab with an ending ; to open fzf
@@ -135,37 +139,11 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 eval "$(direnv hook zsh)"
 
-# Auto loads correct Node version via NVM
-export NVM_DIR="/Users/jalbert/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use > /dev/null 2>&1
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-#add-zsh-hook preexec load-nvmrc
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-export PATH="./node_modules/.bin:$PATH"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:/usr/local/heroku/bin"
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="./node_modules/.bin:$PATH" # Use the bin directory of node projects
 
 ssh-add &>/dev/null
 
