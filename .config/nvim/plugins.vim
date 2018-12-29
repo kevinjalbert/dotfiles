@@ -100,6 +100,9 @@ Plug 'osyo-manga/vim-over'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
 
+" Add ability to use GitHub more
+Plug 'tpope/vim-rhubarb'
+
 " Be able to use editorconfig files
 Plug 'editorconfig/editorconfig-vim'
 
