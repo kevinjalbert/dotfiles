@@ -23,7 +23,7 @@ end
 
 namespace :backup do
   desc 'Backup files using mackup'
-  task :mackup_local do
+  task :mackup do
     section 'Using mackup to backup configurations'
 
     run %( mackup backup )
