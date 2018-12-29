@@ -1,3 +1,4 @@
+aerial
 alfred
 appcleaner
 atom
@@ -10,12 +11,20 @@ enjoyable
 firefox
 fluid
 flux
+font-fira-mono-for-powerline
 font-firacode-nerd-font
 font-firacode-nerd-font-mono
+font-hack-nerd-font
+font-hack-nerd-font-mono
+font-hasklig-nerd-font
+font-hasklig-nerd-font-mono
+font-inconsolata-nerd-font
+font-inconsolata-nerd-font-mono
 gitter
 google-play-music-desktop-player
 graphiql
 graphql-ide
+graphql-playground
 hammerspoon
 handbrake
 hyper
@@ -29,9 +38,12 @@ karabiner
 keybase
 keycastr
 launchrocket
+lepton
 lionshare
 mactex
+mark-text
 ngrok
+nvalt
 openemu
 opera
 qlcolorcode
@@ -59,6 +71,7 @@ tuxguitar
 utorrent
 vagrant
 vimediamanager
+vimr
 virtualbox
 vlc
 vmware-fusion
