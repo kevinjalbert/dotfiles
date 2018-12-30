@@ -1,20 +1,21 @@
-# Ignore everything, and selectively whitelist
+# Ignore everything except directories
 *
+!*/
 
 ##### WHITELIST #####
 
-# neovim
-!.config/nvim
+# neovimm
+!.config/nvim/**/*
 
 # mackup
-!.mackup
+!.mackup/**/*
 !.mackup.cfg
 
 # tips
-!.tips
+!.tips/**/*
 
 # bin
-!bin
+!bin/**/*
 
 # git
 !.git-templates
@@ -36,8 +37,16 @@
 # dotfiles
 !README.md
 !Rakefile
-!brew
-!fonts
 !mas.txt
-!misc
-!tasks
+!brew/**/*
+!misc/**/*
+!tasks/**/*
+
+##### BLACKLIST #####
+
+# neovim
+.config/nvim/undofiles
+.config/nvim/.netrwhist
+
+# Library
+Library
