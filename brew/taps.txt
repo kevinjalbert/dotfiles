@@ -1,5 +1,6 @@
 alexanderwillner/tap
 aykamko/tag-ag
+caarlos0/tap
 homebrew/cask
 homebrew/cask-fonts
 homebrew/core

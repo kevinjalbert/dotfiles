@@ -29,6 +29,7 @@ hammerspoon
 handbrake
 hyper
 hyperswitch
+iina
 imageoptim
 inkscape
 istat-menus

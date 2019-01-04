@@ -9,6 +9,7 @@ awscli
 bandcamp-dl
 bash
 bat
+bench
 boost
 cabal-install
 ccat
@@ -126,6 +127,7 @@ lnav
 lua
 luajit
 lzo
+m-cli
 mackup
 macvim
 magic-wormhole
@@ -155,6 +157,7 @@ openjpeg
 openssl
 openssl@1.1
 optipng
+org-stats
 ossp-uuid
 osxutils
 p11-kit
@@ -201,6 +204,7 @@ thefuck
 things.sh
 tmate
 tmux
+tokei
 tree
 unibilium
 universal-ctags
