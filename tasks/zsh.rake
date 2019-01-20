@@ -10,6 +10,8 @@ namespace :install do
     else
       puts "~> Could not install zplug. You might already have it installed."
     end
+
+    run %( zplug install )
   end
 end
 
