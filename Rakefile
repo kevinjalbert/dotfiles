@@ -29,8 +29,6 @@ task :install do
   Rake::Task['update:mas'].invoke
   Rake::Task['install:mackup'].invoke
   Rake::Task['update:mackup'].invoke
-  Rake::Task['install:nvm'].invoke
-  Rake::Task['install:rvm'].invoke
   Rake::Task['install:zplug'].invoke
   Rake::Task['update:zplug'].invoke
   Rake::Task['install:vim_plug'].invoke
