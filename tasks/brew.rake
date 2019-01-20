@@ -18,6 +18,8 @@ namespace :install do
     brew_taps.each do |tap|
       run %( brew tap #{tap} )
     end
+
+    run %( brew analytics off )
   end
 
   desc "Install Brew Packages"
