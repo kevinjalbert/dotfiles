@@ -1,9 +1,0 @@
-#!/bin/sh
-set -e
-PATH="/usr/local/bin:$PATH"
-
-mkdir .git/tags_lock 2>/dev/null || exit 0
-trap "rmdir .git/tags_lock; rm -f .git/tags.$$" EXIT
-
-ctags -f .git/tags.$$
-mv .git/tags.$$ .git/tags

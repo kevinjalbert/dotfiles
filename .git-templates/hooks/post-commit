@@ -1,7 +1,0 @@
-#!/bin/sh
-HOOKS_DIR=`git config core.hooksPath`
-ABSOLUTE_HOOKS_DIR=`echo "${HOOKS_DIR/\~/$HOME}"`
-
-$ABSOLUTE_HOOKS_DIR/ctags >/dev/null 2>&1 &
-
-ruby $ABSOLUTE_HOOKS_DIR/gitshot

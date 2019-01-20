@@ -7,7 +7,6 @@
 	excludesfile = /Users/jalbert/.gitignore_global
   editor = nvim
   filemode = true
-  hooksPath = ~/.git-templates/hooks
 	pager = diff-so-fancy | less --tabs=4 -RFX
 
 [difftool "sourcetree"]
@@ -49,7 +48,6 @@
   co = checkout
   ls = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
   la = "!git config -l | grep alias | cut -c 7-"
-  ctags = "!.git/hooks/ctags"
   cdiff = "diff --cached"
   save = !sh -c 'export PREV=$(git symbolic-ref HEAD|cut -d/ -f3-) && git checkout -b "$1" && git commit -am "$1" && git checkout "$PREV"' -
 	git = !exec git
