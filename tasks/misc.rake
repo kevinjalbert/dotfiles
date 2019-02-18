@@ -10,6 +10,6 @@ namespace :install do
   task :fzf_bindings do
     section "Installing fzf bindings"
 
-    run %( /usr/local/opt/fzf/install )
+    run %( $(brew --prefix)/opt/fzf/install )
   end
 end

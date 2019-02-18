@@ -24,13 +24,13 @@ task :install do
   Rake::Task['install:homebrew'].invoke
   Rake::Task['install:brew_cask_packages'].invoke
   Rake::Task['install:brew_packages'].invoke
-  Rake::Task['install:fzf_bindings'].invoke
   Rake::Task['install:mas'].invoke
   Rake::Task['update:mas'].invoke
   Rake::Task['install:mackup'].invoke
   Rake::Task['update:mackup'].invoke
   Rake::Task['install:zplug'].invoke
   Rake::Task['update:zplug'].invoke
+  Rake::Task['install:fzf_bindings'].invoke
   Rake::Task['install:vim_plug'].invoke
   Rake::Task['update:vim'].invoke
   Rake::Task['install:osx'].invoke
