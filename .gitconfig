@@ -1,7 +1,7 @@
 [user]
 	name = Kevin Jalbert
 	email = kevin.j.jalbert@gmail.com
-  signingkey = kevin.j.jalbert@gmail.com
+	signingkey = 872695935A2B2C8A
 
 [core]
 	excludesfile = /Users/jalbert/.gitignore_global
@@ -84,7 +84,7 @@
   show = diff-so-fancy | less --tabs=1,5 -RFX
 
 [commit]
-  gpgsign = true
+	gpgsign = true
 	template = /Users/jalbert/.gitmessage
 
 [gpg]
