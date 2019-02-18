@@ -145,6 +145,4 @@ export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:/usr/local/heroku/bin"
 export PATH="./node_modules/.bin:$PATH" # Use the bin directory of node projects
 
-ssh-add &>/dev/null
-
 export PATH="$HOME/.yarn/bin:$PATH"
