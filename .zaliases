@@ -1,23 +1,23 @@
-alias pm='port_map'
+# Bundler
 alias be='bundle exec'
 alias bi='bundle install --jobs 4'
 alias bu='bundle update'
-alias gg='git grep'
-alias rstyle='~/bin/git-rubocop'
-alias standuplog='~/bin/standuplog'
-alias ansible-ssh='$DEVOPS_HOME/scripts/filter-inventory'
-alias dokku="ssh -t root@dev.kevinjalbert.com dokku"
-alias git=hub
-alias cat=bat
 
+# Better utilities
+alias git='hub'
+alias cat='bat'
+alias ls='exa'
+
+# Docker
 alias dc=docker-compose
 alias dc-run='dc run --rm '
 alias docker-kill-all-running='docker kill $(docker ps -q)'
 alias docker-delete-all-containers='docker rm $(docker ps -a -q)'
 alias docker-delete-all-images='docker rmi $(docker images -q)'
 
-alias cat='ccat'
-alias ls='exa'
+# Misc.
+alias standuplog='~/bin/standuplog'
+alias dokku='ssh -t root@dev.kevinjalbert.com dokku'
 
 # https://github.com/aykamko/tag
 if (( $+commands[tag] )); then
