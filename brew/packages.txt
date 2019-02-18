@@ -23,6 +23,7 @@ gmp
 gnupg
 gnutls
 go
+highlight
 htop
 hub
 icu4c
@@ -71,7 +72,6 @@ python@2
 rbspy
 readline
 ripgrep
-ruby
 sqlite
 tag-ag
 the_silver_searcher
@@ -80,7 +80,6 @@ tree
 unibilium
 unixodbc
 up
-vim
 watch
 wget
 xz
