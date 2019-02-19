@@ -12,6 +12,7 @@ flux
 font-firacode-nerd-font
 font-firacode-nerd-font-mono
 google-cloud-sdk
+gpg-suite
 hammerspoon
 handbrake
 iina
