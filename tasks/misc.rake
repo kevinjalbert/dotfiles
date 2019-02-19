@@ -1,9 +1,9 @@
 namespace :install do
-  desc "Install OS X Configurations"
-  task :osx do
-    section "Installing OS X Configurations"
+  desc "Install macOS Configurations"
+  task :macos do
+    section "Installing macOS Configurations"
 
-    run %( sudo sh ./misc/osx )
+    run %( sudo sh ./misc/macos )
   end
 
   desc "Install fzf bindings"

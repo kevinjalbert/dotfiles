@@ -33,7 +33,7 @@ task :install do
   Rake::Task['install:fzf_bindings'].invoke
   Rake::Task['install:vim_plug'].invoke
   Rake::Task['update:vim'].invoke
-  Rake::Task['install:osx'].invoke
+  Rake::Task['install:macos'].invoke
 end
 
 desc "Update Everything"
