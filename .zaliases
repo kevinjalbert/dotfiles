@@ -19,6 +19,10 @@ alias docker-delete-all-images='docker rmi $(docker images -q)'
 alias standuplog='~/bin/standuplog'
 alias dokku='ssh -t root@dev.kevinjalbert.com dokku'
 
+cdev() {
+  cd ~/src/github.com/$(find ~/src/github.com -maxdepth 2 -mindepth 2 -type d | sed "s|$HOME/src/github.com/||" | fzf)
+}
+
 # https://github.com/aykamko/tag
 if (( $+commands[tag] )); then
   export TAG_SEARCH_PROG="ag"
