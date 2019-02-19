@@ -91,3 +91,17 @@
 
 [gpg]
   program = /usr/local/bin/gpg
+[protocol]
+	version = 2
+[credential]
+	helper = osxkeychain
+[http "https://git-mirror.shopifycloud.com"]
+	cookieFile = /tmp/galaxy.cookies
+	saveCookies = true
+[url "https://git-mirror.shopifycloud.com/Shopify/"]
+	insteadOf = https://github.com/Shopify/
+	insteadOf = git@github.com:Shopify/
+[url "https://github.com/Shopify/"]
+	pushInsteadOf = https://github.com/Shopify/
+[url "git@github.com:Shopify/"]
+	pushInsteadOf = git@github.com:Shopify/

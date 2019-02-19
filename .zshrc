@@ -146,3 +146,8 @@ export PATH="$PATH:/usr/local/heroku/bin"
 export PATH="./node_modules/.bin:$PATH" # Use the bin directory of node projects
 
 export PATH="$HOME/.yarn/bin:$PATH"
+
+# load dev, but only if present and the shell is interactive
+if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
+  source /opt/dev/dev.sh
+fi

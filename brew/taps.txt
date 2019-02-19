@@ -7,3 +7,4 @@ martido/brew-graph
 michaeldfallen/formula
 neovim/neovim
 olleolleolle/adr-tools
+shopify/shopify

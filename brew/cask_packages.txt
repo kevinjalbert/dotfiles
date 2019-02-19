@@ -2,6 +2,7 @@ alfred
 appcleaner
 bartender
 caprine
+chromedriver
 dash
 discord
 dropbox
@@ -10,6 +11,7 @@ fluid
 flux
 font-firacode-nerd-font
 font-firacode-nerd-font-mono
+google-cloud-sdk
 hammerspoon
 handbrake
 iina
@@ -22,6 +24,7 @@ krisp
 marshallofsound-google-play-music-player
 ngrok
 notion
+phantomjs
 qlcolorcode
 qlmarkdown
 qlprettypatch
