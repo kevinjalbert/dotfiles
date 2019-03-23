@@ -3,7 +3,7 @@ namespace :install do
   task :macos do
     section "Installing macOS Configurations"
 
-    run %( sudo sh ./misc/macos )
+    run %( sh ./misc/macos )
   end
 
   desc "Install fzf bindings"
