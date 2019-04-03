@@ -29,6 +29,7 @@ highlight
 htop
 hub
 icu4c
+imagemagick@6
 jemalloc
 jpeg
 jq
@@ -56,6 +57,7 @@ libvterm
 libxml2
 libyaml
 libzookeeper
+little-cms2
 lua
 luajit
 lz4
@@ -73,6 +75,7 @@ nettle
 node
 npth
 oniguruma
+openjpeg
 openssl
 osxutils
 p11-kit
@@ -81,7 +84,9 @@ pcre2
 perl
 pgcli
 pinentry
+pinentry-mac
 pkg-config
+pyenv
 python
 python@2
 rbspy
@@ -98,6 +103,7 @@ tree
 unibilium
 unixodbc
 up
+v8
 watch
 watchman
 webp
@@ -107,4 +113,5 @@ yajl
 yarn
 youtube-dl
 z
+zlib
 zsh

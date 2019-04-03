@@ -1,10 +1,14 @@
 alfred
+android-platform-tools
 appcleaner
 bartender
+calibre
 caprine
 chromedriver
 dash
 discord
+docker
+doxie
 dropbox
 firefox
 fluid
@@ -12,7 +16,6 @@ flux
 font-firacode-nerd-font
 font-firacode-nerd-font-mono
 google-cloud-sdk
-gpg-suite
 hammerspoon
 handbrake
 iina
@@ -39,5 +42,6 @@ sequel-pro
 sourcetree
 steam
 suspicious-package
+tableplus
 timemachineeditor
 visual-studio-code
