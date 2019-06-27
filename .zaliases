@@ -19,6 +19,8 @@ alias docker-delete-all-images='docker rmi $(docker images -q)'
 alias standuplog='~/bin/standuplog'
 alias dokku='ssh -t root@dev.kevinjalbert.com dokku'
 
+# Shopify
+alias core-check='dev style --include-branch-commits && dev typecheck && dev test --include-branch-commits'
 cdev() {
   cd ~/src/github.com/$(find ~/src/github.com -maxdepth 2 -mindepth 2 -type d | sed "s|$HOME/src/github.com/||" | fzf)
 }
