@@ -50,7 +50,7 @@
   la = "!git config -l | grep alias | cut -c 7-"
   cdiff = "diff --cached"
   save = !sh -c 'export PREV=$(git symbolic-ref HEAD|cut -d/ -f3-) && git checkout -b "$1" && git commit -am "$1" && git checkout "$PREV"' -
-	git = !exec git
+  git = !exec git
 
 [mergetool "Kaleidoscope"]
   cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
