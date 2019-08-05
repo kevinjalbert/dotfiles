@@ -6,7 +6,7 @@ alias bu='bundle update'
 # Better utilities
 alias git='hub'
 alias cat='bat'
-alias ls='exa'
+alias l='exa'
 
 # Docker
 alias dc=docker-compose
