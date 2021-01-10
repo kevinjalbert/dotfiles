@@ -152,3 +152,5 @@ export PATH="$HOME/.yarn/bin:$PATH"
 if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
   source /opt/dev/dev.sh
 fi
+
+if [ -e /Users/jalbert/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jalbert/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
