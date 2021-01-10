@@ -51,8 +51,7 @@ source "${ZDOTDIR:-$HOME}/.zaliases"
 source "${ZDOTDIR:-$HOME}/.zexports"
 
 # Source asdf
-source /usr/local/opt/asdf/asdf.sh
-source /usr/local/etc/bash_completion.d/asdf.bash
+. $(brew --prefix asdf)/asdf.sh
 
 # fzf integration
 source ~/.fzf.zsh
