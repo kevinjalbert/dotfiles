@@ -43,7 +43,7 @@ set title
 set mouse=a
 
 " Set relative numbers
-set relativenumber
+" Handled by myusuf3/numbers.vim
 
 " Make command line tab complete with cycling
 set wildmode=full
