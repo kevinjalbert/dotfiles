@@ -47,6 +47,7 @@
 # neovim
 .config/nvim/undofiles
 .config/nvim/.netrwhist
+.config/nvim/plugged
 
 # Library
 Library
