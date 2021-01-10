@@ -3,8 +3,8 @@ set t_Co=256
 set encoding=utf-8
 
 " Set the color scheme
-set background=dark
-colorscheme Tomorrow-Night
+set background=light
+colorscheme Tomorrow
 
 " Set textwidth and indention
 set textwidth=120
