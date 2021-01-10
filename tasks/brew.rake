@@ -89,12 +89,12 @@ namespace :backup do
 
   desc 'Backup Brew Packages'
   task :brew_packages do
-    run %( brew list > #{BREW_PACKAGES_FILE} )
+    run %( brew leaves > #{BREW_PACKAGES_FILE} )
   end
 
   desc 'Backup Brew Cask Packages'
   task :brew_cask_packages do
-    run %( brew cask list > #{BREW_CASK_PACKAGES_FILE} )
+    run %( brew list --cask> #{BREW_CASK_PACKAGES_FILE} )
   end
 
   desc 'Backup Brew Taps'
