@@ -1,4 +1,5 @@
 zmodload zsh/zprof
+# measure large offenders with: `for i in $precmd_functions; do time (echo $i; $i >/dev/null); done`
 
 # Displays a random tip from the .tips directory when opening the shell
 # Requires gshuf (brew install coreutils)
