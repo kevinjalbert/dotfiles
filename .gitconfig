@@ -7,7 +7,8 @@
 	excludesfile = /Users/jalbert/.gitignore_global
   editor = nvim
   filemode = true
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta --theme="GitHub"
+	commitGraph = true
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
@@ -51,6 +52,7 @@
   cdiff = "diff --cached"
   branch-diff = !git diff $(git merge-base HEAD origin/master)
   save = !sh -c 'export PREV=$(git symbolic-ref HEAD|cut -d/ -f3-) && git checkout -b "$1" && git commit -am "$1" && git checkout "$PREV"' -
+  patch = !git --no-pager diff --no-color --no-prefix
   git = !exec git
 
 [mergetool "Kaleidoscope"]
@@ -82,17 +84,22 @@
   required = true
 	process = git-lfs filter-process
 
-[pager]
-  diff = diff-so-fancy | less --tabs=1,5 -RFX
-  show = diff-so-fancy | less --tabs=1,5 -RFX
-
 [commit]
 	gpgsign = true
-	template = /Users/jalbert/.gitmessage
+	template = /Users/jalbert/.stCommitMsg
 
 [gpg]
   program = /usr/local/bin/gpg
 [protocol]
 	version = 2
+[gc]
+	writeCommitGraph = true
+[url "https://github.com/Shopify/"]
+	insteadOf = git@github.com:Shopify/
+	insteadOf = git@github.com:shopify/
+	insteadOf = ssh://git@github.com/Shopify/
+	insteadOf = ssh://git@github.com/shopify/
 [credential]
-	helper = osxkeychain
+	helper = store --file /opt/dev/var/private/git_credential_store
+[pull]
+	ff = only

@@ -21,6 +21,7 @@
 !.git-templates
 !.gitconfig
 !.gitignore_global
+!.stCommitMsg
 
 # ruby
 !.gemrc
