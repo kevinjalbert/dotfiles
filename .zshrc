@@ -106,6 +106,9 @@ export HISTFILE=~/.zhistory      # File location for the history
 # Keep history of every shell command in a .zlogs directory under dated files (adapted from https://spin.atomicobject.com/2016/05/28/log-bash-history/)
 preexec() { echo "$(date "+%Y-%m-%d %H:%M:%S")\t$(pwd)\t$1" >> ~/.zlogs/$(date "+%Y-%m-%d").log; }
 
+# Setting up TTY for GPG passphrase prompt
+export GPG_TTY=$(tty)
+
 # Use git-radar in right-prompt
 export GIT_RADAR_FORMAT=" %{remote: }%{branch}%{ :local}%{ :changes}"
 export RPROMPT="\$(git-radar --zsh --fetch) %{$FX[reset]%}"
