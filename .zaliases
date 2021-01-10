@@ -9,6 +9,7 @@ alias cat='bat'
 alias l='exa'
 
 # Docker
+alias lzd='lazydocker'
 alias dc=docker-compose
 alias dc-run='dc run --rm '
 alias docker-kill-all-running='docker kill $(docker ps -q)'
@@ -18,6 +19,7 @@ alias docker-delete-all-images='docker rmi $(docker images -q)'
 # Misc.
 alias standuplog='~/bin/standuplog'
 alias dokku='ssh -t root@dev.kevinjalbert.com dokku'
+alias ngrok-url="curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'"
 
 # Shopify
 alias monday='dev cd shopify && git pull --prune && dev up && bin/rails log:clear'
