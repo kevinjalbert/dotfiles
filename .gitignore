@@ -26,7 +26,6 @@
 # ruby
 !.gemrc
 !.pryrc
-!.rubocop.yml
 !.rspec
 
 # zsh
