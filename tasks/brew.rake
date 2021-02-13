@@ -9,8 +9,7 @@ namespace :install do
   task :homebrew do
     section "Installing Homebrew"
 
-    run %( ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" )
-
+    run %( /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" )
 
     puts "~> Installing brew taps"
     brew_taps.each do |tap|
