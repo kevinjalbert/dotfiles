@@ -51,3 +51,6 @@
 
 # Library
 Library
+
+# Finder
+.DS_Store
