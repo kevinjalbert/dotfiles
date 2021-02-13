@@ -25,7 +25,6 @@ task :install do
   Rake::Task['install:brew_cask_packages'].invoke
   Rake::Task['install:brew_packages'].invoke
   Rake::Task['install:mas'].invoke
-  Rake::Task['update:mas'].invoke
   Rake::Task['install:mackup'].invoke
   Rake::Task['update:mackup'].invoke
   Rake::Task['install:zplug'].invoke
