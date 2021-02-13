@@ -5,8 +5,6 @@ namespace :install do
   task :mas do
     section 'Installing mac app store applications'
 
-    run %( mas signin kevin.j.jalbert@gmail.com )
-
     mas_applications.each do |application|
       run %( mas install #{application} )
     end
