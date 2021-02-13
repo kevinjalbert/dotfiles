@@ -7,8 +7,8 @@ namespace :install do
   task :mackup do
     section 'Installing Mackup configs'
 
-    run %( cp #{DIRECTORY_NAME + File::SEPARATOR + MACKUP_FILE_NAME} #{"~" + File::SEPARATOR + MACKUP_FILE_NAME} )
-    run %( cp -R #{DIRECTORY_NAME + File::SEPARATOR + MACKUP_DIRECTORY_NAME} #{"~" + File::SEPARATOR + MACKUP_DIRECTORY_NAME} )
+    run %( ln -s #{DIRECTORY_NAME + File::SEPARATOR + MACKUP_FILE_NAME} #{"~" + File::SEPARATOR + MACKUP_FILE_NAME} )
+    run %( ln -s #{DIRECTORY_NAME + File::SEPARATOR + MACKUP_DIRECTORY_NAME} #{"~" + File::SEPARATOR + MACKUP_DIRECTORY_NAME} )
   end
 end
 
