@@ -5,7 +5,7 @@ Before running the Rakefile, ensure that the following are installed on your sys
 This Rakefile should not be ran with sudo, it will use sudo where nessecary.
 
 To perform tasks in a 'dry run' state append the following to your command:
-  DRY_RUN=
+  DRY_RUN=true
 =end
 
 Dir.glob('./tasks/**/*').map { |file| load file }
