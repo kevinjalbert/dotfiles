@@ -13,11 +13,15 @@ namespace :install do
 end
 
 namespace :update do
-  desc 'Update files mackup'
+  desc 'Update/restore files mackup'
   task :mackup do
     section 'Use mackup to restore tracked configurations'
 
-    run %( mackup restore )
+    if ENV['DRY_RUN']
+      system %( mackup restore --dry-run )
+    else
+      run %( mackup restore )
+    end
   end
 end
 
@@ -26,15 +30,23 @@ namespace :backup do
   task :mackup do
     section 'Using mackup to backup configurations'
 
-    run %( mackup backup )
+    if ENV['DRY_RUN']
+      system %( mackup backup --dry-run )
+    else
+      run %( mackup backup )
+    end
   end
 end
 
 namespace :uninstall do
-  desc 'Uninstall mackup configus'
+  desc 'Uninstall mackup configs'
   task :mackup do
     section 'Use mackup to uninstall tracked configurations'
 
-    run %( mackup uninstall )
+    if ENV['DRY_RUN']
+      system %( mackup uninstall --dry-run )
+    else
+      run %( mackup uninstall )
+    end
   end
 end
