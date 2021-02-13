@@ -37,7 +37,7 @@ namespace :install do
     section "Installing Brew Cask Packages"
 
     brew_cask_packages.each do |package|
-      run %( brew cask install #{package} )
+      run %( brew install --cask #{package} )
     end
   end
 end
