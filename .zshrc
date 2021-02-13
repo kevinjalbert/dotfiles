@@ -142,6 +142,8 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 eval "$(direnv hook zsh)"
 
+source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 export PATH="$PATH:$HOME/bin"
