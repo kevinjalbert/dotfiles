@@ -8,8 +8,7 @@ docker
 doxie
 firefox
 flux
-font-firacode-nerd-font
-font-firacode-nerd-font-mono
+font-fira-code-nerd-font
 google-chrome
 google-cloud-sdk
 hammerspoon
@@ -20,8 +19,8 @@ istat-menus
 iterm2
 karabiner-elements
 keepingyouawake
-keka
 keybase
+marshallofsound-google-play-music-player
 ngrok
 notion
 postgres
@@ -43,3 +42,7 @@ tableplus
 visual-studio-code
 1password
 evernote
+obsidian
+miro
+figma
+tuple

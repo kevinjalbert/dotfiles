@@ -4,6 +4,7 @@ aykamko/tag-ag/tag-ag
 bandcamp-dl
 bash
 bat
+cmake
 git-delta
 direnv
 exa
@@ -29,6 +30,8 @@ michaeldfallen/formula/git-radar
 duf
 neovim
 overmind
+pinentry
+pinentry-mac
 shadowenv
 shopify/shopify/ejson
 terminal-notifier
