@@ -43,7 +43,7 @@ fi
 #   - CTRL-E or Enter key to open with the $EDITOR
 fo() {
   local out file key
-  out=$(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)
+  out=$(fzf --preview 'bat --style=numbers --color=always --line-range :500 {}' --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
