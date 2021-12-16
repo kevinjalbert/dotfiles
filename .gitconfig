@@ -106,3 +106,8 @@
 	helper = store --file /opt/dev/var/private/git_credential_store
 [pull]
 	ff = only
+[rerere]
+	enabled = true
+[rebase]
+	autoStash = true
+	autosquash = true
