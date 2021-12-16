@@ -56,7 +56,7 @@ source "${ZDOTDIR:-$HOME}/.zexports"
 # fzf integration
 source ~/.fzf.zsh
 export FZF_COMPLETION_TRIGGER=';'  # hit tab with an ending ; to open fzf
-export FZF_DEFAULT_OPTS="-x -m --sort 100000"
+export FZF_DEFAULT_OPTS="-x -m --sort 100000 --layout reverse"
 export FZF_DEFAULT_COMMAND='ag -g ""' # Use ag instead of find (faster and respects .gitignore)
 
 # Config history settings
