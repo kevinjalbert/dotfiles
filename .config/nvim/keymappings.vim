@@ -90,4 +90,4 @@ map <Space>k <Plug>(easymotion-k)
 tnoremap <esc> <c-\><c-n>
 
 " Open selection on GitHub
-vnoremap gho :Gbrowse<CR>
+vnoremap gho :GBrowse<CR>
