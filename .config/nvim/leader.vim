@@ -7,19 +7,6 @@ nmap <leader>l :b#<CR>
 
 " Toggle NERDTree and navigate to the current file
 nmap <leader><f2> :NERDTreeFind<cr>
-
-" Quickfinding with CtrlP
-nmap <leader>f :CtrlPRoot<CR>
-nmap <leader>t :CtrlPBufTagAll<CR>
-nmap <leader>e :CtrlPBuffer<CR>
-
-" Move to the next/prev buffer using buftabs
-noremap <silent> <leader>m :bprev<CR>
-noremap <silent> <leader>. :bnext<CR>
-
-" Search the current directory with ag using ack.vim
-nmap <leader>a :Ack<space>
-
 " Find and replace text under cursor (use vim-over)
 nnoremap <leader>s :OverCommandLine<CR> %s/<C-r><C-w>/
 

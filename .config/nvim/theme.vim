@@ -3,23 +3,19 @@ set t_Co=256
 set encoding=utf-8
 
 " Set the color scheme
+set termguicolors
 set background=light
-colorscheme Tomorrow
+colorscheme gruvbox
 
 " Set textwidth and indention
 set textwidth=120
 set smartindent
+set autoindent
 set tabstop=2
 set shiftwidth=2
 set expandtab
 
-" Set powerline up (explict font when running with GUI)
-if has("gui_running")
-  set guifont=Inconsolata\ for\ Powerline\ Nerd\ Font\ Complete:h13
-endif
-if has("vim")
-  set antialias
-end
+" Always show status line
 set laststatus=2
 
 " Line settings
@@ -44,10 +40,6 @@ if &listchars ==# 'eol:$'
     let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u00b7"
   endif
 endif
-
-" Indent settings
-set tabstop=2
-set autoindent
 
 " Vertical and horizontal scroll off settings
 set scrolloff=10

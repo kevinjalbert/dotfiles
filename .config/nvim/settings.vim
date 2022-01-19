@@ -1,3 +1,38 @@
+" Use vim settings instead of vi
+set nocompatible
+
+" Set default shell to be zsh
+set shell=/bin/zsh
+
+" Speed up ESC from insert
+set ttimeoutlen=50
+
+" Reload files changed outside vim
+set autoread
+
+" Automatically detect file types
+filetype plugin indent on
+
+" Increase tty redraw speed
+set ttyfast
+set lazyredraw
+
+" Enable backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" Enable syntax highlighting
+syntax on
+
+" Show the file in the terminal title
+set title
+
+" Enable mouse within terminal
+set mouse=a
+
+" Map new leader (,) and localleader (\)
+let mapleader = ","
+let maplocalleader = "\\"
+
 " Automatically rebalance windows when resizing vim
 autocmd VimResized * :wincmd =
 
@@ -46,9 +81,6 @@ set hidden
 " Do not auto-comment when pushing o/O
 autocmd FileType * setlocal formatoptions-=o
 
-" Run neomake on file saves
-autocmd! BufWritePost * Neomake
-
 " Folding settings
 set foldmethod=manual
 set foldnestmax=3
@@ -60,7 +92,3 @@ set splitright
 
 " Set default tag locations
 :set tags=.git/tags
-
-" Allow vim-startify to cooperate with NERDTree and CtrlP (for some reason
-" placement in `plugin_settings/vim-startify.vim` wouldn't work)
-autocmd User Startified setlocal buftype=
