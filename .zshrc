@@ -104,7 +104,9 @@ export HISTFILE=~/.zhistory      # File location for the history
 #bindkey '^R' complete-history-widget
 
 # Keep history of every shell command in a .zlogs directory under dated files (adapted from https://spin.atomicobject.com/2016/05/28/log-bash-history/)
-preexec() { echo "$(date "+%Y-%m-%d %H:%M:%S")\t$(pwd)\t$1" >> ~/.zlogs/$(date "+%Y-%m-%d").log; }
+preexec() {
+  echo "$(date "+%Y-%m-%d %H:%M:%S")\t$(pwd)\t$1" >> ~/.zlogs/$(date "+%Y-%m-%d").log;
+}
 
 # Setting up TTY for GPG passphrase prompt
 export GPG_TTY=$(tty)
@@ -144,11 +146,11 @@ eval "$(direnv hook zsh)"
 
 source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:/usr/local/heroku/bin"
 export PATH="$HOME/.yarn/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # load dev, but only if present and the shell is interactive
 if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
