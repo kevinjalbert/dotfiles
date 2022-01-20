@@ -1,3 +1,7 @@
+if !isdirectory($HOME . "/.config/nvim/plugged/vim-fugitive")
+  finish
+endif
+
 " http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
 " Delete fugitive buffers when we leave them
 " Add a mapping on .. to view parent tree

@@ -1,3 +1,7 @@
+if !isdirectory($HOME . "/.config/nvim/plugged/nvim-compe")
+  finish
+endif
+
 lua << EOF
   vim.o.completeopt = "menuone,noselect"
   require'compe'.setup {

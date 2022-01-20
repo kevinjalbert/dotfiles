@@ -5,7 +5,10 @@ set encoding=utf-8
 " Set the color scheme
 set termguicolors
 set background=light
-colorscheme gruvbox
+
+if isdirectory($HOME . "/.config/nvim/plugged/gruvbox")
+  colorscheme gruvbox
+endif
 
 " Set textwidth and indention
 set textwidth=120

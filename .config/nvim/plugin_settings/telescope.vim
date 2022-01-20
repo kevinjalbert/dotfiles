@@ -1,3 +1,7 @@
+if !isdirectory($HOME . "/.config/nvim/plugged/telescope")
+  finish
+endif
+
 lua << EOF
 local actions = require('telescope.actions')
 require('telescope').setup{

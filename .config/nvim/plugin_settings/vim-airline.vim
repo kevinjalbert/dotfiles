@@ -1,3 +1,7 @@
+if !isdirectory($HOME . "/.config/nvim/plugged/vim-airline")
+  finish
+endif
+
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline#extensions#syntastic#enabled = 1
