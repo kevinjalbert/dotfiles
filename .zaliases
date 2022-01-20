@@ -3,6 +3,14 @@ alias be='bundle exec'
 alias bi='bundle install --jobs 4'
 alias bu='bundle update'
 
+brew() {
+  if /usr/local/bin/brew $@; then
+    if [[ $1 == "install" || $1 == "uninstall" ]]; then
+      echo "Don't forget to adjust brew packages in dotfiles"
+    fi
+  fi
+}
+
 # Better utilities
 alias git='hub'
 alias cat='bat'
