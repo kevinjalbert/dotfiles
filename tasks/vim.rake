@@ -17,6 +17,6 @@ namespace :update do
     run %( pip3 install neovim --upgrade )
 
     puts "Installing Plugins for NeoVim"
-    run %( nvim -c "PlugInstall" -c "q" -c "q" )
+    run %( nvim --headless +PlugUpgrade +PlugInstall +PlugUpdate +qall )
   end
 end
