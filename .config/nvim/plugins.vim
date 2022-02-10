@@ -33,6 +33,9 @@ Plug 'osyo-manga/vim-over'
 
 Plug 'vim-airline/vim-airline'
 
+" Copy to clipboard while in SSH
+Plug 'ojroques/vim-oscyank'
+
 " Provides awesome search via telescope
 " TODO: Learn and map
 Plug 'nvim-lua/popup.nvim'
