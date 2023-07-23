@@ -7,7 +7,7 @@
 	excludesfile = /Users/jalbert/.gitignore_global
   editor = nvim
   filemode = true
-  pager = delta --theme="GitHub"
+  pager = delta --syntax-theme "GitHub"
 	commitGraph = true
 
 [difftool "sourcetree"]
@@ -102,8 +102,6 @@
 	insteadOf = git@github.com:shopify/
 	insteadOf = ssh://git@github.com/Shopify/
 	insteadOf = ssh://git@github.com/shopify/
-[credential]
-	helper = store --file /opt/dev/var/private/git_credential_store
 [pull]
 	ff = only
 [rerere]
@@ -111,3 +109,5 @@
 [rebase]
 	autoStash = true
 	autosquash = true
+[init]
+	defaultBranch = main
