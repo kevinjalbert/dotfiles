@@ -1,0 +1,101 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'open3'
+
+def files_with_search_query(sha, search_query)
+  `git show --format="" --name-only #{sha} -i --pickaxe-regex -S #{search_query}`.split("\n")
+end
+
+def grep_over_file(sha, file, search_query)
+  git_show_cmd = "git show --format='' -p #{sha} -- '#{file}'"
+  grep_cmd = "grep -i --color=always -E #{search_query}"
+  `#{git_show_cmd} | #{grep_cmd}`
+end
+
+def git_pickaxe_search(search_query, options, &block)
+  git_log_cmd = "git log --no-merges --format=%h"
+  git_log_cmd += " --after=\"#{options[:after]}\"" if options[:after]
+  git_log_cmd += " --before=\"#{options[:before]}\"" if options[:before]
+  git_log_cmd += " -i --pickaxe-regex -S #{search_query}"
+
+  Open3.popen3(git_log_cmd) do |stdin, stdout, stderr, thread|
+    yield(stdout)
+  end
+end
+
+def git_commit_info(sha)
+  `git show --no-patch #{sha}`
+end
+
+def find_root_dir
+  current_dir = Dir.pwd
+
+  until Dir.exist?([current_dir, ".git"].join(File::SEPARATOR)) do
+    parent_dir = File.dirname(current_dir)
+
+    if parent_dir == current_dir
+      puts "No .git repo found in path (or parent paths)."
+      exit
+    end
+
+    current_dir = parent_dir
+  end
+
+  current_dir
+end
+
+# Handle options
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: git-dig [options] [regex query]"
+
+  opts.on("--after=DATE", "Only searches commits more recent than the specific date.") do |v|
+    options[:after] = v
+  end
+
+  opts.on("--before=DATE", "Only searches commits older recent than the specific date.") do |v|
+    options[:before] = v
+  end
+
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
+  end
+end.parse!
+
+# Get search query
+search_query = "\"#{ARGV.first}\""
+if search_query == '""' # empty search as it would just be a pair of quotes
+  puts "You need to pass a search term as input."
+  exit
+end
+
+puts "Searching for any commits with any 'additions/removals'"
+puts "  Matching regex: #{search_query}"
+if options[:after] || options[:before]
+  puts "  With search options: #{options}"
+end
+puts ""
+
+# Get SHAs of all commits which had some 'addition/removal' of the search term
+git_pickaxe_search(search_query, options) do |stdout|
+  while line = stdout.gets
+    exit if line.nil?
+
+    sha = line.strip
+
+    puts git_commit_info(sha)
+    puts ""
+
+    # Print diff of files which have search term
+    files_with_search_query(sha, search_query).each do |file|
+      puts "FILE -> #{file}"
+      puts grep_over_file(sha, file, search_query)
+      puts ""
+    end
+
+    puts "-"*80
+    puts ""
+  end
+end
