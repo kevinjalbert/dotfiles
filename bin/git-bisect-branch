@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+while getopts 'b:dh' OPTION; do
+  case "$OPTION" in
+    b)
+      divergent_branch=$OPTARG
+      ;;
+    d)
+      debug=true
+      ;;
+    h)
+      echo "This is a script that performs a git-bisect over all commits from the current branch's HEAD to where the branch diverged from the supplied branch."
+      echo ""
+      echo "script usage: git-bisect-branch [-b branch] [-d] [-h] run_command" >&2
+      echo ""
+      echo "example: git-bisect-branch -d -b main ruby test.rb"
+      echo ""
+      echo "Arguments:"
+      echo " - Use '-b' to specify the branch from which your current branch has diverged, this should typically be 'main'/'master'."
+      echo " - Use '-d' to debug internal variables and see the verbose output of git commands."
+      echo " - Use '-h' to see this message."
+      echo " - The remainder of the command is interpreted as the run_command, that will be running at each bisect step."
+      echo ""
+      echo "If this script is on your PATH, you will be able to use it like 'git bisect-branch'."
+      echo ""
+      exit 1
+      ;;
+  esac
+done
+shift "$(($OPTIND -1))"
+
+run_command=$*
+current_branch=$(git branch --show-current)
+current_branch_sha=$(git rev-parse HEAD)
+
+if [ -z "$divergent_branch" ]
+  then
+  echo "No branch argument supplied. Should be the 'main/master' branch name"
+  exit
+fi
+
+if [ -z "$run_command" ]
+  then
+  echo "No run_command argument supplied. Should be the command you will use to run tests for each bisect step"
+  exit
+fi
+
+branching_sha=$(git merge-base $divergent_branch $current_branch)
+
+echo "Starting bisect of commits on '$current_branch' branch ($current_branch_sha) since branching from '$divergent_branch' branch ($branching_sha)"
+
+print_hline () {
+  printf '%.s─' $(seq 1 $(tput cols))
+}
+
+if [ -n "$debug" ]
+  then
+
+  print_hline
+  echo "run_command: $run_command"
+  echo "current_branch: $current_branch"
+  echo "current_branch_sha: $current_branch_sha"
+  echo "divergent_branch: $divergent_branch"
+  echo "branching_sha: $branching_sha"
+  print_hline
+
+  git bisect start
+  git bisect good $branching_sha
+  git bisect bad $current_branch_sha
+
+  git bisect run $run_command
+  echo ""
+  print_hline
+else
+  git bisect start > /dev/null
+  git bisect good $branching_sha > /dev/null
+  git bisect bad $current_branch_sha > /dev/null
+  git bisect run $run_command > /dev/null
+fi
+
+echo "Don't forget to 'git bisect reset'"
