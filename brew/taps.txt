@@ -1,4 +1,5 @@
 aykamko/tag-ag
+fcanas/tap
 github/gh
 heroku/brew
 homebrew/bundle
@@ -7,6 +8,10 @@ homebrew/cask-fonts
 homebrew/cask-versions
 homebrew/core
 homebrew/services
-jesseduffield/lazydocker
+jakehilborn/jakehilborn
+metafates/mangal
+michaeldfallen/formula
+nextdns/tap
 olleolleolle/adr-tools
-shopify/shopify
+superfly/tap
+yt-dlp/taps
