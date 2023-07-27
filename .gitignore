@@ -41,6 +41,7 @@
 !brew/**/*
 !misc/**/*
 !tasks/**/*
+!Brewfile
 
 ##### BLACKLIST #####
 
