@@ -1,7 +1,5 @@
 aykamko/tag-ag
-fcanas/tap
 github/gh
-heroku/brew
 homebrew/bundle
 homebrew/cask
 homebrew/cask-fonts
@@ -9,9 +7,5 @@ homebrew/cask-versions
 homebrew/core
 homebrew/services
 jakehilborn/jakehilborn
-metafates/mangal
 michaeldfallen/formula
-nextdns/tap
-olleolleolle/adr-tools
-superfly/tap
 yt-dlp/taps
