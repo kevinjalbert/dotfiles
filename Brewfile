@@ -111,7 +111,7 @@ mas "Messenger", id: 1480068668
 mas "NextDNS", id: 1464122853
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Pure Paste" id: 1611378436
+mas "Pure Paste", id: 1611378436
 mas "Sider", id: 6447783111
 mas "Spark", id: 1176895641
 mas "Tailscale", id: 1475387142
