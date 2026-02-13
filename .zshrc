@@ -1,3 +1,7 @@
+# Directory of this .zshrc file (for relative sourcing)
+# This file might not be in the home directory, so we'll use the path of the file to find the directory itself.
+DOTFILES_DIR="${0:A:h}"
+
 # Tracking how many ZSH shells I open
 if [[ -o interactive ]] then
   echo $(date "+%Y-%m-%d %H:%M:%S") >> $HOME/.zsh-opens
@@ -33,16 +37,16 @@ unsetopt nomatch                   # Makes glob matching same as bash (fixes the
 source `brew --prefix`/etc/profile.d/z.sh
 
 # Source all the aliases
-source "${ZDOTDIR:-$HOME}/.zaliases"
+source "$DOTFILES_DIR/.zaliases"
 
 # Source all the exports
-source "${ZDOTDIR:-$HOME}/.zexports"
+source "$DOTFILES_DIR/.zexports"
 
-# Source asdf
-. $(brew --prefix asdf)/libexec/asdf.sh
+# Source asdf (if installed)
+[[ -f "$(brew --prefix asdf 2>/dev/null)/libexec/asdf.sh" ]] && . "$(brew --prefix asdf)/libexec/asdf.sh"
 
 # fzf integration
-source ~/.fzf.zsh
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 export FZF_COMPLETION_TRIGGER=';'  # hit tab with an ending ; to open fzf
 export FZF_DEFAULT_OPTS="-x -m --sort 100000 --layout reverse"
 export FZF_DEFAULT_COMMAND='ag -g ""' # Use ag instead of find (faster and respects .gitignore)
@@ -100,9 +104,10 @@ bindkey -M emacs '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-eval "$(direnv hook zsh)"
+(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
 
-source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
+[[ -f /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh ]] && \
+  source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
 
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:/usr/local/heroku/bin"
