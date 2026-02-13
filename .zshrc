@@ -66,6 +66,7 @@ export SAVEHIST=1000000000       # Size of the actual history file on disk
 export HISTFILE=~/.zhistory      # File location for the history
 
 # Keep history of every shell command in a .zlogs directory under dated files (adapted from https://spin.atomicobject.com/2016/05/28/log-bash-history/)
+mkdir -p ~/.zlogs
 preexec() {
   echo "$(date "+%Y-%m-%d %H:%M:%S")\t$(pwd)\t$1" >> ~/.zlogs/$(date "+%Y-%m-%d").log;
 }
