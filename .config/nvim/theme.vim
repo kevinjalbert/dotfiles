@@ -6,9 +6,13 @@ set encoding=utf-8
 set termguicolors
 set background=light
 
-if isdirectory($HOME . "/.config/nvim/plugged/gruvbox")
-  colorscheme gruvbox
+if isdirectory($HOME . "/.config/nvim/plugged/vim-tomorrow-theme")
+  colorscheme Tomorrow
 endif
+
+"if isdirectory($HOME . "/.config/nvim/plugged/gruvbox")
+  "colorscheme gruvbox
+"endif
 
 " Set textwidth and indention
 set textwidth=120
