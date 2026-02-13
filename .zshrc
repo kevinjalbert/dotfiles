@@ -45,6 +45,9 @@ source "$DOTFILES_DIR/.zexports"
 # Source asdf (if installed)
 [[ -f "$(brew --prefix asdf 2>/dev/null)/libexec/asdf.sh" ]] && . "$(brew --prefix asdf)/libexec/asdf.sh"
 
+# https://thoughtbot.com/blog/git-safe -- use `git trust-bin` to mark repo as 'safe'
+export PATH=".git/safe/../../bin:$PATH"
+
 # fzf integration
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 export FZF_COMPLETION_TRIGGER=';'  # hit tab with an ending ; to open fzf
