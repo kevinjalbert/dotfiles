@@ -1,0 +1,76 @@
+# Starship Tomorrow Theme (Light)
+
+# Increase command timeout for slower repos
+command_timeout = 3500
+
+# Tomorrow Light Palette:
+#   Red:    #c82829    Orange: #f5871f
+#   Yellow: #eab700    Green:  #718c00
+#   Aqua:   #3e999f    Blue:   #4271ae
+#   Purple: #8959a8    Comment: #8e908c
+
+# Line 1: directory ... worktree + branch + status
+# Line 2: prompt (left) | languages + duration (right)
+format = """
+[╭──](#8e908c) \
+$directory\
+$fill\
+${custom.worktree}\
+$git_branch\
+$git_status
+[╰─](#8e908c)$character"""
+
+right_format = """$nodejs$ruby$python$cmd_duration"""
+
+[cmd_duration]
+format = " [\uf252 $duration]($style)"
+style = "#8e908c"
+min_time = 0
+show_milliseconds = true
+
+[fill]
+symbol = " "
+
+[character]
+success_symbol = "[❯](bold #718c00)"
+error_symbol = "[❯](bold #c82829)"
+
+[directory]
+style = "bold #4271ae"
+truncation_length = 3
+truncate_to_repo = true
+
+[nodejs]
+format = "[\ue718 $version]($style) "
+style = "#718c00"
+
+[ruby]
+format = "[\ue791 $version]($style) "
+style = "#c82829"
+
+[python]
+format = "[\ue73c $version]($style) "
+style = "#eab700"
+
+[git_branch]
+format = "[\ue725 $branch]($style) "
+style = "bold #8959a8"
+
+[git_status]
+format = "([\\($ahead_behind$staged$modified$deleted$untracked\\)]($style))"
+style = "#8e908c"
+ahead = "⇡$count"
+behind = "⇣$count"
+diverged = "⇕$ahead_count⇣$behind_count"
+staged = "[+$count](#718c00)"
+modified = "[!$count](#f5871f)"
+deleted = "[✘$count](#c82829)"
+untracked = "[?$count](#8e908c)"
+
+# Custom worktree - only in linked worktrees
+[custom.worktree]
+command = "root=$(git rev-parse --show-toplevel); name=$(basename \"$root\"); count=$(git worktree list --porcelain | awk -v n=\"$name\" '/^worktree /{sub(\".*/\",\"\"); if($0==n) c++} END{print c+0}'); if [ \"$count\" -gt 1 ]; then basename \"$(dirname \"$root\")\"; else echo \"$name\"; fi"
+when = '[ "$(git rev-parse --git-dir 2>/dev/null)" != "$(git rev-parse --git-common-dir 2>/dev/null)" ]'
+format = "[\uf1bb $output]($style) "
+style = "bold #3e999f"
+shell = ["bash", "--noprofile", "--norc"]

@@ -108,6 +108,8 @@ bindkey -M emacs '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
+eval "$(starship init zsh)"
+
 (( $+commands[direnv] )) && eval "$(direnv hook zsh)"
 
 [[ -f /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh ]] && \

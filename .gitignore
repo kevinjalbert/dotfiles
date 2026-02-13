@@ -7,6 +7,9 @@
 # neovimm
 !.config/nvim/**/*
 
+# starship
+!.config/starship.toml
+
 # mackup
 !.mackup/**/*
 !.mackup.cfg
