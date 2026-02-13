@@ -11,6 +11,3 @@ export EDITOR=nvim
 
 # Silence direnv
 export DIRENV_LOG_FORMAT=
-
-# Shopify
-export DEV_ALLOW_ITERM2_INTEGRATION=1

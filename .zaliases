@@ -29,16 +29,6 @@ alias standuplog='~/bin/standuplog'
 alias dokku='ssh -t root@dev.kevinjalbert.com dokku'
 alias ngrok-url="curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'"
 
-# Shopify
-alias monday='dev cd shopify && git pull --prune && dev up && bin/rails log:clear'
-alias core-check='dev style --include-branch-commits && dev typecheck && dev test --include-branch-commits'
-cdev-all() {
-  cd ~/src/github.com/$(find ~/src/github.com -maxdepth 2 -mindepth 2 -type d | sed "s|$HOME/src/github.com/||" | fzf)
-}
-cdev() {
-  cd ~/src/github.com/Shopify/$(find ~/src/github.com/Shopify -maxdepth 1 -mindepth 1 -type d | sed "s|$HOME/src/github.com/Shopify/||" | fzf)
-}
-
 # https://github.com/aykamko/tag
 if (( $+commands[tag] )); then
   export TAG_SEARCH_PROG="ag"
