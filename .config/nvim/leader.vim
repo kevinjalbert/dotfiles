@@ -1,6 +1,6 @@
 " Quick line comment toggle using NERDCommenter
-nmap <leader>/ :call NERDComment(0, "invert")<cr>
-vmap <leader>/ :call NERDComment(0, "invert")<cr>
+nmap <leader>/ :call nerdcommenter#Comment(0, "invert")<cr>
+vmap <leader>/ :call nerdcommenter#Comment(0, "invert")<cr>
 
 " Switch between last buffers
 nmap <leader>l :b#<CR>
