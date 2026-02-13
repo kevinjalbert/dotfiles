@@ -37,6 +37,10 @@
 !.zlogin
 !.zshrc
 
+# claude-code
+!.claude/README.md
+!.claude/statusline-command.sh
+
 # dotfiles
 !README.md
 !Rakefile
