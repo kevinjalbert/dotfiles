@@ -12,7 +12,6 @@ brew() {
 }
 
 # Better utilities
-alias git='hub'
 alias cat='bat'
 alias l='exa'
 

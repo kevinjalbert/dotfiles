@@ -1,7 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " Theme
-Plug 'morhetz/gruvbox'
 Plug 'chriskempson/vim-tomorrow-theme'
 
 " Autocomplete (with snippet support)

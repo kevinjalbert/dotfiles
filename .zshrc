@@ -81,9 +81,6 @@ function pbpaste-rtf() {
   osascript -e 'the clipboard as "HTML"'|perl -ne 'print chr foreach unpack("C*",pack("H*",substr($_,11,-3)))'
 }
 
-# Use git-radar in right-prompt
-export GIT_RADAR_FORMAT=" %{remote: }%{branch}%{ :local}%{ :changes}"
-export RPROMPT="\$(git-radar --zsh --fetch) %{$FX[reset]%}"
 
 # Move words with Alt+arrow
 bindkey -e
