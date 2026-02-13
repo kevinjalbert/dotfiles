@@ -1,0 +1,23 @@
+# Store the format string in a variable
+FORMAT="\
+  DNS lookup:        %{time_namelookup}s\n\
+  TCP connect:       %{time_connect}s\n\
+  SSL handshake:     %{time_appconnect}s\n\
+  Pre-transfer:      %{time_pretransfer}s\n\
+  Redirect:          %{time_redirect}s\n\
+  First byte:        %{time_starttransfer}s\n\
+  Total time:        %{time_total}s\n\
+  HTTP code:         %{http_code}\n\
+  HTTP version:      %{http_version}\n\
+  Num redirects:     %{num_redirects}\n\
+  Size download:     %{size_download} bytes\n\
+  Size headers:      %{size_header} bytes\n\
+  Remote IP:         %{remote_ip}\n\
+  Remote port:       %{remote_port}\n\
+  Local IP:          %{local_ip}\n\
+  Local port:        %{local_port}\n\
+  SSL verify:        %{ssl_verify_result}\n\
+  Protocol:          %{scheme}\n"
+
+# Execute curl with all passed arguments
+curl -s -o /dev/null -w "$FORMAT" "$@"
