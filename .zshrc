@@ -1,15 +1,3 @@
-zmodload zsh/zprof
-# measure large offenders with: `for i in $precmd_functions; do time (echo $i; $i >/dev/null); done`
-
-# Displays a random tip from the .tips directory when opening the shell
-# Requires gshuf (brew install coreutils)
-#(
-  #TIP_PATH=$(find -L ~/.tips -type f -name tips.txt | gshuf -n1) # Pick a random tips.txt file
-  #TIP_TILE=${TIP_PATH#"$HOME/.tips/"}                            # i.e., ~/.tips/vim/vanilla/tips.txt  --->  vim/vanilla/tips.txt
-  #echo "From ${TIP_TILE%.txt}:"                                  # i.e., "From vim/vanilla/tips:"
-  #gshuf -n1 < "$TIP_PATH"                                        # Displays a random line from the tip file
-#)
-
 # Tracking how many ZSH shells I open
 if [[ -o interactive ]] then
   echo $(date "+%Y-%m-%d %H:%M:%S") >> $HOME/.zsh-opens
@@ -73,36 +61,6 @@ export HISTSIZE=100000           # Size of the history that is loaded in memory
 export SAVEHIST=1000000000       # Size of the actual history file on disk
 export HISTFILE=~/.zhistory      # File location for the history
 
-#update-history() {
-  #local currentDate
-  #currentDate=$(date "+%Y-%m-%d")
-  #if ! [ -s ~/.zlogs/complete-history-*.log ]
-  #then
-    #local completeHistoryFile
-    #completeHistoryFile=~/.zlogs/complete-history-$currentDate.log
-
-    #echo "Rebuilding $completeHistoryFile"
-    #touch $completeHistoryFile
-    #rm -f complete-history-*.log
-    #create-complete-history > $completeHistoryFile
-    #echo "$completeHistoryFile has $(wc -l $completeHistoryFile | awk '{print $1}') entries"
-
-    #tail -n $HISTSIZE $completeHistoryFile > $HISTFILE
-    #echo "Updated $HISTFILE to use last $HISTSIZE entries of $completeHistoryFile"
-  #fi
-#}
-#update-history
-
-#function complete-history-widget {
-  #local selected
-  #selected=($(complete-history))
-  #BUFFER=$selected
-  #zle redisplay
-  #zle accept-line
-#}
-#zle -N complete-history-widget
-#bindkey '^R' complete-history-widget
-
 # Keep history of every shell command in a .zlogs directory under dated files (adapted from https://spin.atomicobject.com/2016/05/28/log-bash-history/)
 preexec() {
   echo "$(date "+%Y-%m-%d %H:%M:%S")\t$(pwd)\t$1" >> ~/.zlogs/$(date "+%Y-%m-%d").log;
@@ -151,14 +109,5 @@ export PATH="$PATH:/usr/local/heroku/bin"
 export PATH="$HOME/.yarn/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# load dev, but only if present and the shell is interactive
-if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
-  source /opt/dev/dev.sh
-fi
-
-if [ -e /Users/jalbert/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jalbert/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
 
 [[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
