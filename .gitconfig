@@ -92,7 +92,7 @@
 	template = /Users/jalbert/.stCommitMsg
 
 [gpg]
-  program = /usr/local/bin/gpg
+  program = gpg
 [protocol]
 	version = 2
 [gc]
