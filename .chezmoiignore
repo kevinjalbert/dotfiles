@@ -1,0 +1,27 @@
+# General
+# =======
+
+# Don't need any DB files which can dynamically change
+**/*.db-wal
+**/*.db
+**/*.db-shm
+
+# Don't need any tmp related directories
+**/tmp
+**/temp
+
+# Don't need any .log files
+**/*.log
+
+# Don't need those MacOS files
+**/.DS_Store
+
+# Pi
+# ===
+
+# The auth file has OAuth tokens, so its always changing
+.pi/agent/auth.json
+
+# Don't need to keep session data as it is dynamic
+.pi/agent/sessions
+.pi/pi-acp/session-map.json

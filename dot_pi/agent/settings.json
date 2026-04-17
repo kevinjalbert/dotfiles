@@ -1,0 +1,15 @@
+{
+  "lastChangelogVersion": "0.67.3",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5-mini",
+  "defaultThinkingLevel": "medium",
+  "enableInstallTelemetry": false,
+  "theme": "light",
+  "packages": [
+    "npm:@mariozechner/pi-ai",
+    "npm:pi-web-access",
+    "npm:@plannotator/pi-extension"
+  ],
+  "extensions": [
+  ]
+}
