@@ -3,8 +3,20 @@ alias be='bundle exec'
 alias bi='bundle install --jobs 4'
 alias bu='bundle update'
 
+# Used to stand up a Chrome that has its debug port enabled. This can be used for AI agents that are within a sandbox mode, specifically Gemini CLI. The main thing is that on the MCP you have to configure the browser URL
+#  "mcpServers": {
+#    "chrome-devtools": {
+#      "command": "npx",
+#      "args": [
+#        "chrome-devtools-mcp@latest",
+#        "--browser-url=http://127.0.0.1:9222"
+#      ]
+#    }
+#  }
+alias chrome-dev-debug='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-profile-stable'
+
 brew() {
-  if command brew $@; then
+  if /opt/homebrew/bin/brew $@; then
     if [[ $1 == "install" || $1 == "uninstall" ]]; then
       echo "Don't forget to adjust brew packages in dotfiles"
     fi
@@ -12,6 +24,7 @@ brew() {
 }
 
 # Better utilities
+#alias git='hub'
 alias cat='bat'
 alias l='exa'
 
@@ -27,6 +40,26 @@ alias docker-delete-all-images='docker rmi $(docker images -q)'
 alias standuplog='~/bin/standuplog'
 alias dokku='ssh -t root@dev.kevinjalbert.com dokku'
 alias ngrok-url="curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'"
+
+# Shopify
+alias monday='dev cd shopify && git pull --prune && dev up && bin/rails log:clear'
+alias core-check='dev style --include-branch-commits && dev typecheck && dev test --include-branch-commits'
+cdev-all() {
+  cd ~/src/github.com/$(find ~/src/github.com -maxdepth 2 -mindepth 2 -type d | sed "s|$HOME/src/github.com/||" | fzf)
+}
+cdev() {
+  cd ~/src/github.com/Shopify/$(find ~/src/github.com/Shopify -maxdepth 1 -mindepth 1 -type d | sed "s|$HOME/src/github.com/Shopify/||" | fzf)
+}
+
+# AI tools setup -- https://github.com/kevinjalbert/ai-tools-setup
+,ai-tools-setup() {
+  export AI_CONFIGS_DIR=~/ai
+  "$HOME/ai-tools-setup/scripts/setup" "$@"
+}
+,ai-tools-reset() {
+  export AI_CONFIGS_DIR=~/ai
+  "$HOME/ai-tools-setup/scripts/reset" "$@"
+}
 
 # https://github.com/aykamko/tag
 if (( $+commands[tag] )); then

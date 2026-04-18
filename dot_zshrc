@@ -1,6 +1,14 @@
-# Directory of this .zshrc file (for relative sourcing)
-# This file might not be in the home directory, so we'll use the path of the file to find the directory itself.
-DOTFILES_DIR="${0:A:h}"
+zmodload zsh/zprof
+# measure large offenders with: `for i in $precmd_functions; do time (echo $i; $i >/dev/null); done`
+
+# Displays a random tip from the .tips directory when opening the shell
+# Requires gshuf (brew install coreutils)
+#(
+  #TIP_PATH=$(find -L ~/.tips -type f -name tips.txt | gshuf -n1) # Pick a random tips.txt file
+  #TIP_TILE=${TIP_PATH#"$HOME/.tips/"}                            # i.e., ~/.tips/vim/vanilla/tips.txt  --->  vim/vanilla/tips.txt
+  #echo "From ${TIP_TILE%.txt}:"                                  # i.e., "From vim/vanilla/tips:"
+  #gshuf -n1 < "$TIP_PATH"                                        # Displays a random line from the tip file
+#)
 
 # Tracking how many ZSH shells I open
 if [[ -o interactive ]] then
@@ -37,19 +45,16 @@ unsetopt nomatch                   # Makes glob matching same as bash (fixes the
 source `brew --prefix`/etc/profile.d/z.sh
 
 # Source all the aliases
-source "$DOTFILES_DIR/.zaliases"
+source "${ZDOTDIR:-$HOME}/.zaliases"
 
 # Source all the exports
-source "$DOTFILES_DIR/.zexports"
+source "${ZDOTDIR:-$HOME}/.zexports"
 
-# Source asdf (if installed)
-[[ -f "$(brew --prefix asdf 2>/dev/null)/libexec/asdf.sh" ]] && . "$(brew --prefix asdf)/libexec/asdf.sh"
-
-# https://thoughtbot.com/blog/git-safe -- use `git trust-bin` to mark repo as 'safe'
-export PATH=".git/safe/../../bin:$PATH"
+# Source asdf
+#. $(brew --prefix asdf)/libexec/asdf.sh
 
 # fzf integration
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+source ~/.fzf.zsh
 export FZF_COMPLETION_TRIGGER=';'  # hit tab with an ending ; to open fzf
 export FZF_DEFAULT_OPTS="-x -m --sort 100000 --layout reverse"
 export FZF_DEFAULT_COMMAND='ag -g ""' # Use ag instead of find (faster and respects .gitignore)
@@ -68,8 +73,37 @@ export HISTSIZE=100000           # Size of the history that is loaded in memory
 export SAVEHIST=1000000000       # Size of the actual history file on disk
 export HISTFILE=~/.zhistory      # File location for the history
 
+#update-history() {
+  #local currentDate
+  #currentDate=$(date "+%Y-%m-%d")
+  #if ! [ -s ~/.zlogs/complete-history-*.log ]
+  #then
+    #local completeHistoryFile
+    #completeHistoryFile=~/.zlogs/complete-history-$currentDate.log
+
+    #echo "Rebuilding $completeHistoryFile"
+    #touch $completeHistoryFile
+    #rm -f complete-history-*.log
+    #create-complete-history > $completeHistoryFile
+    #echo "$completeHistoryFile has $(wc -l $completeHistoryFile | awk '{print $1}') entries"
+
+    #tail -n $HISTSIZE $completeHistoryFile > $HISTFILE
+    #echo "Updated $HISTFILE to use last $HISTSIZE entries of $completeHistoryFile"
+  #fi
+#}
+#update-history
+
+#function complete-history-widget {
+  #local selected
+  #selected=($(complete-history))
+  #BUFFER=$selected
+  #zle redisplay
+  #zle accept-line
+#}
+#zle -N complete-history-widget
+#bindkey '^R' complete-history-widget
+
 # Keep history of every shell command in a .zlogs directory under dated files (adapted from https://spin.atomicobject.com/2016/05/28/log-bash-history/)
-mkdir -p ~/.zlogs
 preexec() {
   echo "$(date "+%Y-%m-%d %H:%M:%S")\t$(pwd)\t$1" >> ~/.zlogs/$(date "+%Y-%m-%d").log;
 }
@@ -77,10 +111,9 @@ preexec() {
 # Setting up TTY for GPG passphrase prompt
 export GPG_TTY=$(tty)
 
-function pbpaste-rtf() {
-  osascript -e 'the clipboard as "HTML"'|perl -ne 'print chr foreach unpack("C*",pack("H*",substr($_,11,-3)))'
-}
-
+# Use git-radar in right-prompt
+export GIT_RADAR_FORMAT=" %{remote: }%{branch}%{ :local}%{ :changes}"
+export RPROMPT="\$(git-radar --zsh --fetch) %{$FX[reset]%}"
 
 # Move words with Alt+arrow
 bindkey -e
@@ -109,15 +142,40 @@ bindkey -M emacs '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-eval "$(starship init zsh)"
+eval "$(direnv hook zsh)"
 
-(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
-
-[[ -f /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh ]] && \
-  source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
+source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
 
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:/usr/local/heroku/bin"
 export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# load dev, but only if present and the shell is interactive
+if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
+  source /opt/dev/dev.sh
+fi
+
+if [ -e /Users/jalbert/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jalbert/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+
+[[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
+
+# bun completions
+[ -s "/Users/jalbert/.bun/_bun" ] && source "/Users/jalbert/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Added by Windsurf
+export PATH="/Users/jalbert/.codeium/windsurf/bin:$PATH"
+
+. "$HOME/.local/bin/env"
+eval "$(/Users/jalbert/.local/bin/mise activate zsh)"
+
+# Added by Antigravity
+export PATH="/Users/jalbert/.antigravity/antigravity/bin:$PATH"
