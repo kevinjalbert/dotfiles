@@ -30,3 +30,12 @@ README.md
 # Don't need to keep session data as it is dynamic
 .pi/agent/sessions
 .pi/pi-acp/session-map.json
+
+# Neovim
+# ====
+
+# Don't need any undofiles
+.config/nvim/undofiles
+
+# Don't need the actual plugin sources (as we can fetch them)
+.config/nvim/plugged
