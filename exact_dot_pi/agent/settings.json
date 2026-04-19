@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.67.3",
-  "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5-mini",
-  "defaultThinkingLevel": "medium",
+  "defaultProvider": "kilocode",
+  "defaultModel": "kilo-auto/free",
+  "defaultThinkingLevel": "high",
   "enableInstallTelemetry": false,
   "theme": "light",
   "packages": [
@@ -10,6 +10,5 @@
     "npm:pi-web-access",
     "npm:@plannotator/pi-extension"
   ],
-  "extensions": [
-  ]
+  "extensions": []
 }
