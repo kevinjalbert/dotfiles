@@ -39,3 +39,9 @@ README.md
 
 # Don't need the actual plugin sources (as we can fetch them)
 .config/nvim/plugged
+
+# Karabiner
+# =========
+
+# Don't need backups
+.config/karabiner/automatic_backups
