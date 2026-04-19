@@ -8,12 +8,14 @@
  *   • SQLite-backed with FTS5 full-text search (node:sqlite built-in, no deps)
  *   • Ctrl+R opens an incremental search overlay
  *   • Up/Down arrows navigate results; Enter injects the selection into the editor
+ *   • Up/Down in the main editor recalls persistent history at empty/start/end boundaries
+ *   • Keeps cursor anchored at start/end while browsing history entries
  *   • Deduplicates consecutive identical prompts
  *   • Stores CWD per entry for future per-project filtering
  */
 
 // Uses sqlite3 CLI since node:sqlite is not available in Node < 22.5
-import { execSync, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 import { DynamicBorder } from "@mariozechner/pi-coding-agent";
 import {
@@ -162,6 +164,216 @@ class HistoryDB {
     // Prefix-match every token so "git comm" finds "git commit ..."
     return tokens.map((t) => `"${t.replace(/"/g, '""')}"`+ "*").join(" ");
   }
+}
+
+// ─── Editor Integration (persistent Up/Down history navigation) ─────────────
+
+const UI_SET_EDITOR_COMPONENT_ORIGINAL = Symbol.for(
+  "prompt-history.ui.set-editor-component.original",
+);
+const EDITOR_HISTORY_BEHAVIOR_WRAPPED = Symbol.for(
+  "prompt-history.editor.history-behavior.wrapped",
+);
+const EDITOR_HISTORY_LOADED = Symbol.for(
+  "prompt-history.editor.history-loaded",
+);
+const EDITOR_HISTORY_CURSOR_ANCHOR = Symbol.for(
+  "prompt-history.editor.history-cursor-anchor",
+);
+
+type CursorAnchor = "start" | "end";
+
+function setCursorToAnchor(editor: any, anchor: CursorAnchor): void {
+  if (typeof editor.getLines !== "function") return;
+
+  const lines = editor.getLines() as string[];
+  if (!Array.isArray(lines) || lines.length === 0) return;
+
+  const targetLine = anchor === "start" ? 0 : lines.length - 1;
+  const targetCol = anchor === "start" ? 0 : (lines[targetLine]?.length ?? 0);
+
+  if (editor.state && typeof editor.state === "object") {
+    editor.state.cursorLine = targetLine;
+  }
+
+  if (typeof editor.setCursorCol === "function") {
+    editor.setCursorCol(targetCol);
+  } else if (editor.state && typeof editor.state === "object") {
+    editor.state.cursorCol = targetCol;
+    if ("preferredVisualCol" in editor) editor.preferredVisualCol = null;
+    if ("snappedFromCursorCol" in editor) editor.snappedFromCursorCol = null;
+  }
+}
+
+function wrapEditorWithHistoryBehavior(
+  editor: any,
+  keybindings: { matches?: (input: string, keybindingId: string) => boolean } | undefined,
+  getDb: () => HistoryDB,
+): any {
+  if (!editor || typeof editor.handleInput !== "function") return editor;
+  if (editor[EDITOR_HISTORY_BEHAVIOR_WRAPPED]) return editor;
+  editor[EDITOR_HISTORY_BEHAVIOR_WRAPPED] = true;
+
+  const originalHandleInput = editor.handleInput.bind(editor);
+
+  editor.handleInput = (data: string): void => {
+    // Seed persistent DB history once per editor instance.
+    if (!editor[EDITOR_HISTORY_LOADED]) {
+      editor[EDITOR_HISTORY_LOADED] = true;
+      if (typeof editor.addToHistory === "function") {
+        try {
+          const entries = getDb().getRecent(200);
+          for (let i = entries.length - 1; i >= 0; i--) {
+            const prompt = entries[i]?.prompt;
+            if (typeof prompt === "string") editor.addToHistory(prompt);
+          }
+        } catch {
+          // Best-effort only
+        }
+      }
+    }
+
+    const kb = keybindings ?? editor.keybindings;
+    const isUp = kb?.matches?.(data, "tui.editor.cursorUp") ?? matchesKey(data, "up");
+    const isDown = kb?.matches?.(data, "tui.editor.cursorDown") ?? matchesKey(data, "down");
+    const isAutocompleteOpen =
+      typeof editor.isShowingAutocomplete === "function" && editor.isShowingAutocomplete();
+
+    const hasCursorApi =
+      typeof editor.getCursor === "function" &&
+      typeof editor.getLines === "function";
+    const canNavigateHistory = typeof editor.navigateHistory === "function";
+
+    if (!isAutocompleteOpen && (isUp || isDown) && hasCursorApi && canNavigateHistory) {
+      const previousHistoryIndex =
+        typeof editor.historyIndex === "number" ? editor.historyIndex : -1;
+
+      if (previousHistoryIndex === -1) {
+        const cursor = editor.getCursor();
+        const lines = editor.getLines();
+        const currentLine = lines[cursor.line] ?? "";
+        const isEmpty = lines.length === 1 && lines[0] === "";
+        const atAbsoluteStart = cursor.line === 0 && cursor.col === 0;
+        const atAbsoluteEnd =
+          cursor.line === lines.length - 1 &&
+          cursor.col === currentLine.length;
+        const isOnLastVisualLine =
+          typeof editor.isOnLastVisualLine === "function"
+            ? editor.isOnLastVisualLine()
+            : atAbsoluteEnd;
+
+        // If user is already on the bottom visual line, first push the cursor
+        // to the absolute end before entering history navigation.
+        if (isDown && !isEmpty && isOnLastVisualLine && !atAbsoluteEnd) {
+          editor[EDITOR_HISTORY_CURSOR_ANCHOR] = "end" as CursorAnchor;
+          setCursorToAnchor(editor, "end");
+          return;
+        }
+
+        // Extra history-entry behavior:
+        // - empty editor: Up or Down enters history
+        // - cursor at absolute start: Up enters history
+        // - cursor at absolute end: Down enters history
+        // And keep the cursor anchored to that side while browsing history.
+        if (isUp && (isEmpty || atAbsoluteStart)) {
+          editor[EDITOR_HISTORY_CURSOR_ANCHOR] = "start" as CursorAnchor;
+          editor.navigateHistory(-1);
+          setCursorToAnchor(editor, "start");
+          return;
+        }
+        if (isDown && (isEmpty || atAbsoluteEnd)) {
+          editor[EDITOR_HISTORY_CURSOR_ANCHOR] = "end" as CursorAnchor;
+          editor.navigateHistory(-1);
+          setCursorToAnchor(editor, "end");
+          return;
+        }
+      } else {
+        // Already browsing history. If arrow key would navigate history,
+        // perform it here so we can keep the cursor anchored.
+        const anchor = editor[EDITOR_HISTORY_CURSOR_ANCHOR] as CursorAnchor | undefined;
+        const isOnFirstVisualLine =
+          typeof editor.isOnFirstVisualLine === "function"
+            ? editor.isOnFirstVisualLine()
+            : true;
+        const isOnLastVisualLine =
+          typeof editor.isOnLastVisualLine === "function"
+            ? editor.isOnLastVisualLine()
+            : true;
+
+        const cursor = editor.getCursor();
+        const lines = editor.getLines();
+        const currentLine = lines[cursor.line] ?? "";
+        const atAbsoluteEnd =
+          cursor.line === lines.length - 1 &&
+          cursor.col === currentLine.length;
+
+        // On the bottom visual line, first push to absolute end if needed.
+        if (isDown && isOnLastVisualLine && !atAbsoluteEnd) {
+          editor[EDITOR_HISTORY_CURSOR_ANCHOR] = "end" as CursorAnchor;
+          setCursorToAnchor(editor, "end");
+          return;
+        }
+
+        const historyLength = Array.isArray(editor.history) ? editor.history.length : 0;
+        const atOldest = historyLength > 0 && previousHistoryIndex >= historyLength - 1;
+        const atNewest = previousHistoryIndex <= 0;
+
+        if (isUp && isOnFirstVisualLine) {
+          if (atOldest) return; // hard-stop at oldest entry
+          editor.navigateHistory(-1);
+          if (anchor === "start" || anchor === "end") {
+            setCursorToAnchor(editor, anchor);
+          }
+          return;
+        }
+
+        if (isDown && isOnLastVisualLine) {
+          if (atNewest) return; // hard-stop at newest entry
+          editor.navigateHistory(1);
+          if (anchor === "start" || anchor === "end") {
+            setCursorToAnchor(editor, anchor);
+          }
+          return;
+        }
+      }
+    }
+
+    originalHandleInput(data);
+
+    // Any non-arrow editing action exits history browsing mode in the core
+    // editor, so clear our anchor to avoid stale state.
+    if (!(isUp || isDown) && editor.historyIndex === -1) {
+      delete editor[EDITOR_HISTORY_CURSOR_ANCHOR];
+    }
+  };
+
+  return editor;
+}
+
+function patchSetEditorComponent(
+  ui: { [key: PropertyKey]: unknown; setEditorComponent?: (factory: any) => void },
+  getDb: () => HistoryDB,
+): void {
+  if (typeof ui.setEditorComponent !== "function") return;
+
+  const originalSetEditorComponent =
+    (typeof ui[UI_SET_EDITOR_COMPONENT_ORIGINAL] === "function"
+      ? ui[UI_SET_EDITOR_COMPONENT_ORIGINAL]
+      : ui.setEditorComponent.bind(ui)) as (factory: any) => void;
+
+  ui[UI_SET_EDITOR_COMPONENT_ORIGINAL] = originalSetEditorComponent;
+
+  ui.setEditorComponent = (factory: any): void => {
+    if (!factory) {
+      originalSetEditorComponent(undefined);
+      return;
+    }
+
+    originalSetEditorComponent((tui: any, theme: any, keybindings: any) => {
+      const editor = factory(tui, theme, keybindings);
+      return wrapEditorWithHistoryBehavior(editor, keybindings, getDb);
+    });
+  };
 }
 
 // ─── History Results List Component ──────────────────────────────────────────
@@ -364,6 +576,13 @@ export default function (pi: ExtensionAPI) {
     if (!db) db = new HistoryDB();
     return db;
   }
+
+  // Hook editor factories so history navigation behavior is applied even when
+  // other extensions provide custom editors (e.g. status-line).
+  pi.on("session_start", (_event, ctx) => {
+    if (!ctx.hasUI) return;
+    patchSetEditorComponent(ctx.ui as any, getDb);
+  });
 
   // ── 1. Save every submitted prompt ────────────────────────────────────────
   pi.on("before_agent_start", (event, ctx) => {
