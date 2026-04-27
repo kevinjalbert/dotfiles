@@ -8,11 +8,17 @@
  * - Shows branch, staged (+), unstaged (*), and untracked (?) counts
  * - Context/usage display with progress bar
  * - Event-driven updates (no periodic polling)
+ *
+ * Responsive behavior (2026-04-23):
+ * - Right side (model + context) is high-priority and preserved even at narrow widths
+ * - Left side (directory + git) gets dropped/truncated first when space is tight
+ * - Directory paths progressively shorten; very long paths middle-truncated with ellipsis
+ * - Context bar drops when width < 90 cols; both sides drop when < 50 cols
  */
 
 import { spawn } from "node:child_process";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
-import { visibleWidth } from "@mariozechner/pi-tui";
+import { truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
 import { homedir } from "node:os";
 
 const CACHE_TTL_MS = 1000;
@@ -99,7 +105,7 @@ export default function (pi: ExtensionAPI) {
       const gen = gitGeneration;
       gitPending = Promise.all([fetchBranch(), fetchChanges()]).then(([branch, changes]) => {
         gitPending = null;
-        if (gen !== gitGeneration) return; // Invalidated during fetch — discard result
+        if (gen !== gitGeneration) return;
         gitCache = {
           branch,
           staged: changes?.staged ?? 0,
@@ -116,7 +122,7 @@ export default function (pi: ExtensionAPI) {
 
   function invalidateGitStatus(): void {
     gitCache = null;
-    gitPending = null; // Any in-progress fetch is abandoned via the generation check
+    gitPending = null;
     gitGeneration++;
   }
 
@@ -125,6 +131,151 @@ export default function (pi: ExtensionAPI) {
       /\bgit\s+(checkout|switch|branch\s+-[dDmM]|merge|rebase|pull|reset|worktree)/,
       /\bgit\s+stash\s+(pop|apply)/,
     ].some((p) => p.test(cmd));
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Responsive Segment Selection
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // Aggressively shorten paths while respecting directory boundaries
+  function shortenHome(p: string, maxLength: number = 35): string {
+    const home = homedir();
+    let path = p;
+
+    // Expand $HOME to "~"
+    if (path === home) return "~";
+    if (path.startsWith(home + "/") || path.startsWith(home + "\\")) {
+      path = "~" + path.slice(home.length);
+    }
+
+    // Already fits — return as-is
+    if (visibleWidth(path) <= maxLength) return path;
+
+    // Split into directory components (preserve the leading "~" segment)
+    const parts = path.split(/[\\/]/); // Handles both / and \
+    if (parts.length <= 1) {
+      return truncateToWidth(path, maxLength, "…");
+    }
+
+    const ellipsis = "…";
+
+    // Keep the last segment (current directory) fully intact whenever possible.
+    // Try progressive aggregations from narrow → wide: 
+    //   ~/…/last         (just current dir)
+    //   ~/parent/…/last  (one level up)
+    //   ~/p1/p2/…/last  (two levels up)
+    //   … etc up to full path
+    const candidates: string[] = [];
+    const last = parts[parts.length - 1];
+
+    // Always include ~/…/last
+    candidates.push(`~${ellipsis}/${last}`);
+
+    // Add candidates with increasing number of parent directories on the left
+    for (let i = parts.length - 2; i >= 1; i--) {
+      const kept = parts.slice(i).join("/");
+      candidates.push(`~${ellipsis}/${kept}`);
+    }
+
+    // Finally, the full path (no ellipsis)
+    candidates.push(path);
+
+    // Return the first (i.e. shortest) candidate that fits
+    for (const candidate of candidates) {
+      if (visibleWidth(candidate) <= maxLength) {
+        return candidate;
+      }
+    }
+
+    // Nothing fits — extreme fallback: truncate current dir itself
+    if (maxLength >= visibleWidth(last) + 2) {
+      return `~/${last}`;
+    }
+    if (maxLength >= 2) {
+      return "~" + truncateToWidth(last, maxLength - 1, "");
+    }
+    return "~";
+  }
+
+  // Build git status string
+  function renderGitSegment(): string {
+    const git = getGitStatus();
+    if (!git.branch && git.staged === 0 && git.unstaged === 0 && git.untracked === 0) return "";
+    const dirtyParts: string[] = [];
+    if (git.unstaged  > 0) dirtyParts.push(`\uF040${git.unstaged}`);  //  pencil
+    if (git.staged    > 0) dirtyParts.push(`\uF067${git.staged}`);   //  plus
+    if (git.untracked > 0) dirtyParts.push(`\uF128${git.untracked}`); //  ?
+    const dirty = dirtyParts.length > 0 ? ` (${dirtyParts.join(" ")})` : "";
+    return git.branch ? `\uE0A0 ${git.branch}${dirty}` : dirty.trim();
+  }
+
+  // Build context usage bar
+  function renderContextSegment(): string {
+    if (typeof state.tokens !== "number") return "";
+    const { tokens, contextWindow: limit = 0 } = state;
+    if (limit > 0) {
+      const pct = Math.min(100, Math.round((tokens / limit) * 100));
+      const filled = Math.round((pct / 100) * 10);
+      const bar = `[${"█".repeat(filled)}${"·".repeat(10 - filled)}]`;
+      return `${bar} ${formatK(tokens)}/${formatK(limit)} (${pct}%)`;
+    }
+    return `${formatK(tokens)} tokens`;
+  }
+
+  // Choose which segments to show based on available width.
+  // Priority (dropped first → last): context bar, directory, git, model.
+  function getSegmentsForWidth(avail: number): { left: string; right: string } {
+    const gitStr   = renderGitSegment();
+    const modelRaw = state.modelId || "";
+    const modelStr = modelRaw.includes("/") ? modelRaw.split("/").pop()! : modelRaw; // strip provider
+    const ctxStr   = renderContextSegment();
+
+    // Start with full content
+    let left  = shortenHome(state.cwd || "?", 35);
+    if (gitStr) left += " " + gitStr;
+    let right = modelStr;
+    if (ctxStr) right += " " + ctxStr;
+
+    const leftW  = visibleWidth(left)  + 2; // padding
+    const rightW = visibleWidth(right) + 2;
+    const usable = avail - 2; // for pinned dashes
+
+    // ── Everything fits ──
+    if (leftW + rightW <= usable) return { left, right };
+
+    // ── CONTEXT DROPS FIRST (when width < 90) ──
+    if (ctxStr && avail < 90) {
+      right = modelStr;
+      const newRightW = visibleWidth(right) + 2;
+      if (leftW + newRightW <= usable) {
+        return { left, right: modelStr };
+      }
+    }
+
+    // Re-measure after dropping context
+    const rightPostCtxW = visibleWidth(right) + 2;
+
+    // ── STILL TOO WIDE? Drop/truncate LEFT (directory first, then git) ──
+    if (leftW + rightPostCtxW > usable) {
+      // Try: drop directory, keep git only
+      if (gitStr) {
+        const gitOnlyW = visibleWidth(gitStr) + 2;
+        if (gitOnlyW + rightPostCtxW <= usable) {
+          return { left: gitStr, right };
+        }
+      }
+      // Try: git-only but still too wide → truncate left aggressively
+      const maxLeft = usable - rightPostCtxW;
+      if (maxLeft >= 7) {
+        const truncated = truncateToWidth(left, maxLeft - 2, "…");
+        return { left: truncated, right };
+      }
+      // Left can't fit at all → drop left
+      return { left: "", right };
+    }
+
+    // ── Left fits with current right ──
+    return { left, right };
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -142,69 +293,42 @@ export default function (pi: ExtensionAPI) {
     return Math.round(n / 1000) + "K";
   }
 
-  function shortenHome(p: string): string {
-    const home = homedir();
-    if (p === home) return "~";
-    if (p.startsWith(home + "/") || p.startsWith(home + "\\")) return "~" + p.slice(home.length);
-    return p;
-  }
-
-  function renderGitSegment(): string {
-    const git = getGitStatus();
-    if (!git.branch && git.staged === 0 && git.unstaged === 0 && git.untracked === 0) return "";
-    const dirtyParts: string[] = [];
-    if (git.unstaged  > 0) dirtyParts.push(`\uF040${git.unstaged}`);  //  pencil  = modified
-    if (git.staged    > 0) dirtyParts.push(`\uF067${git.staged}`);   //  plus    = staged
-    if (git.untracked > 0) dirtyParts.push(`\uF128${git.untracked}`); //  ?       = untracked
-    const dirty = dirtyParts.length > 0 ? ` (${dirtyParts.join(" ")})` : "";
-    return git.branch ? `\uE0A0 ${git.branch}${dirty}` : dirty.trim(); //  = branch
-  }
-
-  function renderContextSegment(): string {
-    if (typeof state.tokens !== "number") return "";
-    const { tokens, contextWindow: limit = 0 } = state;
-    if (limit > 0) {
-      const pct = Math.min(100, Math.round((tokens / limit) * 100));
-      const filled = Math.round((pct / 100) * 10);
-      const bar = `[${"█".repeat(filled)}${"·".repeat(10 - filled)}]`;
-      return `${bar} ${formatK(tokens)}/${formatK(limit)} (${pct}%)`;
-    }
-    return `${formatK(tokens)} tokens`;
-  }
-
-  function getStatusContent(): { left: string; right: string } {
-    const left  = [shortenHome(state.cwd || "?"), renderGitSegment()].filter(Boolean).join(" ");
-    const right = [state.modelId ?? "", renderContextSegment()].filter(Boolean).join(" ");
-    return { left, right };
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // Editor Component (Rounded Box Design)
-  // ═══════════════════════════════════════════════════════════════════════════
-
+  // Build the top border line
+  // Structure: ╭─ left-pad ───── gap ───── right-pad ─╮
   function buildTopBorder(width: number, left: string, right: string, theme: any, bc: (s: string) => string): string {
-    const fullWidth = width - 2; // Exclude the two corner characters
+    const fullWidth = width - 2;
 
     if (!left && !right) {
       return theme.fg("dim", "╭") + bc("─".repeat(fullWidth)) + theme.fg("dim", "╮");
     }
 
-    // Each present segment is wrapped in a single space on each side: " content "
-    const leftWidth = left ? visibleWidth(left) + 2 : 0;
-    const rightWidth = right ? visibleWidth(right) + 2 : 0;
-    const dashCount = fullWidth - leftWidth - rightWidth - 2; // -2 for the ─ pinned to each corner
+    const leftW  = left  ? visibleWidth(left)  + 2 : 0;
+    const rightW = right ? visibleWidth(right) + 2 : 0;
+    const usable = fullWidth - 2;
+    let gap = usable - leftW - rightW;
 
-    if (dashCount < 1) {
-      // Terminal too narrow to show status — plain border
+    if (gap < 0) {
+      console.warn("Status line overflow — dropping status display", { left, leftW, right, rightW, usable, gap });
       return theme.fg("dim", "╭") + bc("─".repeat(fullWidth)) + theme.fg("dim", "╮");
     }
 
-    const leftSegment  = left  ? " " + theme.fg("accent", left)  + " " : "";
-    const rightSegment = right ? " " + theme.fg("accent", right) + " " : "";
+    const leftSeg  = left  ? " " + theme.fg("accent", left)  + " " : "";
+    const rightSeg = right ? " " + theme.fg("accent", right) + " " : "";
 
-    // Layout: ╭─ left content ──────────── right content ─╮
-    return theme.fg("dim", "╭") + bc("─") + leftSegment + bc("─".repeat(dashCount)) + rightSegment + bc("─") + theme.fg("dim", "╮");
+    return (
+      theme.fg("dim", "╭") +
+      bc("─") +
+      leftSeg +
+      bc("─".repeat(gap)) +
+      rightSeg +
+      bc("─") +
+      theme.fg("dim", "╮")
+    );
   }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Editor Component (Rounded Box Design)
+  // ═══════════════════════════════════════════════════════════════════════════
 
   function setupCustomEditor(ctx: any): void {
     import("@mariozechner/pi-coding-agent").then(({ CustomEditor }) => {
@@ -213,34 +337,37 @@ export default function (pi: ExtensionAPI) {
         const originalRender = editor.render.bind(editor);
 
         editor.render = (width: number): string[] => {
-          // Adjust width to account for the leading space added by the TUI
           const effectiveWidth = width - 1;
           if (effectiveWidth < 10) return originalRender(effectiveWidth);
 
           const theme = ctx.ui.theme;
           const bc = (s: string) => theme.fg("dim", s);
-
-          // 3 chars left prefix (╰─  / │  ) + content + 2 chars right suffix ( │ / ─╯)
           const renderWidth = Math.max(1, effectiveWidth - 5);
           const lines = originalRender(renderWidth);
           if (lines.length === 0) return lines;
 
-          // Pad a content line to renderWidth visible characters (ANSI-safe)
           const pad = (line: string) =>
             line + " ".repeat(Math.max(0, renderWidth - visibleWidth(line)));
 
-          // Find the bottom border (scan backwards for a line of ─ characters)
+          // Find bottom border (first line from bottom that is mostly ─ chars)
           let bottomIdx = lines.length - 1;
           for (let i = lines.length - 1; i >= 1; i--) {
             const stripped = lines[i]?.replace(/\x1b\[[0-9;]*m/g, "") ?? "";
-            if (stripped.length > 0 && /^─{3,}/.test(stripped)) { bottomIdx = i; break; }
+            if (stripped && /^─{3,}/.test(stripped)) { bottomIdx = i; break; }
           }
 
-          const { left, right } = getStatusContent();
+          // Compute segments for current width
+          const statusAvail = effectiveWidth - 2;
+          const { left, right } = getSegmentsForWidth(statusAvail);
+
+          // If nothing to render, just return the plain editor
+          const hasAny = left.length > 0 || right.length > 0;
+          if (!hasAny) {
+            return lines;
+          }
+
           const result: string[] = [buildTopBorder(effectiveWidth, left, right, theme, bc)];
 
-          // Content lines (skip original top border at [0] and bottom border at bottomIdx).
-          // Non-last lines get │ on both sides; the last (cursor) line gets ╰─  and ─╯.
           for (let i = 1; i < bottomIdx; i++) {
             const isLast = i === bottomIdx - 1;
             const prefix = isLast ? theme.fg("muted", "╰─ ") : theme.fg("dim",  "│  ");
@@ -248,12 +375,10 @@ export default function (pi: ExtensionAPI) {
             result.push(`${prefix}${pad(lines[i] ?? "")}${suffix}`);
           }
 
-          // Empty editor: add a blank prompt line so the cursor has somewhere to sit
           if (bottomIdx === 1) {
             result.push(`${theme.fg("muted", "╰─ ")}${" ".repeat(renderWidth)}${theme.fg("muted", "─╯")}`);
           }
 
-          // Any autocomplete lines that follow the bottom border
           for (let i = bottomIdx + 1; i < lines.length; i++) {
             result.push(lines[i] ?? "");
           }
@@ -275,7 +400,6 @@ export default function (pi: ExtensionAPI) {
   pi.on("session_start", async (_event, ctx) => {
     if (!ctx.hasUI) return;
 
-    // Reset session state
     state.cwd = ctx.cwd;
     state.tokens = undefined;
     state.contextWindow = undefined;
@@ -285,7 +409,7 @@ export default function (pi: ExtensionAPI) {
     gitGeneration = 0;
     tuiRef = ctx.ui;
 
-    // Warm the git cache before first render
+    // Warm git cache
     const [branch, changes] = await Promise.all([fetchBranch(), fetchChanges()]);
     gitCache = {
       branch,
@@ -296,11 +420,9 @@ export default function (pi: ExtensionAPI) {
     };
 
     setupCustomEditor(ctx);
-
-    // Clear the default footer — status lives in the editor border
     ctx.ui.setFooter(() => ({ render: () => [], invalidate: () => {} }));
 
-    // Seed model/context info from the current session context
+    // Seed model/context from session
     try {
       const usage = ctx.getContextUsage?.();
       if (usage) state.tokens = usage.tokens ?? usage.tokensEstimated;
@@ -329,10 +451,9 @@ export default function (pi: ExtensionAPI) {
   });
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // Git Invalidation Events (no periodic polling)
+  // Git & Context Invalidation
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // Refresh token count after every LLM turn
   pi.on("turn_end", async (_event, ctx) => {
     try {
       const usage = ctx.getContextUsage?.();
@@ -358,7 +479,6 @@ export default function (pi: ExtensionAPI) {
   pi.on("user_bash", async (event) => {
     if (mightChangeGitState(event.command)) {
       invalidateGitStatus();
-      // Staggered re-renders to catch both fast and slow git operations
       setTimeout(() => requestRender(), 100);
       setTimeout(() => requestRender(), 300);
       setTimeout(() => requestRender(), 500);
@@ -370,10 +490,10 @@ export default function (pi: ExtensionAPI) {
   // ═══════════════════════════════════════════════════════════════════════════
 
   pi.registerCommand("status", {
-    description: "Show current status info",
+    description: "Show current status info (debug)",
     handler: async (_args, ctx) => {
-      const { left, right } = getStatusContent();
-      ctx.ui.notify(`Status:\n  ${left}\n  ${right}`, "info");
+      const { left, right } = getSegmentsForWidth(120);
+      ctx.ui.notify(`Status:\n  Left:  ${left || "(empty)"}\n  Right: ${right || "(empty)"}`, "info");
     },
   });
 }
