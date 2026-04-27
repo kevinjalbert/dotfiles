@@ -1,2 +1,0 @@
-`,<f2>` opens nerdtree and puts the cursor at the current file
-`<f2>` toggles nerdtree open/close

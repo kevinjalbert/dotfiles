@@ -1,3 +1,0 @@
-Partial RSpec argument matches: `expect(double).to receive(:msg).with(hash_including(much: "wow"))`
-Use `rspec --only-failures` to rerun rspec on only the failing specs
-Use `rspec --next-failure` to run the next failing spec (can be used to chew through a lot of failing specs one at a time)
