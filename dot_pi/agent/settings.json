@@ -1,13 +1,12 @@
 {
   "lastChangelogVersion": "0.67.3",
-  "defaultProvider": "kilocode",
-  "defaultModel": "kilo-auto/free",
-  "defaultThinkingLevel": "high",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5.3-codex",
+  "defaultThinkingLevel": "medium",
   "enableInstallTelemetry": false,
   "theme": "light",
   "packages": [
     "npm:@mariozechner/pi-ai",
-    "npm:pi-web-access",
     "npm:@plannotator/pi-extension"
   ],
   "extensions": []
